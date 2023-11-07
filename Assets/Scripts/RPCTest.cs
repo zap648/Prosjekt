@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class RPCTest : MonoBehaviour
+public class RPCTest : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        
+        if (!IsServer && IsOwner)
+        {
+            TestServerRpc(0, NetworkObjectId);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    [ClientRpc]
+    void TestClientRpc(int value, ulong source_network_object_id)
     {
-        
+        Debug.Log($"Client Received the RPC #{value} on NetworkObject #{source_network_object_id}");
+        if (IsOwner)
+        {
+            TestServerRpc(value+1, source_network_object_id);
+        }
+    }
+    [ServerRpc]
+    void TestServerRpc(int value, ulong source_network_object_id)
+    {
+        Debug.Log($"Server Received the RPC #{value} on NetworkObject #{source_network_object_id}");
+        TestClientRpc(value, source_network_object_id);
     }
 }
