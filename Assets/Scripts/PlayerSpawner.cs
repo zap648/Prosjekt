@@ -1,19 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using System.IO;
 using UnityEngine;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    private static string logFilePath = Application.dataPath + "/debug_log.txt";
+    private static int i;
 
+    private void Start()
+    {
+        i++;
+        Log("Boop-ity-boop-bop!");
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void Log(string message)
     {
-        
+        if (!File.Exists(logFilePath))
+        {
+            File.Create(logFilePath);
+        }
+        writeToFiles(message, logFilePath);
+    }
+    private static void writeToFiles(string message, string logFilePath)
+    {
+        using (StreamWriter sw = new StreamWriter(logFilePath, true))
+        {
+            sw.WriteLine($"{DateTime.Now}: {message}, {i}");
+            sw.Close();
+        }
     }
 }

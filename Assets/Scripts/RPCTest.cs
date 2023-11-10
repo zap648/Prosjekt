@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RPCTest : NetworkBehaviour
 {
+    
     public override void OnNetworkSpawn()
     {
         if (!IsServer && IsOwner)
