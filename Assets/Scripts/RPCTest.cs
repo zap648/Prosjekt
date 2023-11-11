@@ -8,7 +8,7 @@ public class RPCTest : NetworkBehaviour
     
     public override void OnNetworkSpawn()
     {
-        if (!IsServer && IsOwner)
+        if (!IsServer && IsOwner) // only clients should send messages, meaning server and host do not
         {
             TestServerRpc(0, NetworkObjectId);
         }
