@@ -13,12 +13,41 @@ public class NetworkCommandLine : MonoBehaviour
     private void Start()
     {
         netManager = GetComponentInParent<NetworkManager>();
-        // spawner = GetComponent<PlayerSpawner>();
+        spawner = GetComponentInChildren<PlayerSpawner>();
         if (Application.isEditor)
         {
             return;
         }
 
+        if (netManager != null)
+        {
+            if (spawner != null)
+            {
+                GetStarted();
+            }
+            else
+            {
+                return;
+            }
+            // netManager.StartHost();
+            // if (netManager.IsHost)
+            // {
+            //    spawner.Log("We are the Host");
+            // }
+            // else
+            // {
+            //    spawner.Log("We don't host");
+            // }
+        }
+        else
+        {
+            spawner.Log("netManager is null!");
+            return;
+        }
+
+    }
+    void GetStarted()
+    {
         var args = GetCommandlineArgs();
 
         spawner.Log("What is args: " + args.ToString());
@@ -27,10 +56,10 @@ public class NetworkCommandLine : MonoBehaviour
         {
             spawner.Log("Our mood is: " + mode);
 
-            string[] pls = mode.Split(',');
-            spawner.Log("Mood is now split into: " + pls[0]);
+            //string[] pls = mode.Split(',');
+            //spawner.Log("Mood is now split into: " + pls[0]);
             
-            switch (pls[0])
+            switch (mode) //pls[0]
             {
                 case "server":
                     netManager.StartServer();
@@ -58,6 +87,7 @@ public class NetworkCommandLine : MonoBehaviour
                     break;
             }
         }
+
     }
 
     private Dictionary<string, string> GetCommandlineArgs()
