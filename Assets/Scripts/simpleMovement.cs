@@ -10,15 +10,18 @@ public class simpleMovement : NetworkBehaviour
         if (!IsOwner) 
             return;
 
-        Vector3 moveDirection = Vector3.zero;
+        if (IsClient)
+        {
+            Vector3 moveDirection = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W)) {  moveDirection.y = +1; }
-        if (Input.GetKey(KeyCode.S)) {  moveDirection.y = -1; }
-        if (Input.GetKey(KeyCode.D)) {  moveDirection.x = +1; }
-        if (Input.GetKey(KeyCode.A)) {  moveDirection.x = -1; }
+            if (Input.GetKey(KeyCode.W)) {  moveDirection.y = +1; }
+            if (Input.GetKey(KeyCode.S)) {  moveDirection.y = -1; }
+            if (Input.GetKey(KeyCode.D)) {  moveDirection.x = +1; }
+            if (Input.GetKey(KeyCode.A)) {  moveDirection.x = -1; }
 
-        float speed = 3f;
+            float speed = 3f;
 
-        transform.position += moveDirection * speed * Time.deltaTime; 
+            transform.position += moveDirection * speed * Time.deltaTime; 
+        }
     }
 }

@@ -29,15 +29,6 @@ public class NetworkCommandLine : MonoBehaviour
             {
                 return;
             }
-            // netManager.StartHost();
-            // if (netManager.IsHost)
-            // {
-            //    spawner.Log("We are the Host");
-            // }
-            // else
-            // {
-            //    spawner.Log("We don't host");
-            // }
         }
         else
         {
@@ -55,11 +46,8 @@ public class NetworkCommandLine : MonoBehaviour
         if (args.TryGetValue("-mode", out string mode))
         {
             spawner.Log("Our mood is: " + mode);
-
-            //string[] pls = mode.Split(',');
-            //spawner.Log("Mood is now split into: " + pls[0]);
             
-            switch (mode) //pls[0]
+            switch (mode) 
             {
                 case "server":
                     netManager.StartServer();
