@@ -18,7 +18,15 @@ public class RoomBehaviour : MonoBehaviour
     {
         for (int i = 0; i < status.Length; i++)
         {
-            walls[i].SetActive(!status[i]);
+            //walls[i].SetActive(!status[i]);
+
+            for (int j = 0; j < walls[i].transform.childCount; j++)
+            {
+                if (j == 0)
+                    walls[i].transform.GetChild(j).gameObject.SetActive(!status[i]);
+                else
+                    walls[i].transform.GetChild(j).gameObject.SetActive(status[i]);
+            }
         }
     }
 }

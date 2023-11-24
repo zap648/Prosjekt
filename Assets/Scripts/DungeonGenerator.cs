@@ -84,13 +84,9 @@ public class DungeonGenerator : MonoBehaviour
             if (neighbours.Count == 0)
             {
                 if (path.Count == 0)
-                {
                     break;
-                }
                 else
-                {
                     currentCell = path.Pop();
-                }
             }
             else
             {
@@ -141,31 +137,19 @@ public class DungeonGenerator : MonoBehaviour
 
         // Check north neighbour
         if (cell - size.x >= 0 && !board[Mathf.FloorToInt(cell - size.x)].visited)
-        {
             neighbours.Add(Mathf.FloorToInt(cell - size.x));
-            Debug.Log($"Northern Neighbour is visited: {board[Mathf.FloorToInt(cell - size.x)].visited}");
-        }
 
         // Check south neighbour
         if (cell + size.x < board.Count && !board[Mathf.FloorToInt(cell + size.x)].visited)
-        {
             neighbours.Add(Mathf.FloorToInt(cell + size.x));
-            Debug.Log($"Southern Neighbour is visited: {board[Mathf.FloorToInt(cell + size.x)].visited}");
-        }
 
         // Check east neighbour
         if ((cell + 1) % size.x != 0 && !board[Mathf.FloorToInt(cell + 1)].visited)
-        {
             neighbours.Add(Mathf.FloorToInt(cell + 1));
-            Debug.Log($"Eastern Neighbour is visited: {board[Mathf.FloorToInt(cell + 1)].visited}");
-        }
 
         // Check west neighbour
         if (cell % size.x != 0 && !board[Mathf.FloorToInt(cell - 1)].visited)
-        {
             neighbours.Add(Mathf.FloorToInt(cell - 1));
-            Debug.Log($"Western Neighbour is visited: {board[Mathf.FloorToInt(cell - 1)].visited}");
-        }
 
         return neighbours;
     }
