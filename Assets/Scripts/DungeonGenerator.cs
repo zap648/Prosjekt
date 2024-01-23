@@ -22,6 +22,7 @@ public class DungeonGenerator : MonoBehaviour
     void Start()
     {
         MazeGenerator();
+        CoalGenerator();
     }
 
     // Update is called once per frame
@@ -152,5 +153,10 @@ public class DungeonGenerator : MonoBehaviour
             neighbours.Add(Mathf.FloorToInt(cell - 1));
 
         return neighbours;
+    }
+
+    void CoalGenerator()
+    {
+
     }
 }
