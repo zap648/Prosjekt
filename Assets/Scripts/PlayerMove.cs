@@ -47,29 +47,29 @@ public class PlayerMove : MonoBehaviour
     void Move()
     {
         float x = transform.position.x;
-        float y = transform.position.y;
+        float y = transform.position.z;
 
         if (forwards)
         {
-            transform.position = (new Vector2(x, y + speed));
-            y = transform.position.y;
+            transform.position = new Vector3(x, transform.position.y, y + speed);
+            y = transform.position.z;
         }
 
         if (backwards)
         {
-            transform.position = (new Vector2(x, y - speed));
-            y = transform.position.y;
+            transform.position = new Vector3(x, transform.position.y, y - speed);
+            y = transform.position.z;
         }
 
         if (rightwards)
         {
-            transform.position = (new Vector2(x + speed, y));
+            transform.position = new Vector3(x + speed, transform.position.y, y);
             x = transform.position.x;
         }
 
         if (leftwards)
         {
-            transform.position = (new Vector2(x - speed, y));
+            transform.position = new Vector3(x - speed, transform.position.y, y);
             x = transform.position.x;
         }
     }
