@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameLoopScene.unity
     guid: bf672b5dd26efae48b0d585ff3894958
+  - enabled: 1
+    path: Assets/Scenes/Mine8.unity
+    guid: 631641c6279e309459677d3146bc341c
   m_configObjects: {}
