@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
-public class DungeonGenerator : MonoBehaviour
+public class CaveGenerator : MonoBehaviour
 {
     public class Cell
     {
         public bool visited = false;
         public bool[] status = new bool[4];
+        public bool coal = false;
     }
 
     public Vector2 size;
@@ -16,19 +18,11 @@ public class DungeonGenerator : MonoBehaviour
     public GameObject room;
     public Vector2 offset;
 
-    List<Cell> board;
+    public List<Cell> board;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         MazeGenerator();
-        CoalGenerator();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void GenerateDungeon()
@@ -48,7 +42,6 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
     }
-
 
     void MazeGenerator()
     {
@@ -153,10 +146,5 @@ public class DungeonGenerator : MonoBehaviour
             neighbours.Add(Mathf.FloorToInt(cell - 1));
 
         return neighbours;
-    }
-
-    void CoalGenerator()
-    {
-
     }
 }
