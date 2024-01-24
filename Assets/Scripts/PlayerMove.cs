@@ -51,26 +51,28 @@ public class PlayerMove : MonoBehaviour
 
         if (forwards)
         {
-            transform.position = new Vector3(x, transform.position.y, y + speed);
-            y = transform.position.z;
+            x += speed * Time.deltaTime;
+            y += speed * Time.deltaTime;
         }
 
         if (backwards)
         {
-            transform.position = new Vector3(x, transform.position.y, y - speed);
-            y = transform.position.z;
+            x -= speed * Time.deltaTime;
+            y -= speed * Time.deltaTime;
         }
 
         if (rightwards)
         {
-            transform.position = new Vector3(x + speed, transform.position.y, y);
-            x = transform.position.x;
+            x += speed * Time.deltaTime;
+            y -= speed * Time.deltaTime;
         }
 
         if (leftwards)
         {
-            transform.position = new Vector3(x - speed, transform.position.y, y);
-            x = transform.position.x;
+            x -= speed * Time.deltaTime;
+            y += speed * Time.deltaTime;
         }
+
+        GetComponent<Rigidbody>().MovePosition(new Vector3(x, transform.position.y, y));
     }
 }
