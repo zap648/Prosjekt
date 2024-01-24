@@ -4408,6 +4408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savefile_startFile: {fileID: 69103296}
+  menuHelper: {fileID: 11400000, guid: 5f5bb5cd650063f44b245a25a9392f07, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class SystemMenu : MonoBehaviour
 {
     public Button savefile_startFile;
 
+    public ScriptableObjectMenu menuHelper;
+
     // quit application
     public void Exit_button()
     {
@@ -34,12 +36,29 @@ public class SystemMenu : MonoBehaviour
     public void goToMine()
     {
         // loads scene with Mine gameplay
+        menuHelper.goToPreperationCanvas = true;
         SceneManager.LoadScene(2);
     }
     // in the mine, able to return to gameloopscene to continue loop
     public void goToPrep()
     {
-        // loads scene in preperation menu for after-work
+        // load correct scene
         SceneManager.LoadScene(1);
+        
+        // loads scene in preperation menu for after-work
+        if (menuHelper.goToPreperationCanvas)
+        {
+            // activate correct child
+            Transform gameobjectCanvas = gameObject.transform;
+
+            if (gameobjectCanvas.GetChild(4).tag == "prepMenu")
+            {
+                gameobjectCanvas.GetChild(4);
+            }
+            else
+            {
+                Debug.Log("Could not find child 4 or prepMenu");
+            }
+        }
     }
 }

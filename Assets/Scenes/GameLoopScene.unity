@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savefile_startFile: {fileID: 0}
+  menuHelper: {fileID: 11400000, guid: 5f5bb5cd650063f44b245a25a9392f07, type: 2}
 --- !u!1 &418288829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2800,7 @@ GameObject:
   - component: {fileID: 1018788757}
   m_Layer: 5
   m_Name: PreperationScreen
-  m_TagString: Untagged
+  m_TagString: prepMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

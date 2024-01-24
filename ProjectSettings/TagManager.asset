@@ -9,6 +9,7 @@ TagManager:
   - mainMenu
   - charCreate
   - optionsMenu
+  - prepMenu
   layers:
   - Default
   - TransparentFX
