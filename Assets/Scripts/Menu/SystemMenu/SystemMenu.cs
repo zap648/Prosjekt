@@ -51,14 +51,14 @@ public class SystemMenu : MonoBehaviour
             // activate correct child
             Transform gameobjectCanvas = gameObject.transform;
 
-            if (gameobjectCanvas.GetChild(4).tag == "prepMenu")
-            {
-                gameobjectCanvas.GetChild(4);
-            }
-            else
-            {
-                Debug.Log("Could not find child 4 or prepMenu");
-            }
+            //if (gameobjectCanvas.GetChild(4).tag == "prepMenu")
+            //{
+            //    gameobjectCanvas.GetChild(4);
+            //}
+            //else
+            //{
+            //    Debug.Log("Could not find child 4 or prepMenu");
+            //}
         }
     }
 }
