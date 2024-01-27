@@ -20,7 +20,10 @@ public abstract class ItemsBase
         }
     }
     // item should have a default image attached
-
+    public virtual Sprite ItemImage()
+    {
+        return Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32.png");
+    }
     // type (equipable, light, etc.)
     public abstract int ItemType();
     // can be used up
