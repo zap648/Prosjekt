@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -17,14 +18,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject coalObject;
     [SerializeField] List<GameObject> inventory;
     [SerializeField] GameObject mesh;
-    float timeCount;
     public float speed;
 
     // Start is called before the first frame update
     void Start()
     {
         inventory = new List<GameObject>();
-        timeCount = 0.0f;
     }
 
     // Update is called once per frame
@@ -42,6 +41,7 @@ public class PlayerMove : MonoBehaviour
 
     void GetInput()
     {
+        // Good lord this input code is awful
         if (Input.GetKeyDown(KeyCode.W))
         {
             forwards = true;
@@ -86,6 +86,11 @@ public class PlayerMove : MonoBehaviour
         {
             mine = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Drop();
+        }
     }
 
     void Move()
@@ -128,9 +133,22 @@ public class PlayerMove : MonoBehaviour
     {
         if (coalMinable)
         {
+            Debug.Log($"Mined {coalObject.name}");
             coalObject.SetActive(false);
             PutInInventory();
             coalObject = null;
+            coalMinable = false;
+        }
+    }
+
+    void Drop()
+    {
+        if (inventory.Count > 0)
+        {
+            inventory.Last().SetActive(true);
+            inventory.Last().transform.position = transform.position + mesh.transform.forward * 2;
+            Debug.Log($"Dropped {inventory.Last().name}");
+            inventory.Remove(inventory.Last());
         }
     }
 
