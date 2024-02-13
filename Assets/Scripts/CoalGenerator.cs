@@ -13,8 +13,9 @@ public class CoalGenerator : MonoBehaviour
     [Tooltip("Average coal per room")]
     [SerializeField] int coalConsentration;
 
-    [Tooltip("Coal prefab")]
+    [Tooltip("Coal info")]
     [SerializeField] GameObject coal;
+    [SerializeField] public List<GameObject> coals = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +48,9 @@ public class CoalGenerator : MonoBehaviour
                 Cell currentCell = caveGenerator.board[Mathf.FloorToInt(i + j * caveGenerator.size.x)];
                 if (currentCell.coal)
                 {
-                    var newCoal = Instantiate(coal, new Vector3(i * caveGenerator.offset.x, 0, -j * caveGenerator.offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<CoalInteraction>();
-                    newCoal.name += $"Coal in {i}-{j}";
+                    GameObject newCoal = Instantiate(coal, new Vector3(i * caveGenerator.offset.x + Random.Range(-caveGenerator.size.x, caveGenerator.size.x), 0, -j * caveGenerator.offset.y + Random.Range(-caveGenerator.size.y, caveGenerator.size.y)), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform);
+                    coals.Add(newCoal);
+                    newCoal.name = $"Coal in {i}-{j}";
                 }
             }
         }

@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 8489204367172535751}
   - component: {fileID: 5425016280227037135}
   m_Layer: 0
-  m_Name: Player
+  m_Name: 2DPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +350,12 @@ MonoBehaviour:
   backwards: 0
   leftwards: 0
   rightwards: 0
-  speed: 100
+  mine: 0
+  coalMinable: 0
+  coalObject: {fileID: 0}
+  coalPrefab: {fileID: 0}
+  inventory: []
+  speed: 10
 --- !u!54 &5425016280227037135
 Rigidbody:
   m_ObjectHideFlags: 0

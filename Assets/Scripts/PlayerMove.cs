@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -9,39 +11,81 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] bool backwards;
     [SerializeField] bool leftwards;
     [SerializeField] bool rightwards;
+    [SerializeField] bool mine;
+    [SerializeField] bool coalMinable;
+    [SerializeField] CoalGenerator coalGenerator;
+    [SerializeField] GameObject coalObject;
+    [SerializeField] List<GameObject> inventory;
+    [SerializeField] GameObject mesh;
+    float timeCount;
     public float speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        inventory = new List<GameObject>();
+        timeCount = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-            forwards = true;
-        else if (Input.GetKeyUp(KeyCode.W))
-            forwards = false;
+        GetInput();
 
-        if (Input.GetKeyDown(KeyCode.S))
-            backwards = true;
-        else if (Input.GetKeyUp(KeyCode.S))
-            backwards = false;
-
-        if (Input.GetKeyDown(KeyCode.D))
-            rightwards = true;
-        else if (Input.GetKeyUp(KeyCode.D))
-            rightwards = false;
-
-        if (Input.GetKeyDown(KeyCode.A))
-            leftwards = true;
-        else if (Input.GetKeyUp(KeyCode.A))
-            leftwards = false;
 
         if (forwards || backwards || leftwards || rightwards)
             Move();
+
+        if (mine)
+            Mine();
+    }
+
+    void GetInput()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            forwards = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            forwards = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            backwards = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            backwards = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            rightwards = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            rightwards = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            leftwards = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            leftwards = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            mine = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            mine = false;
+        }
     }
 
     void Move()
@@ -73,6 +117,43 @@ public class PlayerMove : MonoBehaviour
             y += speed * Time.deltaTime;
         }
 
-        GetComponent<Rigidbody>().MovePosition(new Vector3(x, transform.position.y, y));
+        Vector3 position = new Vector3(x, transform.position.y, y);
+        Vector3 movement = position - transform.position;
+
+        GetComponent<Rigidbody>().MovePosition(position);
+        mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.01f);
+    }
+
+    void Mine()
+    {
+        if (coalMinable)
+        {
+            coalObject.SetActive(false);
+            PutInInventory();
+            coalObject = null;
+        }
+    }
+
+    void PutInInventory()
+    {
+        inventory.Add(coalObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        foreach (var coal in coalGenerator.coals)
+        if (coal == collision.gameObject)
+        {
+            coalMinable = true;
+            coalObject = collision.gameObject;
+        }
+        Debug.Log($"About to mine this fine piece of {collision.gameObject.name}");
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        coalMinable = false;
+        coalObject = null;
+        Debug.Log($"Ah... it seems the {collision.gameObject.name} is gone");
     }
 }
