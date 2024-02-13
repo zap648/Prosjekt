@@ -128,8 +128,9 @@ public class PlayerMove : MonoBehaviour
     {
         if (coalMinable)
         {
-            coalObject.SetActive(false);
             PutInInventory();
+            coalObject.SetActive(false);
+            coalMinable = false;
             coalObject = null;
         }
     }
