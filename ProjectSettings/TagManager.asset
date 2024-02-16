@@ -10,6 +10,7 @@ TagManager:
   - charCreate
   - optionsMenu
   - prepMenu
+  - InventoryHolder
   layers:
   - Default
   - TransparentFX
