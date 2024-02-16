@@ -557,7 +557,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624844598}
-  - component: {fileID: 1624844597}
   - component: {fileID: 1624844599}
   m_Layer: 0
   m_Name: CaveGenerator
@@ -566,22 +565,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1624844597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624844596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe51c3272d925b408002580a536b4b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: {x: 6, y: 6}
-  startPos: 0
-  room: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
-  offset: {x: 19, y: 19}
 --- !u!4 &1624844598
 Transform:
   m_ObjectHideFlags: 0
@@ -606,13 +589,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1624844596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e59f6a1262b694b894156415c7e695, type: 3}
+  m_Script: {fileID: 11500000, guid: 172ca5836eed5744ab137f6d1621fce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caveGenerator: {fileID: 1624844597}
-  coalConsentration: 10
-  coal: {fileID: 3183904185152741226, guid: f4c07b9af5a635245814f5eb49644220, type: 3}
-  coals: []
+  room: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
+  offset: {x: 19, y: 19}
 --- !u!1 &1977648744
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +774,7 @@ PrefabInstance:
     - target: {fileID: 2489510959734601254, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
       propertyPath: coalGenerator
       value: 
-      objectReference: {fileID: 1624844599}
+      objectReference: {fileID: 0}
     - target: {fileID: 6446105180914812773, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

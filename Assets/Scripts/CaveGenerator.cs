@@ -14,7 +14,7 @@ public class CaveGenerator : MonoBehaviour
     }
 
     public Vector2 size;
-    public int startPos = 0;
+    public int startPos = 20;
     public GameObject room;
     public Vector2 offset;
 
