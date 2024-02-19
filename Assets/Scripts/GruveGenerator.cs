@@ -19,6 +19,7 @@ public class GruveGenerator : MonoBehaviour
 {
     public GameObject room;
     public int maxRooms;
+    public int neighbourChance;
     public Vector2 offset;
     public List<Cell> queue;
 
@@ -49,7 +50,7 @@ public class GruveGenerator : MonoBehaviour
         // To set up neighbours
         for (int i = 0; i < cell.neighbour.Count(); i++)
         {
-            if (Random.Range(0, 100) < 50)
+            if (Random.Range(0, 100) < neighbourChance)
             {
                 cell.neighbour[i] = true;
 
