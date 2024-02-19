@@ -11,12 +11,14 @@ public class Cell
 
     public int[] coordinates = new int[2];
     public bool[] neighbour = new bool[4]; // 0 - up, 1 - right, 2 - down, 3 - left
+    public bool visited = false;
     public bool coal = false;
 }
 
 public class GruveGenerator : MonoBehaviour
 {
     public GameObject room;
+    public int maxRooms;
     public Vector2 offset;
     public List<Cell> queue;
 
@@ -24,6 +26,8 @@ public class GruveGenerator : MonoBehaviour
     {
         queue = new List<Cell>();
         GenerateDungeon();
+
+        CreateRooms();
     }
 
     void GenerateDungeon()
@@ -31,52 +35,88 @@ public class GruveGenerator : MonoBehaviour
         int iterations = 0;
         queue.Add(new Cell(0, 0));
 
-        Cell currentCell = queue.Last();
-
-        var newRoom = Instantiate(room, new Vector3(0, 0, 0), Quaternion.Euler(90.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
-        newRoom.UpdateRoom(currentCell.neighbour);
-
-        newRoom.name = $"Room 0-0";
-
-        while (iterations < 10 && iterations < queue.Count())
+        while (iterations < maxRooms && iterations < queue.Count())
         {
-            // To create neighbours
-            for (int i = 0; i < 4; i++)
+            SetupNeighbours(queue[iterations]);
+            iterations++;
+        }
+
+        MergeCells();
+    }
+
+    void SetupNeighbours(Cell cell)
+    {
+        // To set up neighbours
+        for (int i = 0; i < cell.neighbour.Count(); i++)
+        {
+            if (Random.Range(0, 100) < 50)
             {
-                if (Random.Range(0, 100) < 50)
+                cell.neighbour[i] = true;
+
+                if (i == 0) // If the neighbour is above (0 - up)
                 {
-                    queue[iterations].neighbour[i] = true;
-
-                    if (i == 0) // If the neighbour is above (0 - up)
-                    {
-                        queue.Add(new Cell(queue[iterations].coordinates[0], queue[iterations].coordinates[1] + 1));
-                        queue.Last().neighbour[2] = true;
-                    }
-                    else if (i == 1) // If the neighbour is rightside (1 - right)
-                    {
-                        queue.Add(new Cell(queue[iterations].coordinates[0] + 1, queue[iterations].coordinates[1]));
-                        queue.Last().neighbour[3] = true;
-                    }
-                    else if (i == 2) // if the neighbour is below (2 - down)
-                    {
-                        queue.Add(new Cell(queue[iterations].coordinates[0], queue[iterations].coordinates[1] - 1));
-                        queue.Last().neighbour[0] = true;
-                    }
-                    else if (i == 3) // if the neighbour is leftside (3 - left)
-                    {
-                        queue.Add(new Cell(queue[iterations].coordinates[0] - 1, queue[iterations].coordinates[1]));
-                        queue.Last().neighbour[1] = true;
-                    }
-
-                    currentCell = queue.Last();
-
-                    newRoom = Instantiate(room, new Vector3(currentCell.coordinates[0] * offset.x, 0, currentCell.coordinates[1] * offset.y), Quaternion.Euler(90.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
-                    newRoom.UpdateRoom(currentCell.neighbour);
-
-                    newRoom.name = $"Room {currentCell.coordinates[0]} - {currentCell.coordinates[1]}";
+                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] + 1));
+                    queue.Last().neighbour[2] = true;
+                }
+                else if (i == 1) // If the neighbour is rightside (1 - right)
+                {
+                    queue.Add(new Cell(cell.coordinates[0] + 1, cell.coordinates[1]));
+                    queue.Last().neighbour[3] = true;
+                }
+                else if (i == 2) // if the neighbour is below (2 - down)
+                {
+                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] - 1));
+                    queue.Last().neighbour[0] = true;
+                }
+                else if (i == 3) // if the neighbour is leftside (3 - left)
+                {
+                    queue.Add(new Cell(cell.coordinates[0] - 1, cell.coordinates[1]));
+                    queue.Last().neighbour[1] = true;
                 }
             }
-            iterations++;
+        }
+    }
+
+    void MergeCells()
+    {
+        foreach (Cell cellA in queue)
+        {
+            foreach (Cell cellB in queue)
+            {
+                // If the coordinates of two different cells are the same, merge them
+                if (cellA.coordinates[0] == cellB.coordinates[0] &&
+                    cellA.coordinates[1] == cellB.coordinates[1] && 
+                    cellA != cellB)
+                {
+                    for (int i = 0; i < cellA.neighbour.Count(); i++)
+                    {
+                        if (cellA.neighbour[i])
+                        {
+                            cellB.neighbour[i] = true;
+                        }
+                    }
+                    for (int i = 0; i < cellB.neighbour.Count(); i++)
+                    {
+                        if (cellB.neighbour[i])
+                        {
+                            cellA.neighbour[i] = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void CreateRooms()
+    {
+
+
+        for (int i = 0; i < queue.Count(); i++)
+        {
+            RoomBehaviour newRoom = Instantiate(room, new Vector3(queue[i].coordinates[0] * offset.x, 0, queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+            newRoom.UpdateRoom(queue[i].neighbour);
+
+            newRoom.name = $"Room {queue[i].coordinates[0]} - {queue[i].coordinates[1]}";
         }
     }
 }

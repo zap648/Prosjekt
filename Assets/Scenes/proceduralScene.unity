@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
+  maxRooms: 10
   offset: {x: 19, y: 19}
 --- !u!1 &1977648744
 GameObject:
