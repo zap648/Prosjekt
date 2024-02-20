@@ -25,21 +25,34 @@ public class CoalGenerator : MonoBehaviour
 
     void GenerateCoal()
     {
-        //// Marks which rooms should have coal
-        //for (int i = 0; i < gruveGenerator.queue.Count; i++)
-        //{
-        //    // If the current cell is the first cell, don't spawn coal in it
-        //    if (gruveGenerator.queue[i] == gruveGenerator.queue.First())
-        //        continue;
+        // Marks which rooms should have coal
+        for (int i = 0; i < gruveGenerator.queue.Count; i++)
+        {
+            Cell currentCell = gruveGenerator.queue[i];
+            // If the current cell is the first cell, don't spawn coal in it
+            if (currentCell == gruveGenerator.queue.First())
+                continue;
 
-        //    // Let's say around half of the room gets coal
-        //    if (Random.value <= 0.50f && gruveGenerator.queue[i].visited)
-        //    {
-        //        gruveGenerator.queue[i].coal = true;
-        //    }
-        //}
+            // Let's say around half of the room gets coal
+            if (Random.value <= 0.50f)
+            {
+                currentCell.coal = true;
+            }
+        }
 
-        //// Instantiates the coal
+        // Instantiates the coal
+        for (int i = 0; i < gruveGenerator.queue.Count(); i++)
+        {
+            Cell currentCell = gruveGenerator.queue[i];
+            if (currentCell.coal == true)
+            {
+                GameObject newCoal = Instantiate(coal, new Vector3(currentCell.coordinates[0] * gruveGenerator.offset.x, 0.0f, currentCell.coordinates[1] * gruveGenerator.offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform);
+                coals.Add(newCoal);
+                newCoal.name = $"Coal in {currentCell.coordinates[0]}-{currentCell.coordinates[1]}";
+            }
+        }
+
+        // Old instantiate for Cave Generator
         //for (int i = 0; i < gruveGenerator.size.x; i++)
         //{
         //    for (int j = 0; j < gruveGenerator.size.y; j++)

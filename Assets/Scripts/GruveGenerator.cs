@@ -11,7 +11,6 @@ public class Cell
 
     public int[] coordinates = new int[2];
     public bool[] neighbour = new bool[4]; // 0 - up, 1 - right, 2 - down, 3 - left
-    public bool visited = false;
     public bool coal = false;
 }
 
@@ -19,13 +18,18 @@ public class GruveGenerator : MonoBehaviour
 {
     public GameObject room;
     public int maxRooms;
+    public int minRooms;
     public int neighbourChance;
     public Vector2 offset;
     public List<Cell> queue;
 
     void Awake()
     {
-        queue = new List<Cell>();
+        queue = new List<Cell>
+        {
+            new Cell(0, 0)
+        };
+
         GenerateDungeon();
 
         CreateRooms();
@@ -33,13 +37,14 @@ public class GruveGenerator : MonoBehaviour
 
     void GenerateDungeon()
     {
-        int iterations = 0;
-        queue.Add(new Cell(0, 0));
-
-        while (iterations < maxRooms && iterations < queue.Count())
+        while (queue.Count() - 1 < maxRooms)
         {
-            SetupNeighbours(queue[iterations]);
-            iterations++;
+            SetupNeighbours(queue.Last());
+        }
+
+        if (queue.Count() < minRooms)
+        {
+            GenerateDungeon();
         }
 
         MergeCells();
@@ -80,6 +85,7 @@ public class GruveGenerator : MonoBehaviour
 
     void MergeCells()
     {
+        // This is literal patchwork. It doesn't "merge" the cells, rather, it gives two overlapping cells the same neighbour value
         foreach (Cell cellA in queue)
         {
             foreach (Cell cellB in queue)

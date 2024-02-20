@@ -15,7 +15,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] bool mine;
     [SerializeField] bool coalMinable;
     [SerializeField] CoalGenerator coalGenerator;
-    [SerializeField] GameObject coalObject;
+    [SerializeField] GameObject mineObject;
     [SerializeField] List<GameObject> inventory;
     [SerializeField] GameObject mesh;
     public float speed;
@@ -133,11 +133,11 @@ public class PlayerMove : MonoBehaviour
     {
         if (coalMinable)
         {
-            Debug.Log($"Mined {coalObject.name}");
+            Debug.Log($"Mined {mineObject.name}");
             PutInInventory();
-            coalObject.SetActive(false);
+            mineObject.SetActive(false);
             coalMinable = false;
-            coalObject = null;
+            mineObject = null;
             coalMinable = false;
         }
     }
@@ -155,24 +155,24 @@ public class PlayerMove : MonoBehaviour
 
     void PutInInventory()
     {
-        inventory.Add(coalObject);
+        inventory.Add(mineObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach (var coal in coalGenerator.coals)
+        foreach (GameObject coal in coalGenerator.coals)
         if (coal == collision.gameObject)
         {
             coalMinable = true;
-            coalObject = collision.gameObject;
         }
+        mineObject = collision.gameObject;
         Debug.Log($"About to mine this fine piece of {collision.gameObject.name}");
     }
 
     private void OnCollisionExit(Collision collision)
     {
         coalMinable = false;
-        coalObject = null;
+        mineObject = null;
         Debug.Log($"Ah... it seems the {collision.gameObject.name} is gone");
     }
 }
