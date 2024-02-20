@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ScreenInputCatchInventory : MonoBehaviour
 {
-    [SerializeField] InventoryInteraction mouseInput;
+    public InventoryInteraction mouseInput;
+
 
     private void Update()
     {
@@ -13,6 +14,9 @@ public class ScreenInputCatchInventory : MonoBehaviour
             return;
         }
 
-        Debug.Log(mouseInput.GetTileGridPosition(Input.mousePosition));
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(mouseInput.GetTileGridPosition(Input.mousePosition));
+        }
     }
 }

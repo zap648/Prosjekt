@@ -26,13 +26,14 @@ public class InventoryInteraction : MonoBehaviour
     // mouseposition is sent from ScreenInputCatchInventory.cs (attached to Camera, fires everytime SerializedField is not null)
     public Vector2Int GetTileGridPosition(Vector2 mouseposition)
     {
-        positionOnTheGrid.x = mouseposition.x - rectTransform.position.x; 
-        positionOnTheGrid.y = rectTransform.position.y - mouseposition.y; 
+        // XY = BB - AA
+        // X = 
+        //
+        positionOnTheGrid.x = mouseposition.x - rectTransform.pivot.x; 
+        positionOnTheGrid.y = rectTransform.pivot.y - mouseposition.y; 
 
         tilePosition.x = (int)(positionOnTheGrid.x / tileWidth); 
         tilePosition.y = (int)(positionOnTheGrid.y / tileHeight);
-
-        // Debug.Log(tilePosition);
 
         return tilePosition; 
     }
