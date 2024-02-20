@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomBehaviour : MonoBehaviour
 {
     public GameObject[] walls; // 0 - Up, 1 - Down, 2 - Right, 3 - Left
+    public GameObject[] spawners;
 
     //public bool[] test_status;
 
@@ -28,5 +29,10 @@ public class RoomBehaviour : MonoBehaviour
                     walls[i].transform.GetChild(j).gameObject.SetActive(status[i]);
             }
         }
+    }
+
+    public void GetSpawner()
+    {
+        
     }
 }
