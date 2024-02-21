@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class InventoryEventInteract : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    // all the possible menues can be added here to control if it is
+    // possible to interact with them or not
+
     ScreenInputCatchInventory mouseOnScreenCatch;
     InventoryInteraction inventoryinteraction;
     
@@ -16,11 +19,13 @@ public class InventoryEventInteract : MonoBehaviour, IPointerEnterHandler, IPoin
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("mouse exit inventory!");
+        mouseOnScreenCatch.mouseInput = inventoryinteraction;
+        Debug.Log("mouse enter inventory!");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        mouseOnScreenCatch.mouseInput = null;
         Debug.Log("mouse exit inventory!");
     }
 
