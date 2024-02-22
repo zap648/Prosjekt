@@ -55,7 +55,7 @@ public class GruveGenerator : MonoBehaviour
         // To set up neighbours
         for (int i = 0; i < cell.neighbour.Count(); i++)
         {
-            if (Random.Range(0, 100) < neighbourChance)
+            if (Random.Range(0, 100) < neighbourChance) // If the random-range is below neighbour-chance
             {
                 cell.neighbour[i] = true;
 
