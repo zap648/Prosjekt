@@ -17,6 +17,7 @@ public class Cell
 public class GruveGenerator : MonoBehaviour
 {
     public GameObject room;
+    public GameObject spawnRoom;
     public int maxRooms;
     public int minRooms;
     public int neighbourChance;
@@ -116,11 +117,14 @@ public class GruveGenerator : MonoBehaviour
 
     void CreateRooms()
     {
+        RoomBehaviour newRoom = Instantiate(spawnRoom, new Vector3(queue[0].coordinates[0] * offset.x, 0, queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+        newRoom.UpdateRoom(queue[0].neighbour);
 
+        newRoom.name = $"Spawn Room";
 
-        for (int i = 0; i < queue.Count(); i++)
+        for (int i = 1; i < queue.Count(); i++)
         {
-            RoomBehaviour newRoom = Instantiate(room, new Vector3(queue[i].coordinates[0] * offset.x, 0, queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+            newRoom = Instantiate(room, new Vector3(queue[i].coordinates[0] * offset.x, 0, queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             newRoom.UpdateRoom(queue[i].neighbour);
 
             newRoom.name = $"Room {queue[i].coordinates[0]} - {queue[i].coordinates[1]}";

@@ -136,6 +136,7 @@ MonoBehaviour:
   hoisting: 0
   lowering: 0
   last: []
+  limit: 10
 --- !u!65 &6353349621575551263
 BoxCollider:
   m_ObjectHideFlags: 0

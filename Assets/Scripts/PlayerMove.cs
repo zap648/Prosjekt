@@ -8,13 +8,14 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    // Dette er *ALTFOR* mange variablar. Me *MÅ* fjerne rørsleboolane xD
     [SerializeField] bool forwards;
     [SerializeField] bool backwards;
     [SerializeField] bool leftwards;
     [SerializeField] bool rightwards;
     [SerializeField] bool mine;
     [SerializeField] bool coalMinable;
-    [SerializeField] CoalGenerator coalGenerator;
+    [SerializeField] bool bearable;
     [SerializeField] GameObject mineObject;
     [SerializeField] List<GameObject> inventory;
     [SerializeField] GameObject mesh;
@@ -146,10 +147,23 @@ public class PlayerMove : MonoBehaviour
     {
         if (inventory.Count > 0)
         {
-            inventory.Last().SetActive(true);
-            inventory.Last().transform.position = transform.position + mesh.transform.forward * 2;
-            Debug.Log($"Dropped {inventory.Last().name}");
-            inventory.Remove(inventory.Last());
+            if (bearable && mineObject.GetComponent<CoalBox>().last.Count < mineObject.GetComponent<CoalBox>().limit)
+            {
+                mineObject.GetComponent<CoalBox>().PutCoal(inventory.Last());
+                Debug.Log($"Put {mineObject} in coal box");
+                inventory.Remove(inventory.Last());
+            }
+            else
+            {
+                inventory.Last().SetActive(true);
+                inventory.Last().transform.position = transform.position + mesh.transform.forward * 2;
+                Debug.Log($"Dropped {inventory.Last().name}");
+                inventory.Remove(inventory.Last());
+            }
+        }
+        else
+        {
+            Debug.Log("You have no coal to drop");
         }
     }
 
@@ -160,10 +174,13 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach (GameObject coal in coalGenerator.coals)
-        if (coal == collision.gameObject)
+        if (collision.gameObject.GetComponent<CoalInfo>() && !bearable)
         {
             coalMinable = true;
+        }
+        else if (collision.gameObject.GetComponent<CoalBox>())
+        {
+            bearable = true;
         }
         mineObject = collision.gameObject;
         Debug.Log($"About to mine this fine piece of {collision.gameObject.name}");
@@ -173,6 +190,7 @@ public class PlayerMove : MonoBehaviour
     {
         coalMinable = false;
         mineObject = null;
+        bearable = false;
         Debug.Log($"Ah... it seems the {collision.gameObject.name} is gone");
     }
 }
