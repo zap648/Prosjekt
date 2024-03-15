@@ -298,11 +298,11 @@ MonoBehaviour:
   rightwards: 0
   mine: 0
   coalMinable: 0
-  coalGenerator: {fileID: 0}
+  bearable: 0
   mineObject: {fileID: 0}
   inventory: []
   mesh: {fileID: 974023459924128748}
-  speed: 50
+  speed: 0.1
 --- !u!54 &2020626341078699054
 Rigidbody:
   m_ObjectHideFlags: 0

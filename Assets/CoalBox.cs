@@ -2,67 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class CoalBox : MonoBehaviour
+public class CoalBox : Elevator
 {
-    [SerializeField] bool hoisting;
-    [SerializeField] bool lowering;
-    public List<GameObject> last;
+    public GameObject lever;
     public int limit;
 
     // Start is called before the first frame update
     void Start()
     {
-        last = new List<GameObject>();
+        hoisting = false;
+        lowering = false;
+        cargo = new List<GameObject>();
+        machine = new ElevatorMachine(this);
+        machine.Initialize(machine.idleState);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (hoisting)
-        {
-            Hoist();
-        }
-
-        if (lowering)
-        {
-            Lower();
-        }
+        machine.Update();
     }
 
-    void Hoist()
+    public void Hoist()
     {
-        transform.position += Vector3.up * Time.deltaTime;
-        foreach (GameObject coal in last)
-            coal.transform.position += Vector3.up * Time.deltaTime;
-
-        if (transform.position.y > 15.0f)
+        if (!hoisting)
         {
-            hoisting = false;
-            lowering = true;
+            machine.TransitionTo(machine.hoistState);
         }
     }
 
-    void Lower()
+    public void Lower()
     {
-        transform.position -= Vector3.up * Time.deltaTime;
-        foreach (GameObject coal in last)
-            coal.transform.position -= Vector3.up * Time.deltaTime;
-
-        if (transform.position.y <= 0.0f)
+        if (!lowering)
         {
-            transform.position.Set(transform.position.x, 0.0f, transform.position.z);
-            lowering = false;
+            machine.TransitionTo(machine.lowerState);
         }
     }
 
     public void PutCoal(GameObject coal)
     {
-        if (coal.gameObject.GetComponent<CoalInfo>() && last.Count < limit)
+        if (coal.gameObject.GetComponent<CoalInfo>() && cargo.Count < limit)
         {
-            last.Add(coal);
-            last.Last().transform.position = transform.position;
-            last.Last().SetActive(true);
+            cargo.Add(coal);
+            cargo.Last().transform.position = transform.position;
+            cargo.Last().SetActive(true);
         }
     }
 }

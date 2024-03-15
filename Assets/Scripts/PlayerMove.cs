@@ -43,55 +43,22 @@ public class PlayerMove : MonoBehaviour
     void GetInput()
     {
         // Good lord this input code is awful
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            forwards = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            forwards = false;
-        }
+        if (Input.GetKeyDown(KeyCode.W)) { forwards = true; }
+        else if (Input.GetKeyUp(KeyCode.W)) { forwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            backwards = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            backwards = false;
-        }
+        if (Input.GetKeyDown(KeyCode.S)) { backwards = true; }
+        else if (Input.GetKeyUp(KeyCode.S)) { backwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            rightwards = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            rightwards = false;
-        }
+        if (Input.GetKeyDown(KeyCode.D)) { rightwards = true; }
+        else if (Input.GetKeyUp(KeyCode.D)) { rightwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            leftwards = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            leftwards = false;
-        }
+        if (Input.GetKeyDown(KeyCode.A)) { leftwards = true; }
+        else if (Input.GetKeyUp(KeyCode.A)) { leftwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            mine = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            mine = false;
-        }
+        if (Input.GetKeyDown(KeyCode.Space)) { mine = true; }
+        else if (Input.GetKeyUp(KeyCode.Space)) { mine = false; }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Drop();
-        }
+        if (Input.GetKeyDown(KeyCode.E)) { Drop(); }
     }
 
     void Move()
@@ -101,26 +68,26 @@ public class PlayerMove : MonoBehaviour
 
         if (forwards)
         {
-            x += speed * Time.deltaTime;
-            y += speed * Time.deltaTime;
+            x += speed;
+            y += speed;
         }
 
         if (backwards)
         {
-            x -= speed * Time.deltaTime;
-            y -= speed * Time.deltaTime;
+            x -= speed;
+            y -= speed;
         }
 
         if (rightwards)
         {
-            x += speed * Time.deltaTime;
-            y -= speed * Time.deltaTime;
+            x += speed;
+            y -= speed;
         }
 
         if (leftwards)
         {
-            x -= speed * Time.deltaTime;
-            y += speed * Time.deltaTime;
+            x -= speed;
+            y += speed;
         }
 
         Vector3 position = new Vector3(x, transform.position.y, y);
@@ -141,13 +108,17 @@ public class PlayerMove : MonoBehaviour
             mineObject = null;
             coalMinable = false;
         }
+        else if (bearable)
+        {
+            mineObject.GetComponent<CoalBox>().Hoist();
+        }
     }
 
     void Drop()
     {
         if (inventory.Count > 0)
         {
-            if (bearable && mineObject.GetComponent<CoalBox>().last.Count < mineObject.GetComponent<CoalBox>().limit)
+            if (bearable && mineObject.GetComponent<CoalBox>().cargo.Count < mineObject.GetComponent<CoalBox>().limit)
             {
                 mineObject.GetComponent<CoalBox>().PutCoal(inventory.Last());
                 Debug.Log($"Put {mineObject} in coal box");
