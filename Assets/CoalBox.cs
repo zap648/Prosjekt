@@ -15,29 +15,9 @@ public class CoalBox : Elevator
         hoisting = false;
         lowering = false;
         cargo = new List<GameObject>();
+
         machine = new ElevatorMachine(this);
         machine.Initialize(machine.idleState);
-    }
-
-    private void Update()
-    {
-        machine.Update();
-    }
-
-    public void Hoist()
-    {
-        if (!hoisting)
-        {
-            machine.TransitionTo(machine.hoistState);
-        }
-    }
-
-    public void Lower()
-    {
-        if (!lowering)
-        {
-            machine.TransitionTo(machine.lowerState);
-        }
     }
 
     public void PutCoal(GameObject coal)

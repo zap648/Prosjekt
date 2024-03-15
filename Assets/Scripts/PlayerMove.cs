@@ -110,7 +110,14 @@ public class PlayerMove : MonoBehaviour
         }
         else if (bearable)
         {
-            mineObject.GetComponent<CoalBox>().Hoist();
+            if (mineObject.GetComponent<CoalBox>() != null)
+            {
+                mineObject.GetComponent<CoalBox>().Hoist();
+            }
+            else if (mineObject.GetComponent<GruveElevator>() != null)
+            {
+                mineObject.GetComponent<GruveElevator>().Hoist();
+            }
         }
     }
 
@@ -149,7 +156,7 @@ public class PlayerMove : MonoBehaviour
         {
             coalMinable = true;
         }
-        else if (collision.gameObject.GetComponent<CoalBox>())
+        else if (collision.gameObject.GetComponent<Elevator>())
         {
             bearable = true;
         }

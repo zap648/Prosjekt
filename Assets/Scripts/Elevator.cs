@@ -16,4 +16,25 @@ public class Elevator : MonoBehaviour
     [SerializeField] public float acceleration;
 
     public List<GameObject> cargo;
+
+    private void Update()
+    {
+        machine.Update();
+    }
+
+    public void Hoist()
+    {
+        if (!hoisting)
+        {
+            machine.TransitionTo(machine.hoistState);
+        }
+    }
+
+    public void Lower()
+    {
+        if (!lowering)
+        {
+            machine.TransitionTo(machine.lowerState);
+        }
+    }
 }
