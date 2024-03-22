@@ -17,12 +17,16 @@ public class Cell
 public class GruveGenerator : MonoBehaviour
 {
     public GameObject room;
-    public GameObject spawnRoom;
+    public GameObject spawnPreFab;
+    public GameObject player;
     public int maxRooms;
     public int minRooms;
     public int neighbourChance;
+    public int floors;
     public Vector2 offset;
     public List<Cell> queue;
+
+    private RoomBehaviour spawnRoom;
 
     void Awake()
     {
@@ -34,6 +38,14 @@ public class GruveGenerator : MonoBehaviour
         GenerateDungeon();
 
         CreateRooms();
+
+        GruveElevator elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
+
+        player.transform.position = elevator.transform.position;
+        Instantiate(player);
+
+        elevator.cargo.Add(player);
+        elevator.machine.TransitionTo(elevator.machine.lowerState);
     }
 
     void GenerateDungeon()
@@ -117,10 +129,11 @@ public class GruveGenerator : MonoBehaviour
 
     void CreateRooms()
     {
-        RoomBehaviour newRoom = Instantiate(spawnRoom, new Vector3(queue[0].coordinates[0] * offset.x, 0, queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+        RoomBehaviour newRoom = Instantiate(spawnPreFab, new Vector3(queue[0].coordinates[0] * offset.x, 0, queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
         newRoom.UpdateRoom(queue[0].neighbour);
 
         newRoom.name = $"Spawn Room";
+        spawnRoom = newRoom;
 
         for (int i = 1; i < queue.Count(); i++)
         {
@@ -129,5 +142,35 @@ public class GruveGenerator : MonoBehaviour
 
             newRoom.name = $"Room {queue[i].coordinates[0]} - {queue[i].coordinates[1]}";
         }
+    }
+
+    bool CheckRoom(int[] coordinates)
+    {
+        foreach (Cell room in queue)
+        {
+            if (room.coordinates == coordinates)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    Cell FindRoom(int[] coordinates)
+    {
+        if (CheckRoom(coordinates))
+        {
+            foreach (Cell room in queue)
+            {
+                if (room.coordinates == coordinates)
+                {
+                    return room;
+                }
+            }
+        }
+
+        Debug.Log($"Room {coordinates[0]}-{coordinates[1]} not found");
+        return null;
     }
 }

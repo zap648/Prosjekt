@@ -72,7 +72,7 @@ public class IdleState : ElevatorState
 
     public void Enter()
     {
-        Debug.Log("Elevator has entered idle state");
+        Debug.Log($"{elevator.gameObject.name} has entered idle state");
     }
 
     public void Update()
@@ -82,7 +82,7 @@ public class IdleState : ElevatorState
 
     public void Exit()
     {
-        Debug.Log("Elevator has exited idle state");
+        Debug.Log($"{elevator.gameObject.name} has exited idle state");
     }
 }
 
@@ -99,19 +99,21 @@ public class HoistState : ElevatorState
     {
         elevator.hoisting = true;
         elevator.speed = elevator.maxSpeed;
-        Debug.Log("Elevator has entered hoisting state");
+        Debug.Log($"{elevator.gameObject.name} has entered hoisting state from a height of {elevator.gameObject.transform.position.y}");
     }
 
     public void Update()
     {
-        elevator.gameObject.transform.position += (Vector3.up * elevator.speed);
-        foreach (GameObject coal in elevator.cargo)
-            coal.transform.position += (Vector3.up * elevator.speed);
-
-        if (elevator.gameObject.transform.position.y > elevator.topHeight)
+        if (elevator.gameObject.transform.position.y >= elevator.topHeight)
         {
+            Debug.Log($"{elevator.gameObject.name} is at {elevator.gameObject.transform.position.y}, which is higher than {elevator.topHeight}");
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
+
+        Debug.Log($"{elevator.gameObject.name} at a height of {elevator.transform.position.y} is moving {elevator.speed} upwards");
+        elevator.gameObject.transform.position += (Vector3.up * elevator.speed);
+        foreach (GameObject cargo in elevator.cargo)
+            cargo.transform.position += (Vector3.up * elevator.speed);
     }
 
     public void Exit()
@@ -119,7 +121,7 @@ public class HoistState : ElevatorState
         elevator.hoisting = false;
         elevator.speed = 0;
         elevator.gameObject.transform.position = new Vector3(elevator.gameObject.transform.position.x, elevator.topHeight, elevator.gameObject.transform.position.z);
-        Debug.Log("Elevator has exited hoisting state");
+        Debug.Log($"{elevator.gameObject.name} has exited hoisting state");
     }
 }
 
@@ -136,19 +138,20 @@ public class LowerState : ElevatorState
     {
         elevator.lowering = true;
         elevator.speed = -elevator.maxSpeed;
-        Debug.Log("Elevator has entered lower state");
+        Debug.Log($"{elevator.gameObject.name} has entered lowering state from a height of {elevator.gameObject.transform.position.y}");
     }
 
     public void Update()
     {
-        elevator.gameObject.transform.position -= (Vector3.up * elevator.speed);
-        foreach (GameObject coal in elevator.cargo)
-            coal.transform.position -= (Vector3.up * elevator.speed);
-
-        if (elevator.gameObject.transform.position.y < elevator.bottomHeight)
+        if (elevator.gameObject.transform.position.y <= elevator.bottomHeight)
         {
+            Debug.Log($"{elevator.gameObject.name} is at {elevator.gameObject.transform.position.y}, which is lower than {elevator.bottomHeight}");
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
+        
+        elevator.gameObject.transform.position += (Vector3.up * elevator.speed);
+        foreach (GameObject cargo in elevator.cargo)
+            cargo.transform.position += (Vector3.up * elevator.speed);
     }
 
     public void Exit()
@@ -156,6 +159,6 @@ public class LowerState : ElevatorState
         elevator.lowering = false;
         elevator.speed = 0;
         elevator.gameObject.transform.position = new Vector3(elevator.gameObject.transform.position.x, elevator.bottomHeight, elevator.gameObject.transform.position.z);
-        Debug.Log("Elevator has exited lower state");
+        Debug.Log($"{elevator.gameObject.name} has exited lowering state");
     }
 }

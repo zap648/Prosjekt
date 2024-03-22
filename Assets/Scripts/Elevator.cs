@@ -17,6 +17,17 @@ public class Elevator : MonoBehaviour
 
     public List<GameObject> cargo;
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        hoisting = false;
+        lowering = false;
+        cargo = new List<GameObject>();
+
+        machine = new ElevatorMachine(this);
+        machine.Initialize(machine.idleState);
+    }
+
     private void Update()
     {
         machine.Update();

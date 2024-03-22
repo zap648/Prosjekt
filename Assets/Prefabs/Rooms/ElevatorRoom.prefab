@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3203895629713609708}
   - component: {fileID: 4349941957234618013}
   m_Layer: 0
-  m_Name: SpawnRoom
+  m_Name: ElevatorRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6852740179600555114, guid: 84f0d773ffb46dd44a307a273bca47fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6852740179600555114, guid: 84f0d773ffb46dd44a307a273bca47fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -210,10 +210,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6228648837273155691, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6353349621575551263, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
-      propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7190726964240656171, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}

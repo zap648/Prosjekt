@@ -94,7 +94,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 movement = position - transform.position;
 
         GetComponent<Rigidbody>().MovePosition(position);
-        mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.01f);
+        mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
     }
 
     void Mine()
@@ -155,13 +155,15 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.GetComponent<CoalInfo>() && !bearable)
         {
             coalMinable = true;
+            mineObject = collision.gameObject;
+            Debug.Log($"About to mine this fine piece of {collision.gameObject.name}");
         }
         else if (collision.gameObject.GetComponent<Elevator>())
         {
             bearable = true;
+            mineObject = collision.gameObject;
+            Debug.Log($"About to heave the {collision.gameObject.name}");
         }
-        mineObject = collision.gameObject;
-        Debug.Log($"About to mine this fine piece of {collision.gameObject.name}");
     }
 
     private void OnCollisionExit(Collision collision)

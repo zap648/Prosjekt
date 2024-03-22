@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GruveElevator : Elevator
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        hoisting = false;
-        lowering = false;
+    [SerializeField] GameObject gate;
 
-        machine = new ElevatorMachine(this);
-        machine.Initialize(machine.idleState);
+    private void Update()
+    {
+        machine.Update();
+
+        if (lowering || hoisting)
+        {
+            gate.SetActive(true);
+        }
+        else
+        {
+            gate.SetActive(false);
+        }
     }
 }
