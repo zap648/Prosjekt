@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class Cell
 {
-    public Cell() { }
-    public Cell(int xCoordinate, int yCoordinate) { coordinates = new int[2] { xCoordinate, yCoordinate }; }
+    public Cell(int xCoordinate, int yCoordinate, int zCoordinate) { coordinates = new int[3] { xCoordinate, yCoordinate, zCoordinate }; }
 
-    public int[] coordinates = new int[2];
+    public int[] coordinates = new int[3];
     public bool[] neighbour = new bool[4]; // 0 - up, 1 - right, 2 - down, 3 - left
     public bool coal = false;
 }
@@ -19,11 +18,12 @@ public class GruveGenerator : MonoBehaviour
     public GameObject room;
     public GameObject spawnPreFab;
     public GameObject player;
+    public GameObject playerPreFab;
     public int maxRooms;
     public int minRooms;
     public int neighbourChance;
     public int floors;
-    public Vector2 offset;
+    public Vector3 offset;
     public List<Cell> queue;
 
     private RoomBehaviour spawnRoom;
@@ -32,7 +32,7 @@ public class GruveGenerator : MonoBehaviour
     {
         queue = new List<Cell>
         {
-            new Cell(0, 0)
+            new Cell(0, 0, 0)
         };
 
         GenerateDungeon();
@@ -41,9 +41,8 @@ public class GruveGenerator : MonoBehaviour
 
         GruveElevator elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
 
+        player = Instantiate(playerPreFab);
         player.transform.position = elevator.transform.position;
-        Instantiate(player);
-
         elevator.cargo.Add(player);
         elevator.machine.TransitionTo(elevator.machine.lowerState);
     }
@@ -74,22 +73,22 @@ public class GruveGenerator : MonoBehaviour
 
                 if (i == 0) // If the neighbour is above (0 - up)
                 {
-                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] + 1));
+                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] + 1, 0));
                     queue.Last().neighbour[2] = true;
                 }
                 else if (i == 1) // If the neighbour is rightside (1 - right)
                 {
-                    queue.Add(new Cell(cell.coordinates[0] + 1, cell.coordinates[1]));
+                    queue.Add(new Cell(cell.coordinates[0] + 1, cell.coordinates[1], 0));
                     queue.Last().neighbour[3] = true;
                 }
                 else if (i == 2) // if the neighbour is below (2 - down)
                 {
-                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] - 1));
+                    queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1] - 1, 0));
                     queue.Last().neighbour[0] = true;
                 }
                 else if (i == 3) // if the neighbour is leftside (3 - left)
                 {
-                    queue.Add(new Cell(cell.coordinates[0] - 1, cell.coordinates[1]));
+                    queue.Add(new Cell(cell.coordinates[0] - 1, cell.coordinates[1], 0));
                     queue.Last().neighbour[1] = true;
                 }
             }
@@ -129,7 +128,7 @@ public class GruveGenerator : MonoBehaviour
 
     void CreateRooms()
     {
-        RoomBehaviour newRoom = Instantiate(spawnPreFab, new Vector3(queue[0].coordinates[0] * offset.x, 0, queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+        RoomBehaviour newRoom = Instantiate(spawnPreFab, new Vector3(queue[0].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
         newRoom.UpdateRoom(queue[0].neighbour);
 
         newRoom.name = $"Spawn Room";
@@ -137,7 +136,7 @@ public class GruveGenerator : MonoBehaviour
 
         for (int i = 1; i < queue.Count(); i++)
         {
-            newRoom = Instantiate(room, new Vector3(queue[i].coordinates[0] * offset.x, 0, queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+            newRoom = Instantiate(room, new Vector3(queue[i].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             newRoom.UpdateRoom(queue[i].neighbour);
 
             newRoom.name = $"Room {queue[i].coordinates[0]} - {queue[i].coordinates[1]}";

@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624844596}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -170,12 +170,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   room: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
   spawnPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
-  player: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
+  player: {fileID: 0}
+  playerPreFab: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
   maxRooms: 100
   minRooms: 5
   neighbourChance: 15
   floors: 0
-  offset: {x: 19, y: 19}
+  offset: {x: 19, y: 19, z: 19}
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0

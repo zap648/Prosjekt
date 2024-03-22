@@ -106,7 +106,6 @@ public class HoistState : ElevatorState
     {
         if (elevator.gameObject.transform.position.y >= elevator.topHeight)
         {
-            Debug.Log($"{elevator.gameObject.name} is at {elevator.gameObject.transform.position.y}, which is higher than {elevator.topHeight}");
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
 
@@ -145,7 +144,6 @@ public class LowerState : ElevatorState
     {
         if (elevator.gameObject.transform.position.y <= elevator.bottomHeight)
         {
-            Debug.Log($"{elevator.gameObject.name} is at {elevator.gameObject.transform.position.y}, which is lower than {elevator.bottomHeight}");
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
         

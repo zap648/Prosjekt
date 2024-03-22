@@ -14,12 +14,15 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] bool leftwards;
     [SerializeField] bool rightwards;
     [SerializeField] bool mine;
+
     [SerializeField] bool coalMinable;
     [SerializeField] bool bearable;
     [SerializeField] GameObject mineObject;
+    
     [SerializeField] List<GameObject> inventory;
     [SerializeField] GameObject mesh;
     public float speed;
+    public int[] coordinates;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +34,6 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         GetInput();
-
 
         if (forwards || backwards || leftwards || rightwards)
             Move();

@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoisting: 0
   lowering: 0
-  topHeight: 15
+  topHeight: 20
   bottomHeight: 0
   speed: 0
   maxSpeed: 0.01
