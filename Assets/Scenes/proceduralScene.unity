@@ -175,8 +175,8 @@ MonoBehaviour:
   maxRooms: 100
   minRooms: 5
   neighbourChance: 15
-  floors: 0
-  offset: {x: 19, y: 19, z: 19}
+  floors: 1
+  offset: {x: 19, y: 19, z: 20}
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0
