@@ -46,9 +46,9 @@ public class CoalGenerator : MonoBehaviour
             Cell currentCell = gruveGenerator.queue[i];
             if (currentCell.coal == true)
             {
-                GameObject newCoal = Instantiate(coal, new Vector3(currentCell.coordinates[0] * gruveGenerator.offset.x, 0.0f, currentCell.coordinates[1] * gruveGenerator.offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform);
+                GameObject newCoal = Instantiate(coal, new Vector3(currentCell.coordinates[0] * gruveGenerator.offset.x, currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)), currentCell.coordinates[1] * gruveGenerator.offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform);
                 coals.Add(newCoal);
-                newCoal.name = $"Coal in {currentCell.coordinates[0]}-{currentCell.coordinates[1]}";
+                newCoal.name = $"Coal in ({currentCell.coordinates[0]},{currentCell.coordinates[1]},{currentCell.coordinates[2]})";
             }
         }
 

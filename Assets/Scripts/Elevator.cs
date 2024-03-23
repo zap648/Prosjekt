@@ -24,6 +24,9 @@ public class Elevator : MonoBehaviour
         lowering = false;
         cargo = new List<GameObject>();
 
+        bottomHeight += transform.position.y;
+        topHeight += transform.position.y;
+
         machine = new ElevatorMachine(this);
         machine.Initialize(machine.idleState);
     }
