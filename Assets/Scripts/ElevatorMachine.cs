@@ -97,6 +97,7 @@ public class HoistState : ElevatorState
 
     public void Enter()
     {
+        elevator.atBottom = false;
         elevator.hoisting = true;
         elevator.speed = elevator.maxSpeed;
         Debug.Log($"{elevator.gameObject.name} has entered hoisting state from a height of {elevator.gameObject.transform.position.y}");
@@ -106,6 +107,7 @@ public class HoistState : ElevatorState
     {
         if (elevator.gameObject.transform.position.y >= elevator.topHeight)
         {
+            elevator.atTop = true;
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
 
@@ -135,6 +137,7 @@ public class LowerState : ElevatorState
 
     public void Enter()
     {
+        elevator.atTop = false;
         elevator.lowering = true;
         elevator.speed = -elevator.maxSpeed;
         Debug.Log($"{elevator.gameObject.name} has entered lowering state from a height of {elevator.gameObject.transform.position.y}");
@@ -144,6 +147,7 @@ public class LowerState : ElevatorState
     {
         if (elevator.gameObject.transform.position.y <= elevator.bottomHeight)
         {
+            elevator.atBottom = true;
             elevator.machine.TransitionTo(elevator.machine.idleState);
         }
         

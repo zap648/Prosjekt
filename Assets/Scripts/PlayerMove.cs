@@ -114,11 +114,27 @@ public class PlayerMove : MonoBehaviour
         {
             if (mineObject.GetComponent<CoalBox>() != null)
             {
-                mineObject.GetComponent<CoalBox>().Hoist();
+                if (mineObject.GetComponent<CoalBox>().atBottom)
+                {
+                    mineObject.GetComponent<CoalBox>().Hoist();
+                }
+                else if (mineObject.GetComponent<CoalBox>().atTop)
+                {
+                    mineObject.GetComponent<CoalBox>().Lower();
+                }
             }
             else if (mineObject.GetComponent<GruveElevator>() != null)
             {
-                mineObject.GetComponent<GruveElevator>().Hoist();
+                if (mineObject.GetComponent<GruveElevator>().atBottom)
+                {
+                    mineObject.GetComponent<GruveElevator>().cargo.Add(gameObject);
+                    mineObject.GetComponent<GruveElevator>().Hoist();
+                }
+                else if (mineObject.GetComponent<GruveElevator>().atTop)
+                {
+                    mineObject.GetComponent<GruveElevator>().cargo.Add(gameObject);
+                    mineObject.GetComponent<GruveElevator>().Lower();
+                }
             }
         }
     }

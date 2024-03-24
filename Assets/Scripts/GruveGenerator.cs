@@ -161,6 +161,7 @@ public class GruveGenerator : MonoBehaviour
             {
                 newRoom = Instantiate(spawnPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
                 newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position = new Vector3(newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.x, newRoom.gameObject.GetComponentInChildren<GruveElevator>().topHeight, newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.z);
+                newRoom.gameObject.GetComponentInChildren<GruveElevator>().atTop = true;
             }
             newRoom.UpdateRoom(queue[i].neighbour);
 

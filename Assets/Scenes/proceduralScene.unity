@@ -172,11 +172,11 @@ MonoBehaviour:
   spawnPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
   playerPreFab: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
   player: {fileID: 0}
-  maxRooms: 20
-  minRooms: 10
+  maxRooms: 30
+  minRooms: 5
   neighbourChance: 15
   floors: 2
-  offset: {x: 19, y: 19, z: 20}
+  offset: {x: 20, y: 20, z: 20}
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0

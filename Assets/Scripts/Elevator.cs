@@ -11,6 +11,8 @@ public class Elevator : MonoBehaviour
     [SerializeField] public bool lowering;
     [SerializeField] public float topHeight;
     [SerializeField] public float bottomHeight;
+    [SerializeField] public bool atTop;
+    [SerializeField] public bool atBottom;
     [SerializeField] public float speed;
     [SerializeField] public float maxSpeed;
     [SerializeField] public float acceleration;
