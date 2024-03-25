@@ -169,14 +169,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPreFab: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
-  spawnPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
+  elevRoomPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
+  accRoomPreFab: {fileID: 8255810678556904589, guid: 1703a62e10fca8f4192502f8dd5efa7e, type: 3}
+  maxRooms: 10
+  minRooms: 3
+  neighbourChance: 15
+  floors: 10
+  offset: {x: 20, y: 20, z: 20}
   playerPreFab: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
   player: {fileID: 0}
-  maxRooms: 30
-  minRooms: 5
-  neighbourChance: 15
-  floors: 2
-  offset: {x: 20, y: 20, z: 20}
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0
