@@ -19,13 +19,13 @@ public class InventoryEventInteract : MonoBehaviour, IPointerEnterHandler, IPoin
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        mouseOnScreenCatch.mouseInput = inventoryinteraction;
+        mouseOnScreenCatch.selectedItemGrid = inventoryinteraction;
         Debug.Log("mouse enter inventory!");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouseOnScreenCatch.mouseInput = null;
+        mouseOnScreenCatch.selectedItemGrid = null;
         Debug.Log("mouse exit inventory!");
     }
 

@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class ScreenInputCatchInventory : MonoBehaviour
 {
-    public InventoryInteraction mouseInput;
+    public InventoryInteraction selectedItemGrid;
 
+    InventoryItem selectedItem;
 
     private void Update()
     {
-        if (mouseInput == null)
+        if (selectedItemGrid == null)
         {
             return;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(mouseInput.GetTileGridPosition(Input.mousePosition));
+            Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
+
+            if (selectedItem == null)
+            {
+                selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
+            }
+            else
+            {
+                selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y);
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ public class InventoryInteraction : MonoBehaviour
         Init(inventorySizeWidth, inventorySizeHight);
 
         InventoryItem inventoryItemDefault = Instantiate(defaultItemPrefab).GetComponent<InventoryItem>();
-        PlaceItem(inventoryItemDefault, 0, 0);
+        PlaceItem(inventoryItemDefault, 0, 1);
     }
 
     private void Init(int inventoryWidth, int inventoryHeight)
@@ -66,7 +66,7 @@ public class InventoryInteraction : MonoBehaviour
     public void PlaceItem(InventoryItem item, int posX, int posY)
     {
         RectTransform itemRectTransform = item.GetComponent<RectTransform>();
-        itemRectTransform.SetParent(itemRectTransform);
+        itemRectTransform.SetParent(this.rectTransform);
 
         inventoryitemSlot[posX, posY] = item;
 
@@ -75,5 +75,13 @@ public class InventoryInteraction : MonoBehaviour
         position.y = -posY * tileHeight + tileHeight / 2;
 
         itemRectTransform.localPosition = position;
+    }
+
+    public InventoryItem PickUpItem(int x, int y)
+    {
+        InventoryItem toReturn = inventoryitemSlot[x, y];
+        inventoryitemSlot[x, y] = null; 
+        
+        return toReturn;
     }
 }
