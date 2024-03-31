@@ -1,9 +1,5 @@
-using SerializableCallback;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public interface ElevatorState
 {
@@ -28,15 +24,15 @@ public class ElevatorMachine
 {
     public ElevatorState CurrentState { get; private set; }
 
-    public IdleState idleState;
-    public HoistState hoistState;
-    public LowerState lowerState;
+    public elevatorIdleState idleState;
+    public elevatorHoistState hoistState;
+    public elevatorLowerState lowerState;
 
     public ElevatorMachine(Elevator elevator)
     {
-        this.idleState = new IdleState(elevator);
-        this.hoistState = new HoistState(elevator);
-        this.lowerState = new LowerState(elevator);
+        this.idleState = new elevatorIdleState(elevator);
+        this.hoistState = new elevatorHoistState(elevator);
+        this.lowerState = new elevatorLowerState(elevator);
     }
 
     public void Initialize(ElevatorState startingState)
@@ -61,11 +57,11 @@ public class ElevatorMachine
     }
 }
 
-public class IdleState : ElevatorState
+public class elevatorIdleState : ElevatorState
 {
     private Elevator elevator;
 
-    public IdleState(Elevator elevator)
+    public elevatorIdleState(Elevator elevator)
     {
         this.elevator = elevator;
     }
@@ -86,11 +82,11 @@ public class IdleState : ElevatorState
     }
 }
 
-public class HoistState : ElevatorState
+public class elevatorHoistState : ElevatorState
 {
     private Elevator elevator;
 
-    public HoistState(Elevator elevator)
+    public elevatorHoistState(Elevator elevator)
     {
         this.elevator = elevator;
     }
@@ -126,11 +122,11 @@ public class HoistState : ElevatorState
     }
 }
 
-public class LowerState : ElevatorState
+public class elevatorLowerState : ElevatorState
 {
     private Elevator elevator;
 
-    public LowerState(Elevator elevator)
+    public elevatorLowerState(Elevator elevator)
     {
         this.elevator = elevator;
     }

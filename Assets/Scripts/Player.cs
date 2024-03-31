@@ -6,8 +6,10 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public PlayerMachine machine;
+
     // Dette er *ALTFOR* mange variablar. Me *MÅ* fjerne rørsleboolane xD
     [SerializeField] bool forwards;
     [SerializeField] bool backwards;
@@ -34,7 +36,11 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         GetInput();
+    }
 
+    private void FixedUpdate()
+    {
+        machine.Update();
         if (forwards || backwards || leftwards || rightwards)
             Move();
 

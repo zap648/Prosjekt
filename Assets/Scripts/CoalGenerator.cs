@@ -29,9 +29,12 @@ public class CoalGenerator : MonoBehaviour
         for (int i = 0; i < gruveGenerator.queue.Count; i++)
         {
             Cell currentCell = gruveGenerator.queue[i];
-            // If the current cell is the first cell, don't spawn coal in it
-            if (currentCell == gruveGenerator.queue.First())
+            // If the current cell is either an elevator or entrance room, don't spawn coal in it
+            if (currentCell.roomType == 1 ||
+                currentCell.roomType == 2)
+            {
                 continue;
+            }
 
             // Let's say around half of the room gets coal
             if (Random.value <= 0.50f)
@@ -46,9 +49,21 @@ public class CoalGenerator : MonoBehaviour
             Cell currentCell = gruveGenerator.queue[i];
             if (currentCell.coal == true)
             {
-                GameObject newCoal = Instantiate(coal, new Vector3(currentCell.coordinates[0] * gruveGenerator.offset.x, currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)), currentCell.coordinates[1] * gruveGenerator.offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform);
-                coals.Add(newCoal);
-                newCoal.name = $"Coal in ({currentCell.coordinates[0]},{currentCell.coordinates[1]},{currentCell.coordinates[2]})";
+                if (currentCell.roomType == 0)
+                {
+                    for (int j = 0; j < coalConsentration; j++)
+                    {
+                        GameObject newCoal = Instantiate(coal,
+                            new Vector3(
+                                currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2, gruveGenerator.offset.x / 2),
+                                currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
+                                currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2, gruveGenerator.offset.y / 2)),
+                            Quaternion.Euler(0.0f, 0.0f, 0.0f),
+                            transform);
+                        coals.Add(newCoal);
+                        newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
+                    }
+                }
             }
         }
 

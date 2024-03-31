@@ -18,11 +18,11 @@ public class GruveElevator : Elevator
         else
         {
             gate.SetActive(false);
-            OnBottom();
+            ReachedRoom();
         }
     }
 
-    private void OnBottom()
+    private void ReachedRoom()
     {
         cargo.Clear();
     }

@@ -8,7 +8,7 @@ public class Cell
 {
     public Cell(int xCoordinate, int yCoordinate, int zCoordinate) { coordinates = new int[3] { xCoordinate, yCoordinate, zCoordinate }; }
 
-    public int[] coordinates = new int[3];
+    public int[] coordinates = new int[3]; // 0 - x (c: left/right), 1 - z (c: forward/backward), 2 - y (c: up/down)
     public bool[] neighbour = new bool[4]; // 0 - up, 1 - right, 2 - down, 3 - left
     public int roomType = 0; // 0 - normal, 1 - elevator, 2 - access
     public bool elevator = false;
@@ -66,16 +66,9 @@ public class GruveGenerator : MonoBehaviour
                 NewFloor(queue.Last(), i);
             }
 
-            int whileCheck = 0;
             while (queue.Count() - 1 < maxRooms + maxRooms * i)
             {
                 SetupNeighbours(queue.Last(), i);
-
-                if (whileCheck > 100)
-                {
-                    Debug.Log("Endless loop detected! Breaking loop!");
-                    break;
-                }
             }
 
             if (queue.Count() < minRooms + minRooms * i)
