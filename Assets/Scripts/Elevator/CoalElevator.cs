@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class CoalBox : Elevator
+public class CoalElevator : Elevator
 {
     public GameObject lever;
     public int limit;
