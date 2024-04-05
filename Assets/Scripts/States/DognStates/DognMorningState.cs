@@ -8,6 +8,7 @@ public class DognMorningState : IDognState
     public override void Enter(DognStateMachine sm)
     {
         // home menu should be a start-up menu showing todays starting point
+        
         // get morning menu 
         // enable morning activities
         // set timer for mine to 15hrs
