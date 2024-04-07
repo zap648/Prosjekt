@@ -144,7 +144,6 @@ public class Player : MonoBehaviour
             mineObject.SetActive(false);
             coalMinable = false;
             mineObject = null;
-            coalMinable = false;
         }
         else if (bearable)
         {

@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gruveGenerator: {fileID: 1624844599}
   coalConsentration: 2
-  coal: {fileID: 3183904185152741226, guid: f4c07b9af5a635245814f5eb49644220, type: 3}
+  coal: {fileID: 7318734396587686513, guid: aef09c1066268bf43b82422698d7240a, type: 3}
   coals: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

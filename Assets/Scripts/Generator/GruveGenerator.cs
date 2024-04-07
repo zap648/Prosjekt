@@ -68,14 +68,9 @@ public class GruveGenerator : MonoBehaviour
                 NewFloor(queue.Last(), i);
             }
 
-            while (queue.Count() - 1 < maxRooms + maxRooms * i)
+            while (queue.Count() <= maxRooms + maxRooms * i)
             {
                 SetupNeighbours(queue.Last(), i);
-            }
-
-            if (queue.Count() < minRooms + minRooms * i)
-            {
-                GenerateDungeon();
             }
         }
 

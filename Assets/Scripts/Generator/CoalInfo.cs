@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CoalInfo : MonoBehaviour
 {
+    [SerializeField] bool mined;
     [SerializeField] int value;
 
     // Start is called before the first frame update
     void Start()
     {
+        mined = false;
         value = Random.Range(1, 4);
     }
 
