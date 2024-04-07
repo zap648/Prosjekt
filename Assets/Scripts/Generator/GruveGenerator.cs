@@ -68,10 +68,35 @@ public class GruveGenerator : MonoBehaviour
                 NewFloor(queue.Last(), i);
             }
 
-            while (queue.Count() <= maxRooms + maxRooms * i)
+            int queuePosition = 0;
+            for (int x = 0; x < queue.Count; x++)
             {
-                SetupNeighbours(queue.Last(), i);
+                if (queue[x].coordinates[2] == i)
+                {
+                    queuePosition = x;
+                    break;
+                }
             }
+
+            while (FloorCount(i) < minRooms)
+            {
+                for (int j = queuePosition; j < queue.Count; j++)
+                {
+                    SetupNeighbours(queue[j], i);
+
+                    if (FloorCount(i) >= maxRooms)
+                    {
+                        break;
+                    }
+                }
+
+                if (FloorCount(i) >= maxRooms)
+                {
+                    break;
+                }
+            }
+
+            Debug.Log($"There are {FloorCount(i)} rooms in floor {i}, which is more than {minRooms} and less than {maxRooms}");
         }
 
         //MergeCells();
@@ -143,6 +168,20 @@ public class GruveGenerator : MonoBehaviour
         queue.Add(new Cell(cell.coordinates[0], cell.coordinates[1], toFloor));
         queue.Last().roomType = 1;
         FindRoom(new int[] { queue.Last().coordinates[0], queue.Last().coordinates[1], queue.Last().coordinates[2] - 1 }).roomType = 2;
+    }
+
+    int FloorCount(int floor)
+    {
+        int count = 0;
+        for (int i = 0; i < queue.Count(); i++)
+        {
+            if (queue[i].coordinates[2] == floor)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     void MergeCells()

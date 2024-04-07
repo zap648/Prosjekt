@@ -1118,10 +1118,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 218891876774492812}
   - {fileID: 2603277254198664229}
   - {fileID: 1352310835475588211}
   - {fileID: 6464234137637759041}
-  - {fileID: 218891876774492812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5859300438335873719
@@ -1137,12 +1137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5670573716259967175}
+  - {fileID: 7142795392892519200}
+  - {fileID: 2646454837925332298}
+  - {fileID: 1537160950764603048}
   spawners:
-  - {fileID: 0}
+  - {fileID: 8861991819342580768}
 --- !u!1 &8432836970105832571
 GameObject:
   m_ObjectHideFlags: 0
