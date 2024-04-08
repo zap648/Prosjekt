@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
@@ -18,9 +19,12 @@ public class Cell
 public class GruveGenerator : MonoBehaviour
 {
     [Header("Room Prefabs")]
-    public GameObject roomPreFab;
-    public GameObject elevRoomPreFab;
-    public GameObject accRoomPreFab;
+    public List<GameObject> rooms;
+
+    [Header("Spawn Info")]
+    private RoomBehaviour spawnRoom;
+    private GruveElevator elevator;
+    private CoalElevator coalElevator;
 
     [Header("Room Info")]
     public int maxRooms;
@@ -34,8 +38,8 @@ public class GruveGenerator : MonoBehaviour
     public GameObject playerPreFab;
     public GameObject player;
 
-
-    private RoomBehaviour spawnRoom;
+    [Header("Game")]
+    public List<GameObject> coalInventory;
 
     void Awake()
     {
@@ -48,7 +52,9 @@ public class GruveGenerator : MonoBehaviour
 
         CreateRooms();
 
-        GruveElevator elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
+        elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
+        coalElevator = spawnRoom.GetComponentInChildren<CoalElevator>();
+
         elevator.transform.position = new Vector3(elevator.transform.position.x, elevator.topHeight, elevator.transform.position.z);
 
         player = Instantiate(playerPreFab);
@@ -57,6 +63,26 @@ public class GruveGenerator : MonoBehaviour
 
         elevator.cargo.Add(player);
         elevator.machine.TransitionTo(elevator.machine.lowerState);
+    }
+
+    private void Update()
+    {
+        if (coalElevator.atTop)
+        {
+            for (int i = 0; i < coalElevator.cargo.Count(); i++)
+            {
+                coalInventory.Add(coalElevator.cargo[i]);
+            }
+            Debug.Log($"Coal Inventory now has {coalInventory.Count} {coalInventory.Count()} coal");
+            
+            coalElevator.cargo.Clear();
+            coalElevator.machine.TransitionTo(coalElevator.machine.lowerState);
+        }
+
+        if (elevator.atTop)
+        {
+
+        }
     }
 
     void GenerateDungeon()
@@ -218,7 +244,7 @@ public class GruveGenerator : MonoBehaviour
 
     void CreateRooms()
     {
-        RoomBehaviour newRoom = Instantiate(elevRoomPreFab, new Vector3(queue[0].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+        RoomBehaviour newRoom = Instantiate(rooms[1], new Vector3(queue[0].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
         newRoom.UpdateRoom(queue[0].neighbour);
 
         newRoom.name = $"Spawn Room";
@@ -228,17 +254,17 @@ public class GruveGenerator : MonoBehaviour
         {
             if (queue[i].roomType == 0)
             {
-                newRoom = Instantiate(roomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[0], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             }
             else if (queue[i].roomType == 1)
             {
-                newRoom = Instantiate(elevRoomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[1], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
                 newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position = new Vector3(newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.x, newRoom.gameObject.GetComponentInChildren<GruveElevator>().topHeight, newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.z);
                 newRoom.gameObject.GetComponentInChildren<GruveElevator>().atTop = true;
             }
             else if (queue[i].roomType == 2)
             {
-                newRoom = Instantiate(accRoomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[2], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             }
             newRoom.UpdateRoom(queue[i].neighbour);
 
@@ -250,7 +276,8 @@ public class GruveGenerator : MonoBehaviour
     {
         if (coordinates.Length != 3)
         {
-            Debug.Log($"Coordinates are only {coordinates.Length} cells large, the function needs 3 cells");
+            Debug.Log($"Coordinates are only {coordinates.Length} cells large, the function requires 3 coordinates");
+            return false;
         }
 
         bool roomExists = false;

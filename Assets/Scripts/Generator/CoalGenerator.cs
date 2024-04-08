@@ -58,7 +58,7 @@ public class CoalGenerator : MonoBehaviour
                                 currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2 + 2, gruveGenerator.offset.x / 2 - 2),
                                 currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
                                 currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2 + 2, gruveGenerator.offset.y / 2 - 2)),
-                            Quaternion.Euler(0.0f, 0.0f, 0.0f),
+                            Quaternion.Euler(0.0f, 45.0f, 0.0f),
                             transform);
                         coals.Add(newCoal);
                         newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";

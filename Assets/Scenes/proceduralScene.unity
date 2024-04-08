@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca5836eed5744ab137f6d1621fce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPreFab: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
-  elevRoomPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
-  accRoomPreFab: {fileID: 8255810678556904589, guid: 1703a62e10fca8f4192502f8dd5efa7e, type: 3}
+  rooms:
+  - {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
+  - {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
+  - {fileID: 8255810678556904589, guid: 1703a62e10fca8f4192502f8dd5efa7e, type: 3}
   maxRooms: 20
   minRooms: 15
   neighbourChance: 15

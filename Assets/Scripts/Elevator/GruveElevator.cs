@@ -9,8 +9,6 @@ public class GruveElevator : Elevator
 
     private void Update()
     {
-        machine.Update();
-
         if (lowering || hoisting)
         {
             gate.SetActive(true);

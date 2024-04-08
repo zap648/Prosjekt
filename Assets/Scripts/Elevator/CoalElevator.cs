@@ -18,4 +18,16 @@ public class CoalElevator : Elevator
             cargo.Last().SetActive(true);
         }
     }
+
+    public void RemoveCoal(GameObject coal)
+    {
+        if (cargo.Count != 0)
+        {
+            cargo.Remove(coal);
+        }
+        else
+        {
+            Debug.Log("Coal elevator is empty!");
+        }
+    }
 }
