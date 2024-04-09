@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cell
 {
@@ -37,6 +35,7 @@ public class GruveGenerator : MonoBehaviour
     [Header("Player")]
     public GameObject playerPreFab;
     public GameObject player;
+    public Vector3 playerCoordinates;
 
     [Header("Game")]
     public List<GameObject> coalInventory;
@@ -67,6 +66,8 @@ public class GruveGenerator : MonoBehaviour
 
     private void Update()
     {
+        GetCoordinates();
+
         if (coalElevator.atTop)
         {
             for (int i = 0; i < coalElevator.cargo.Count(); i++)
@@ -81,7 +82,7 @@ public class GruveGenerator : MonoBehaviour
 
         if (elevator.atTop)
         {
-
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -328,5 +329,38 @@ public class GruveGenerator : MonoBehaviour
         }
 
         return room;
+    }
+
+    void GetCoordinates()
+    {
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        bool b_x = false;
+        bool b_y = false;
+        bool b_z = false;
+
+        while (b_x == false || b_y == false || b_z == false)
+        {
+            // if 12 is greater than (20 * 0 + 20 / 2) 10 and not less than (20 * 0 - 20 / 2) -10, x++. 
+            // if 12 is not greater than (20 * 1 + 20 / 2) 30 and not less than (20 * 1 - 20 / 2) 10, b_x = true.
+            // or
+            // if -12 is not greater than (20 * 0 + 20 / 2) 10 and less than (20 * 0 - 20 / 2) -10, x--.
+            // if -12 is not greater than (20 * -1 + 20 / 2) -10 and not less than (20 * -1 - 20 / 2) -30, b-x = true;
+            if (player.transform.position.x > offset.x * x + offset.x / 2) { x++; }
+            else if (player.transform.position.x < offset.x * x - offset.x / 2) { x--; }
+            else { b_x = true; }
+
+            if (player.transform.position.y > offset.y * y + offset.y / 2) { y++; }
+            else if (player.transform.position.y < offset.y * y - offset.y / 2) { y--; }
+            else { b_y = true; }
+
+            if (player.transform.position.z > offset.z * z + offset.z / 2) { z++; }
+            else if (player.transform.position.z < offset.z * z - offset.z / 2) { z--; }
+            else { b_z = true; }
+        }
+
+        playerCoordinates = new Vector3(x, y, z);
     }
 }

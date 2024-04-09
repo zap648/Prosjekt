@@ -175,10 +175,12 @@ MonoBehaviour:
   maxRooms: 20
   minRooms: 15
   neighbourChance: 15
-  floors: 3
+  floors: 60
   offset: {x: 20, y: 20, z: 20}
-  playerPreFab: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
+  playerPreFab: {fileID: 8592931449566348907, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
   player: {fileID: 0}
+  playerCoordinates: {x: 0, y: 0, z: 0}
+  coalInventory: []
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0
