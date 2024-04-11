@@ -15,6 +15,8 @@ public class CoalGenerator : MonoBehaviour
     [Tooltip("Coal info")]
     [SerializeField] GameObject coal;
     [SerializeField] public List<GameObject> coals = new List<GameObject>();
+    [SerializeField] int minValue;
+    [SerializeField] int maxValue;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,7 @@ public class CoalGenerator : MonoBehaviour
                             Quaternion.Euler(0.0f, 45.0f, 0.0f),
                             transform);
                         coals.Add(newCoal);
+                        newCoal.GetComponent<CoalInfo>().value = Random.Range(minValue, maxValue);
                         newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
                     }
                 }

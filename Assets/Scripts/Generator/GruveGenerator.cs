@@ -79,6 +79,7 @@ public class GruveGenerator : MonoBehaviour
             for (int i = 0; i < coalElevator.cargo.Count(); i++)
             {
                 coalInventory.Add(coalElevator.cargo[i]);
+                coalElevator.cargo[i].SetActive(false);
             }
             Debug.Log($"Coal Inventory now has {coalInventory.Count} {coalInventory.Count()} coal");
             
@@ -90,7 +91,8 @@ public class GruveGenerator : MonoBehaviour
         {
             for (int i = 0; i < coalInventory.Count(); i++)
             {
-                gameManager.coalInventory.Add(coalInventory[i]);
+                CoalInfo coalTemp = coalInventory[i].GetComponent<CoalInfo>();
+                gameManager.coalInventory.Add(coalTemp.value);
             }
             SceneManager.LoadScene(1);
         }

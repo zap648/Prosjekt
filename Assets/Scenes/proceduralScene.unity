@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coalInventory: []
+  caveFund: 0
 --- !u!4 &319433599
 Transform:
   m_ObjectHideFlags: 0
@@ -243,6 +244,8 @@ MonoBehaviour:
   coalConsentration: 2
   coal: {fileID: 7318734396587686513, guid: aef09c1066268bf43b82422698d7240a, type: 3}
   coals: []
+  minValue: 0
+  maxValue: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

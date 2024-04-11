@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class CoalInfo : MonoBehaviour
 {
-    [SerializeField] bool mined;
-    [SerializeField] int value;
+    [SerializeField] public bool mined;
+    [SerializeField] public int value;
+    
+    public CoalInfo(CoalInfo copy)
+    {
+        mined = copy.mined;
+        value = copy.value;
+    }
 
     // Start is called before the first frame update
     void Start()
