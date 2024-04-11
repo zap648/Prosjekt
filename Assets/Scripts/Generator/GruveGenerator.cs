@@ -38,10 +38,16 @@ public class GruveGenerator : MonoBehaviour
     public Vector3 playerCoordinates;
 
     [Header("Game")]
+    public GameManager gameManager;
     public List<GameObject> coalInventory;
 
     void Awake()
     {
+        if (gameManager != null)
+        {
+            DontDestroyOnLoad(gameManager.gameObject);
+        }
+
         queue = new List<Cell>
         {
             new Cell(0, 0, 0)
@@ -82,6 +88,10 @@ public class GruveGenerator : MonoBehaviour
 
         if (elevator.atTop)
         {
+            for (int i = 0; i < coalInventory.Count(); i++)
+            {
+                gameManager.coalInventory.Add(coalInventory[i]);
+            }
             SceneManager.LoadScene(1);
         }
     }
