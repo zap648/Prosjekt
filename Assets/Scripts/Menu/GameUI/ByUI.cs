@@ -28,21 +28,41 @@ public class ByUI : MonoBehaviour
 
     List<GameObject> List_PlacePanels;
 
-    // places to go on the map
+    //// places to go on the map
     [SerializeField] Button button_home;
     [SerializeField] Button button_market;
     [SerializeField] Button button_church;
     [SerializeField] Button button_trader;
     [SerializeField] Button button_mine;
+
     // activities at the market (may be active if market is active)
     [SerializeField] Button button_market_recruitmentInn;
     [SerializeField] Button button_market_pub;
     [SerializeField] Button button_market_park;
     [SerializeField] Button button_market_baker;
+    
     // activities at the church (may be active if church is active)
     [SerializeField] Button button_church_ceremony;
     [SerializeField] Button button_church_cemeteray;
     [SerializeField] Button button_church_confession;
+
+    /*
+    - home
+        - conclude day (every time of day)****
+    - town
+        - pub (evening)*
+        - market (morning, day)**
+        - recruitment (morning)*
+    - church
+        - ceremony (morning)*
+        - confession (morning, day, evening)***
+        - cemetary (every time of day)****
+    - trader
+        - store (morning, day, evening)***
+    - mine 8
+        - work in mine (morning, day, evening)***
+        - manage mining team (morning, day, evening)***
+     */
 
     private void Start()
     {
