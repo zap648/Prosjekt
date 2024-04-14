@@ -18,6 +18,7 @@ public class DognStateMachine : MonoBehaviour
     [SerializeField] public ByUI byUI;
 
     public int mineClock = 0;
+    public int _activityCounter;
 
     private void Start()
     {

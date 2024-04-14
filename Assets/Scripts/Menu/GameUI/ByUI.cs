@@ -21,6 +21,9 @@ public class ByUI : MonoBehaviour
 
     [SerializeField] public GameObject ActivityPanel;
     [SerializeField] public GameObject ActivityBoardPanel;
+    [SerializeField] public GameObject ActivityIllustrationPanel;
+    [SerializeField] public GameObject ConclusionPanel;
+    [SerializeField] public GameObject InformationPanel;
     [SerializeField] public GameObject HomePanel;
     [SerializeField] public GameObject TraderPanel;
     [SerializeField] public GameObject MarketPanel;
@@ -38,7 +41,13 @@ public class ByUI : MonoBehaviour
 
     // activities at home
     [SerializeField] Button button_home_visitHome;
+    private Image _visitHome; // information about visiting home
+    private Image _visitHome_ill; // illustation about visiting home
+    private Image _visitHome_conc; // conclusion about visiting home
     [SerializeField] Button button_home_concludeDay;
+    private Image _concludeDay; // information about concluding day
+    private Image _concludeDay_ill; // illustation about concluding day
+    private Image _concludeDay_conc; // conclusion about concluding day
 
     // activities at the market (may be active if market is active)
     [SerializeField] Button button_market_recruitmentInn;
@@ -100,6 +109,22 @@ public class ByUI : MonoBehaviour
                 _time = 0.1f;
             }
         }
+
+        if (_declineAccept != 0)
+        {
+            resultDeclineAccept();
+        }
+    }
+    // method to activate when an activity is chosen AND it is delined/accepted
+    void resultDeclineAccept()
+    {
+        if (_declineAccept == 1)
+        {
+            _declineAccept = 0;
+        }
+
+        // correct panels has to be activated with the 'current' information/images/similar
+        // when this is done, _declineAccept must be set back to 0;
     }
 
     // add panels to management
@@ -396,12 +421,38 @@ public class ByUI : MonoBehaviour
             // MinePanel.SetActive(false);
         }
     }
-    
+
     // when clicking one of the Activity Buttons, the appropriate activity Meny should be activated
     // de/activate board
     // de/activate check and exit button
     // trigger animation/picture to play when appropriate
     // counter (when two has been added - we need to change state (send message to statemachine)
+    private int _declineAccept = 0;
+    private void AcceptButton()
+    {
+        // add to counter
+        sm._activityCounter++;
+        // remove listeners
+        RemoveAcceptDeclineListeners();
+
+        _declineAccept = 2;
+    }
+    private void DeclineButton()
+    {
+        // remove listeners
+        RemoveAcceptDeclineListeners();
+        // remove board
+        ActivityBoardPanel.SetActive(false);
+
+        _declineAccept = 1;
+    }
+
+    private void RemoveAcceptDeclineListeners()
+    {
+        // remove listeners
+        accept_button.onClick.RemoveListener(AcceptButton);
+        decline_button.onClick.RemoveListener(DeclineButton);
+    }
 
     public void Activity_Home_ConcludeDay() 
     {
@@ -410,7 +461,12 @@ public class ByUI : MonoBehaviour
             ActivityBoardPanel.SetActive(true);
         }
 
+        accept_button.onClick.AddListener(AcceptButton);
+        decline_button.onClick.AddListener(DeclineButton);
 
+        // add correct information meta 
+        // add correct illustration image
+        // add correct conclusion panel
 
     }
     public void Activity_Home_VisitHome() { }

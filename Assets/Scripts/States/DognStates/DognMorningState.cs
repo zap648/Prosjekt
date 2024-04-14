@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DognMorningState : IDognState
 {
-    int counter = 0;
     // always enter this stateon start of 'round'
     public override void Enter(DognStateMachine sm)
     {
@@ -15,12 +14,14 @@ public class DognMorningState : IDognState
         sm.byUI.ActivateCorrectActivities(sm.currentState);
         // set timer for mine to 15hrs
         sm.mineClock = 15;
+        // dogncounter
+        sm._activityCounter = 0;
     }
     public override void Update(DognStateMachine sm)
     {
         // condition counter
         // if condition is met, Exit this state
-        if (counter == 2) 
+        if (sm._activityCounter == 2) 
         {
             // Exit(sm);
         }
