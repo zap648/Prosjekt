@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class DognStateMachine : MonoBehaviour
 {
-    IDognState currentState;
+    public IDognState currentState;
     public DognMorningState smMorning = new DognMorningState(); 
     public DognMiddayState smMidday = new DognMiddayState(); 
     public DognEveningState smEvening = new DognEveningState(); 
-    public DognNightState smNightg = new DognNightState(); 
+    public DognNightState smNightg = new DognNightState();
+
+    [SerializeField] public GameObject morning;
+    [SerializeField] public GameObject midday;
+    [SerializeField] public GameObject evening;
+    [SerializeField] public GameObject night;
+
+    [SerializeField] public ByUI byUI;
+
+    public int mineClock = 0;
 
     private void Start()
     {
