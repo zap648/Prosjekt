@@ -58,6 +58,10 @@ public class ByUI : MonoBehaviour
     [SerializeField] Button button_mine_manageMiners;
     [SerializeField] Button button_mine_goWorkMine;
 
+    // information buttons
+    [SerializeField] Button accept_button;
+    [SerializeField] Button decline_button;
+
     /*
     - home
         - conclude day (every time of day)****
@@ -399,7 +403,16 @@ public class ByUI : MonoBehaviour
     // trigger animation/picture to play when appropriate
     // counter (when two has been added - we need to change state (send message to statemachine)
 
-    public void Activity_Home_ConcludeDay() { }
+    public void Activity_Home_ConcludeDay() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+        }
+
+
+
+    }
     public void Activity_Home_VisitHome() { }
     public void Activity_Market_Recruitment() { }
     public void Activity_Market_Baker() { }
