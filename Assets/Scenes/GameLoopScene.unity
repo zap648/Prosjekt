@@ -3543,7 +3543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &820066363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4883,6 +4883,8 @@ MonoBehaviour:
   button_mine_goWorkMine: {fileID: 1043768311}
   accept_button: {fileID: 500971895}
   decline_button: {fileID: 1348391209}
+  _declineAccept: 0
+  _activitiesDone: 0
 --- !u!4 &988428419
 Transform:
   m_ObjectHideFlags: 0
