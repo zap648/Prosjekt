@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -429,6 +430,7 @@ public class ByUI : MonoBehaviour
     // counter (when two has been added - we need to change state (send message to statemachine)
     [SerializeField] private int _declineAccept = 0;
     [SerializeField] private int _activitiesDone = 0;
+    private event Action DeclineAccept_Button;
     private void AcceptButton()
     {
         // add to counter
@@ -437,6 +439,7 @@ public class ByUI : MonoBehaviour
         RemoveAcceptDeclineListeners();
 
         _declineAccept = 2;
+        DeclineAccept_Button?.Invoke();
     }
     private void DeclineButton()
     {
@@ -446,6 +449,7 @@ public class ByUI : MonoBehaviour
         ActivityBoardPanel.SetActive(false);
 
         _declineAccept = 1;
+        DeclineAccept_Button?.Invoke();
     }
     private void RemoveAcceptDeclineListeners()
     {
@@ -472,32 +476,14 @@ public class ByUI : MonoBehaviour
         if (!ActivityBoardPanel.activeSelf)
         {
             ActivityBoardPanel.SetActive(true);
+
+            DeclineAccept_Button += TestFoo;
+
             // add listeners
             accept_button.onClick.AddListener(AcceptButton);
             decline_button.onClick.AddListener(DeclineButton);
-        }
-
-        
-
-        if (_declineAccept == 1) // this isn't invoked because it isn't active when the button is pressed
-        {
-            if (ActivityBoardPanel.activeSelf)
-            {
-                ActivityBoardPanel.SetActive(false);
-            }
-            _declineAccept = 0;
-        }
-        else if (_declineAccept == 2)
-        {
-            _activitiesDone++;
-            Debug.Log("Illustration is now playing!");
-
-            _time = -1f;
-            b_startTimer = true;
-
-            Debug.Log("Conclusion panel is now in place!");
-        }
-        
+        }     
+            
         // add correct information meta 
         Debug.Log("Added Information to Board!");
         // add correct illustration image
@@ -506,6 +492,31 @@ public class ByUI : MonoBehaviour
         Debug.Log("Correct conclusion panel is available whenever!!");
 
         Debug.Log("Check with stat machine if we have to change states!");
+    }
+
+    private void TestFoo()
+    {
+        if (_declineAccept == 1) // this isn't invoked because it isn't active when the button is pressed
+        {
+            DeclineAccept_Button -= TestFoo;
+            if (ActivityBoardPanel.activeSelf)
+            {
+                ActivityBoardPanel.SetActive(false);
+            }
+            _declineAccept = 0;
+        }
+        else if (_declineAccept == 2)
+        {
+            DeclineAccept_Button -= TestFoo;
+            _activitiesDone++;
+            Debug.Log("Illustration is now playing!");
+
+            _time = -1f;
+            b_startTimer = true;
+
+            Debug.Log("Conclusion panel is now in place!");
+        }
+
     }
     public void Activity_Home_VisitHome() { }
     public void Activity_Market_Recruitment() { }
