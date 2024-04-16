@@ -487,6 +487,8 @@ public class ByUI : MonoBehaviour
             
         // add correct information meta 
         Debug.Log("Added Information to Board!");
+        Sprite InformationPic = InformationPanel.GetComponent<Sprite>();
+        InformationPic = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153.png");
         // add correct illustration image
         Debug.Log("Illustration is available whenever!!");
         // add correct conclusion panel
@@ -511,6 +513,7 @@ public class ByUI : MonoBehaviour
             //DeclineAccept_Button -= TestFoo;
             _activitiesDone++;
             Debug.Log("Illustration is now playing!");
+            InformationPanel.SetActive(true);
 
             _time = -1f;
             b_startTimer = true;
