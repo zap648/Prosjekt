@@ -2301,7 +2301,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: d26d9b736982156438eec2781ebe0bc5, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: GoHome (1)
@@ -2309,7 +2309,7 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 5fb5694ad503a4d4a959347556b49aee, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
@@ -3978,7 +3978,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: eb11767db42f8d04b959c46dbf6f1e79, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: GoHome
@@ -3986,11 +3986,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 602c8b472ec171b4cab0e4a3fb86d054, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: fc800689c7020f1479e026903951d93c, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
