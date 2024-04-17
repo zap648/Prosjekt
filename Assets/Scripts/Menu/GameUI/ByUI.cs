@@ -23,7 +23,7 @@ public class ByUI : MonoBehaviour
     [SerializeField] public GameObject ActivityPanel;
     [SerializeField] public GameObject ActivityBoardPanel;
     [SerializeField] public GameObject ActivityIllustrationPanel;
-    [SerializeField] public GameObject ConclusionPanel;
+    [SerializeField] public GameObject AcceptDeclineActivityPanel;
     [SerializeField] public GameObject InformationPanel;
     [SerializeField] public GameObject HomePanel;
     [SerializeField] public GameObject TraderPanel;
@@ -108,6 +108,15 @@ public class ByUI : MonoBehaviour
             {
                 b_startTimer = false;
                 _time = 0.1f;
+
+                if (ActivityIllustrationPanel.activeSelf)
+                {
+                    ActivityIllustrationPanel.SetActive(false);
+                }
+                if (ActivityBoardPanel.activeSelf)
+                {
+                    ActivityBoardPanel.SetActive(false);
+                }
             }
         }
 
@@ -471,7 +480,10 @@ public class ByUI : MonoBehaviour
 
     }
 
-
+    Image InformationPic;
+    Image IllustrationActivity;
+    Sprite informationPictureSprite;
+    Sprite illustrationSprite;
     public void Activity_Home_ConcludeDay() 
     {
         if (!ActivityBoardPanel.activeSelf)
@@ -485,14 +497,43 @@ public class ByUI : MonoBehaviour
             decline_button.onClick.AddListener(DeclineButton);
         }     
             
+        // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null )
+        {
+            Debug.Log("PICUTRE WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("sadness");
+        }
         Debug.Log("Added Information to Board!");
-        Sprite InformationPic = InformationPanel.GetComponent<Sprite>();
-        InformationPic = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153.png");
+
+
         // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("sadness");
+        }
         Debug.Log("Illustration is available whenever!!");
-        // add correct conclusion panel
-        Debug.Log("Correct conclusion panel is available whenever!!");
+        
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
 
         //Debug.Log("Check with stat machine if we have to change states!");
     }
@@ -510,15 +551,21 @@ public class ByUI : MonoBehaviour
         }
         else if (_declineAccept == 2)
         {
+            AcceptDeclineActivityPanel.SetActive(false);
+
             //DeclineAccept_Button -= TestFoo;
             _activitiesDone++;
+            
             Debug.Log("Illustration is now playing!");
-            InformationPanel.SetActive(true);
+            InformationPanel.SetActive(false);
+            ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
+            ActivityIllustrationPanel.SetActive(true);
 
             _time = -1f;
             b_startTimer = true;
 
-            Debug.Log("Conclusion panel is now in place!");
+            // No
+            // Debug.Log("Conclusion panel is now in place!");
         }
 
     }
