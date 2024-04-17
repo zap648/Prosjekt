@@ -4857,7 +4857,7 @@ MonoBehaviour:
   ActivityPanel: {fileID: 2111511773}
   ActivityBoardPanel: {fileID: 820066362}
   ActivityIllustrationPanel: {fileID: 990099187}
-  ConclusionPanel: {fileID: 1834654184}
+  AcceptDeclineActivityPanel: {fileID: 1202481683}
   InformationPanel: {fileID: 1490796772}
   HomePanel: {fileID: 261775583}
   TraderPanel: {fileID: 1377932127}

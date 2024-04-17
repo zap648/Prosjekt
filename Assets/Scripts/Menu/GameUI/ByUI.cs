@@ -42,13 +42,7 @@ public class ByUI : MonoBehaviour
 
     // activities at home
     [SerializeField] Button button_home_visitHome;
-    private Image _visitHome; // information about visiting home
-    private Image _visitHome_ill; // illustation about visiting home
-    private Image _visitHome_conc; // conclusion about visiting home
     [SerializeField] Button button_home_concludeDay;
-    private Image _concludeDay; // information about concluding day
-    private Image _concludeDay_ill; // illustation about concluding day
-    private Image _concludeDay_conc; // conclusion about concluding day
 
     // activities at the market (may be active if market is active)
     [SerializeField] Button button_market_recruitmentInn;
@@ -71,6 +65,18 @@ public class ByUI : MonoBehaviour
     // information buttons
     [SerializeField] Button accept_button;
     [SerializeField] Button decline_button;
+
+    // reusable information for panels
+    // INFORMATION
+    Image InformationPic;
+    Sprite informationPictureSprite;
+    // ILLUSTRATION - sprite
+    Sprite illustrationSprite;
+    Image IllustrationActivity;
+
+    // info about amount of activities and if they are accepted or not
+    [SerializeField] private int _declineAccept = 0;
+    [SerializeField] private int _activitiesDone = 0;
 
     /*
     - home
@@ -97,7 +103,6 @@ public class ByUI : MonoBehaviour
         List_PlacePanels = new List<GameObject>();
         AddPanels();
     }
-
     private void Update()
     {
         if(b_startTimer)
@@ -115,7 +120,7 @@ public class ByUI : MonoBehaviour
                 }
                 if (ActivityBoardPanel.activeSelf)
                 {
-                    ActivityBoardPanel.SetActive(false);
+                    RemoveActivityBoard();
                 }
             }
         }
@@ -125,6 +130,7 @@ public class ByUI : MonoBehaviour
             resultDeclineAccept();
         }
     }
+
     // method to activate when an activity is chosen AND it is delined/accepted
     void resultDeclineAccept()
     {
@@ -136,7 +142,6 @@ public class ByUI : MonoBehaviour
         // correct panels has to be activated with the 'current' information/images/similar
         // when this is done, _declineAccept must be set back to 0;
     }
-
     // add panels to management
     private void AddPanels()
     {
@@ -146,7 +151,6 @@ public class ByUI : MonoBehaviour
         List_PlacePanels.Add(HomePanel);
         List_PlacePanels.Add(MarketPanel);
     }
-
     // activate and deactivate listeners (handled by the IDognState s
     public void ActivateCorrectActivities(IDognState currentState)
     {
@@ -324,8 +328,96 @@ public class ByUI : MonoBehaviour
             Debug.Log("(deactivate) if-statement couldn't find the current state of  DognStateMachine.cs");
         }
     }
+    
 
-    // when clicking one of the Place Buttons, the Activity Menu should be activated
+    // when clicking one of the Activity Buttons, the appropriate activity Meny should be activated
+    // de/activate board
+    // de/activate check and exit button
+    // trigger animation/picture to play when appropriate
+    // counter (when two has been added - we need to change state (send message to statemachine)
+
+    private void AcceptButton()
+    {
+        // add to counter
+        sm._activityCounter++; // should inform state machine control.cs
+        // remove listeners
+        RemoveAcceptDeclineListeners();
+
+        _declineAccept = 2;
+        //DeclineAccept_Button?.Invoke();
+        TestFoo();
+    }
+    private void DeclineButton()
+    {
+        // remove listeners
+        RemoveAcceptDeclineListeners();
+        // remove board
+        ActivityBoardPanel.SetActive(false);
+
+        _declineAccept = 1;
+        //DeclineAccept_Button?.Invoke();
+    }
+    private void RemoveAcceptDeclineListeners()
+    {
+        // remove listeners
+        accept_button.onClick.RemoveListener(AcceptButton);
+        decline_button.onClick.RemoveListener(DeclineButton);
+    }
+    private void PlaceInformation()
+    {
+
+    }
+    private void PlaceIllustration()
+    {
+
+    }
+    private void PlaceConclusion()
+    {
+
+    }
+    private void TestFoo()
+    {
+        if (_declineAccept == 1) 
+        {
+            RemoveActivityBoard();
+            _declineAccept = 0;
+        }
+        else if (_declineAccept == 2)
+        {
+            AcceptDeclineActivityPanel.SetActive(false);
+
+            _activitiesDone++;
+
+            Debug.Log("Illustration is now playing!");
+            InformationPanel.SetActive(false);
+            ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
+            ActivityIllustrationPanel.SetActive(true);
+
+            _time = -100f;
+            b_startTimer = true;
+        }
+    }
+    private void RemoveActivityBoard()
+    {
+        if (ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(false);
+
+            if (!InformationPanel.activeSelf)
+            {
+                InformationPanel.SetActive(true);
+            }
+        }
+    }
+
+
+    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    ///    
+
+
+    /// <summary>
+    /// PLACES
+    /// </summary>
+
     public void GetHomeActivity()
     {
         if (!HomePanel.activeSelf && !b_startTimer)
@@ -344,6 +436,7 @@ public class ByUI : MonoBehaviour
             {
                 panel.SetActive(false);
             }
+            RemoveActivityBoard();
             // MinePanel.SetActive(false);
         }
     }
@@ -413,7 +506,7 @@ public class ByUI : MonoBehaviour
     public void GetMineActivity()
     {
         if (!MinePanel.activeSelf && !b_startTimer)
-        { 
+        {
             foreach (GameObject panel in List_PlacePanels)
             {
                 panel.SetActive(false);
@@ -422,7 +515,7 @@ public class ByUI : MonoBehaviour
             MinePanel.SetActive(true);
             b_startTimer = true;
         }
-        else if (MinePanel.activeSelf && !b_startTimer) 
+        else if (MinePanel.activeSelf && !b_startTimer)
         {
             foreach (GameObject panel in List_PlacePanels)
             {
@@ -432,65 +525,17 @@ public class ByUI : MonoBehaviour
         }
     }
 
-    // when clicking one of the Activity Buttons, the appropriate activity Meny should be activated
-    // de/activate board
-    // de/activate check and exit button
-    // trigger animation/picture to play when appropriate
-    // counter (when two has been added - we need to change state (send message to statemachine)
-    [SerializeField] private int _declineAccept = 0;
-    [SerializeField] private int _activitiesDone = 0;
-    // private event Action DeclineAccept_Button;
-    private void AcceptButton()
-    {
-        // add to counter
-        sm._activityCounter++;
-        // remove listeners
-        RemoveAcceptDeclineListeners();
 
-        _declineAccept = 2;
-        //DeclineAccept_Button?.Invoke();
-        TestFoo();
-    }
-    private void DeclineButton()
-    {
-        // remove listeners
-        RemoveAcceptDeclineListeners();
-        // remove board
-        ActivityBoardPanel.SetActive(false);
+    /// <summary>
+    /// ACTIVITIES
+    /// </summary>
 
-        _declineAccept = 1;
-        //DeclineAccept_Button?.Invoke();
-    }
-    private void RemoveAcceptDeclineListeners()
-    {
-        // remove listeners
-        accept_button.onClick.RemoveListener(AcceptButton);
-        decline_button.onClick.RemoveListener(DeclineButton);
-    }
-    private void PlaceInformation()
-    {
 
-    }
-    private void PlaceIllustration()
-    {
-
-    }
-    private void PlaceConclusion()
-    {
-
-    }
-
-    Image InformationPic;
-    Image IllustrationActivity;
-    Sprite informationPictureSprite;
-    Sprite illustrationSprite;
     public void Activity_Home_ConcludeDay() 
     {
         if (!ActivityBoardPanel.activeSelf)
         {
             ActivityBoardPanel.SetActive(true);
-
-            //DeclineAccept_Button += TestFoo;
 
             // add listeners
             accept_button.onClick.AddListener(AcceptButton);
@@ -502,11 +547,11 @@ public class ByUI : MonoBehaviour
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
         if (informationPictureSprite != null )
         {
-            Debug.Log("PICUTRE WAS FOUND");
+            Debug.Log("INFORMATION WAS FOUND");
         }
         else
         {
-            Debug.Log("sadness");
+            Debug.Log("INFO NOT FOUND");
         }
         Debug.Log("Added Information to Board!");
 
@@ -519,13 +564,15 @@ public class ByUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("sadness");
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
         }
         Debug.Log("Illustration is available whenever!!");
         
+        // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
         InformationPic.sprite = informationPictureSprite;
-
+        
+        // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
         {
             AcceptDeclineActivityPanel.SetActive(true);
@@ -534,50 +581,566 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
-
-        //Debug.Log("Check with stat machine if we have to change states!");
-    }
-
-    private void TestFoo()
+    }    
+    public void Activity_Home_VisitHome() 
     {
-        if (_declineAccept == 1) // this isn't invoked because it isn't active when the button is pressed
+        if (!ActivityBoardPanel.activeSelf)
         {
-            //DeclineAccept_Button -= TestFoo;
-            if (ActivityBoardPanel.activeSelf)
-            {
-                ActivityBoardPanel.SetActive(false);
-            }
-            _declineAccept = 0;
-        }
-        else if (_declineAccept == 2)
-        {
-            AcceptDeclineActivityPanel.SetActive(false);
+            ActivityBoardPanel.SetActive(true);
 
-            //DeclineAccept_Button -= TestFoo;
-            _activitiesDone++;
-            
-            Debug.Log("Illustration is now playing!");
-            InformationPanel.SetActive(false);
-            ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
-            ActivityIllustrationPanel.SetActive(true);
-
-            _time = -1f;
-            b_startTimer = true;
-
-            // No
-            // Debug.Log("Conclusion panel is now in place!");
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
         }
 
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
     }
-    public void Activity_Home_VisitHome() { }
-    public void Activity_Market_Recruitment() { }
-    public void Activity_Market_Baker() { }
-    public void Activity_Market_Park() { }
-    public void Activity_Market_Pub() { }
-    public void Activity_Church_Cemetary() { }
-    public void Activity_Church_Confession() { }
-    public void Activity_Church_Ceremony() { }
-    public void Activity_Trader_Trade() { }
-    public void Activity_Mine_WorkMine() { }
-    public void Activity_Mine_ManageMiners() { }
+    public void Activity_Market_Recruitment() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Market_Baker() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Market_Park() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Market_Pub() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Church_Cemetary() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Church_Confession() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Church_Ceremony() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Trader_Trade() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Mine_WorkMine() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
+    public void Activity_Mine_ManageMiners() 
+    {
+        if (!ActivityBoardPanel.activeSelf)
+        {
+            ActivityBoardPanel.SetActive(true);
+
+            // add listeners
+            accept_button.onClick.AddListener(AcceptButton);
+            decline_button.onClick.AddListener(DeclineButton);
+        }
+
+        // InformationPic = InformationPanel.GetComponent<Image>();
+        // add correct information meta 
+        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        if (informationPictureSprite != null)
+        {
+            Debug.Log("INFORMATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("INFO NOT FOUND");
+        }
+        Debug.Log("Added Information to Board!");
+
+
+        // add correct illustration image
+        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        if (illustrationSprite != null)
+        {
+            Debug.Log("ILLUSTRATION WAS FOUND");
+        }
+        else
+        {
+            Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        }
+        Debug.Log("Illustration is available whenever!!");
+
+        // setting information to panel
+        InformationPic = InformationPanel.GetComponent<Image>();
+        InformationPic.sprite = informationPictureSprite;
+
+        // make sure the yes/no panel is present!
+        if (!AcceptDeclineActivityPanel.activeSelf)
+        {
+            AcceptDeclineActivityPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Decline/accept panel was already on");
+        }
+    }
 }
