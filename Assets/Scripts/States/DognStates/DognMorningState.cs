@@ -13,7 +13,7 @@ public class DognMorningState : IDognState
         // enable morning activities/places (in ByUI)
         sm.byUI.ActivateCorrectActivities(sm.currentState);
         // set timer for mine to 15hrs
-        sm.mineClock = 15;
+        sm.mineClock = 12;
         // dogncounter
         sm._activityCounter = 0;
     }
@@ -23,13 +23,13 @@ public class DognMorningState : IDognState
         // if condition is met, Exit this state
         if (sm._activityCounter == 2) 
         {
-            // Exit(sm);
+            Exit(sm);
         }
     }
     public override void Exit(DognStateMachine sm)
     {
         // set timer to 9hrs
-        sm.mineClock = 9;
+        sm.mineClock = 8;
         // disable morning activities/places
         sm.byUI.DeactivateCorrectActivities(sm.currentState);
 

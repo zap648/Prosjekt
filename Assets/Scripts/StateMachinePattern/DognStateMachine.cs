@@ -8,7 +8,7 @@ public class DognStateMachine : MonoBehaviour
     public DognMorningState smMorning = new DognMorningState(); 
     public DognMiddayState smMidday = new DognMiddayState(); 
     public DognEveningState smEvening = new DognEveningState(); 
-    public DognNightState smNightg = new DognNightState();
+    public DognNightState smNight = new DognNightState();
 
     [SerializeField] public GameObject morning;
     [SerializeField] public GameObject midday;

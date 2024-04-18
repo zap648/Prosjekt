@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 // using UnityEngine.UIElements;
@@ -13,6 +14,7 @@ public class ByUI : MonoBehaviour
 {
     // ref to DayCycle and allowed places and activities
     public DognStateMachine sm;
+    [SerializeField] public int days = 1;
     public int AllowedPlaces;
     public int AllowedActivities;
 
@@ -30,7 +32,7 @@ public class ByUI : MonoBehaviour
     [SerializeField] public GameObject MarketPanel;
     [SerializeField] public GameObject ChurchPanel;
     [SerializeField] public GameObject MinePanel;
-
+    [SerializeField] GameObject DayCounterPanel;
     List<GameObject> List_PlacePanels;
 
     //// places to go on the map
@@ -225,7 +227,7 @@ public class ByUI : MonoBehaviour
             button_mine_goWorkMine.onClick.AddListener(Activity_Mine_WorkMine);
 
         }
-        else if(currentState == sm.smNightg)
+        else if(currentState == sm.smNight)
         {
             // only church and home active
             button_home.onClick.AddListener(GetHomeActivity);
@@ -312,7 +314,7 @@ public class ByUI : MonoBehaviour
             button_mine_manageMiners.onClick.RemoveListener(Activity_Mine_ManageMiners);
             button_mine_goWorkMine.onClick.RemoveListener(Activity_Mine_WorkMine);
         }
-        else if (currentState == sm.smNightg)
+        else if (currentState == sm.smNight)
         {
             // all places deactivated
             button_home.onClick.RemoveListener(GetHomeActivity);
@@ -329,7 +331,14 @@ public class ByUI : MonoBehaviour
         }
     }
     
+    public void UpdateDayCounter()
+    {
+        TMP_Text daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
 
+        daycounter.SetText(days.ToString()); // gave nullref
+
+
+    }
     // when clicking one of the Activity Buttons, the appropriate activity Meny should be activated
     // de/activate board
     // de/activate check and exit button

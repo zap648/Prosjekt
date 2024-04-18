@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class DognNightState : IDognState
@@ -8,8 +9,10 @@ public class DognNightState : IDognState
     {
         // get night menu 
         // enable night activities
-        sm.byUI.button_home.onClick.AddListener(sm.byUI.GetHomeActivity);
-        sm.byUI.button_church.onClick.AddListener(sm.byUI.GetChurchActivity);
+        sm.night.SetActive(true);
+        sm.byUI.ActivateCorrectActivities(sm.currentState);
+        sm.mineClock = 0;
+        sm._activityCounter = 0;
         // set timer for mine to 0hrs
     }
     public override void Update(DognStateMachine sm)
@@ -17,13 +20,28 @@ public class DognNightState : IDognState
         // condition counter
 
         // if condition is met, Exit this state
+        if (sm._activityCounter == 2)
+        {
+            Exit(sm);
+        }
     }
     public override void Exit(DognStateMachine sm)
     {
         // set timer to 0hrs
         // disable night activities
-        sm.byUI.button_home.onClick.RemoveListener(sm.byUI.GetHomeActivity);
-        sm.byUI.button_church.onClick.RemoveListener(sm.byUI.GetChurchActivity);
-        // close down night menu
+        sm.mineClock = 0;
+        // disable morning activities/places
+        sm.byUI.DeactivateCorrectActivities(sm.currentState);
+
+        // close down morning menu
+        sm.night.SetActive(false);
+        // switch states
+        
+        // update day-count and the panel with visible tracking
+        sm.byUI.days++;
+        sm.byUI.UpdateDayCounter();
+
+        // switch to morning state
+        sm.SwitchState(sm.smMorning);
     }
 }

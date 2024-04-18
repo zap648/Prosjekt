@@ -8,11 +8,10 @@ public class DognEveningState : IDognState
     {
         // get evening menu 
         // enable evening activities
-        sm.byUI.button_home.onClick.AddListener(sm.byUI.GetHomeActivity);
-        sm.byUI.button_market.onClick.AddListener(sm.byUI.GetMarketActivity);
-        sm.byUI.button_church.onClick.AddListener(sm.byUI.GetChurchActivity);
-        sm.byUI.button_trader.onClick.AddListener(sm.byUI.GetTraderActivity);
-        sm.byUI.button_mine.onClick.AddListener(sm.byUI.GetMineActivity);
+        sm.evening.SetActive(true);
+        sm.byUI.ActivateCorrectActivities(sm.currentState);
+        sm.mineClock = 4;
+        sm._activityCounter = 0;
         // set timer for mine to 3hrs
     }
     public override void Update(DognStateMachine sm)
@@ -20,17 +19,23 @@ public class DognEveningState : IDognState
         // condition counter
 
         // if condition is met, Exit this state
+        if (sm._activityCounter == 2)
+        {
+            Exit(sm);
+        }
     }
     public override void Exit(DognStateMachine sm)
     {
         // set timer to 0hrs
         // disable evening activities
-        sm.byUI.button_home.onClick.RemoveListener(sm.byUI.GetHomeActivity);
-        sm.byUI.button_market.onClick.RemoveListener(sm.byUI.GetMarketActivity);
-        sm.byUI.button_church.onClick.RemoveListener(sm.byUI.GetChurchActivity);
-        sm.byUI.button_trader.onClick.RemoveListener(sm.byUI.GetTraderActivity);
-        sm.byUI.button_mine.onClick.RemoveListener(sm.byUI.GetMineActivity);
+        sm.mineClock = 0;
+        // disable morning activities/places
+        sm.byUI.DeactivateCorrectActivities(sm.currentState);
 
+        // close down morning menu
+        sm.evening.SetActive(false);
+        // switch states
+        sm.SwitchState(sm.smNight);
         // close down evening menu
     }
 }
