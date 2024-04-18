@@ -348,10 +348,12 @@ public class ByUI : MonoBehaviour
         sm._activityCounter++; // should inform state machine control.cs
         // remove listeners
         RemoveAcceptDeclineListeners();
-
         _declineAccept = 2;
         //DeclineAccept_Button?.Invoke();
         TestFoo();
+
+        // if accepted, and this activity require a Random Roll, then the result should be displayed,
+        // and accounted for as a consequence during the day
     }
     private void DeclineButton()
     {
@@ -368,18 +370,6 @@ public class ByUI : MonoBehaviour
         // remove listeners
         accept_button.onClick.RemoveListener(AcceptButton);
         decline_button.onClick.RemoveListener(DeclineButton);
-    }
-    private void PlaceInformation()
-    {
-
-    }
-    private void PlaceIllustration()
-    {
-
-    }
-    private void PlaceConclusion()
-    {
-
     }
     private void TestFoo()
     {
