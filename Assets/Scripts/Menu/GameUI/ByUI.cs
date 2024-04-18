@@ -330,7 +330,6 @@ public class ByUI : MonoBehaviour
             Debug.Log("(deactivate) if-statement couldn't find the current state of  DognStateMachine.cs");
         }
     }
-    
     public void UpdateDayCounter()
     {
         TMP_Text daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
