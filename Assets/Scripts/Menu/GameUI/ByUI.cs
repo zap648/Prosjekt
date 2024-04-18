@@ -51,7 +51,6 @@ public class ByUI : MonoBehaviour
     // activities at the market (may be active if market is active)
     [SerializeField] Button button_market_recruitmentInn;
     [SerializeField] Button button_market_pub;
-    [SerializeField] Button button_market_park;
     [SerializeField] Button button_market_baker;
     
     // activities at the church (may be active if church is active)
@@ -196,8 +195,6 @@ public class ByUI : MonoBehaviour
             button_home_visitHome.onClick.AddListener(Activity_Home_VisitHome);
             button_home_concludeDay.onClick.AddListener(Activity_Home_ConcludeDay);
 
-            button_market_park.onClick.AddListener(Activity_Market_Park);
-
             button_church_cemeteray.onClick.AddListener(Activity_Church_Cemetary);
             button_church_confession.onClick.AddListener(Activity_Church_Confession);
 
@@ -283,8 +280,6 @@ public class ByUI : MonoBehaviour
             // midday activities deactivated
             button_home_visitHome.onClick.RemoveListener(Activity_Home_VisitHome);
             button_home_concludeDay.onClick.RemoveListener(Activity_Home_ConcludeDay);
-
-            button_market_park.onClick.RemoveListener(Activity_Market_Park);
 
             button_church_cemeteray.onClick.RemoveListener(Activity_Church_Cemetary);
             button_church_confession.onClick.RemoveListener(Activity_Church_Confession);
@@ -749,59 +744,6 @@ public class ByUI : MonoBehaviour
 
         int returnForRoll = menuActivity.RollFor(2);
         Debug.Log("Went to the baker and rolled: " + returnForRoll);
-    }
-    public void Activity_Market_Park() 
-    {
-        if (!ActivityBoardPanel.activeSelf)
-        {
-            ActivityBoardPanel.SetActive(true);
-
-            // add listeners
-            accept_button.onClick.AddListener(AcceptButton);
-            decline_button.onClick.AddListener(DeclineButton);
-        }
-
-        // InformationPic = InformationPanel.GetComponent<Image>();
-        // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        //if (informationPictureSprite != null)
-        //{
-        //    Debug.Log("INFORMATION WAS FOUND");
-        //}
-        //else
-        //{
-        //    Debug.Log("INFO NOT FOUND");
-        //}
-        //Debug.Log("Added Information to Board!");
-
-
-        // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        //if (illustrationSprite != null)
-        //{
-        //    Debug.Log("ILLUSTRATION WAS FOUND");
-        //}
-        //else
-        //{
-        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        //}
-        //Debug.Log("Illustration is available whenever!!");
-
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
-
-        // make sure the yes/no panel is present!
-        if (!AcceptDeclineActivityPanel.activeSelf)
-        {
-            AcceptDeclineActivityPanel.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("Decline/accept panel was already on");
-        }
-        int returnForRoll = menuActivity.RollFor(4);
-        Debug.Log("Saw people at the park and rolled: " + returnForRoll);
     }
     public void Activity_Market_Pub() 
     {
