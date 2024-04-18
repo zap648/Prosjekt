@@ -842,7 +842,6 @@ RectTransform:
   - {fileID: 412792713}
   - {fileID: 1254754739}
   - {fileID: 1961899980}
-  - {fileID: 934766096}
   m_Father: {fileID: 382994960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4819,135 +4818,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924652036}
   m_CullTransparentMesh: 1
---- !u!1001 &934766095
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 163631195}
-    m_Modifications:
-    - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
-    - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_Name
-      value: Park
-      objectReference: {fileID: 0}
-    - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_SpriteState.m_PressedSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
-    - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_SpriteState.m_DisabledSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -477.1391
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -188
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117013800382093868, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-      propertyPath: m_Name
-      value: VisitPark
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
---- !u!224 &934766096 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-  m_PrefabInstance: {fileID: 934766095}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &934766097 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
-  m_PrefabInstance: {fileID: 934766095}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &967700107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5046,7 +4916,7 @@ MonoBehaviour:
   button_home_concludeDay: {fileID: 1979961502}
   button_market_recruitmentInn: {fileID: 1997435744}
   button_market_pub: {fileID: 1860240564}
-  button_market_park: {fileID: 934766097}
+  button_market_park: {fileID: 0}
   button_market_baker: {fileID: 813784721}
   button_church_ceremony: {fileID: 184926613}
   button_church_cemeteray: {fileID: 1567023710}
@@ -5417,7 +5287,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 939711f800d1be94eaf9f0dbf7184d8c, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: Market
@@ -5425,11 +5295,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: ce24afcfe3f1646408d44230ece22e40, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 46e3c4bc61e5b3f498fccd1e9e90d8b0, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5986,7 +5856,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: be7185f866f1f304da40f9a6b4ae778c, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: MiningTeam
@@ -5994,11 +5864,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 583bd614a08b56446b6b7cf7509fc83b, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: ab769969ad3a34842890ab072cf9af43, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6492,7 +6362,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 76c44f9d1593015489c12f3935392875, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: Confession
@@ -6500,11 +6370,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 664dada525036a04c8349b238f089a43, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: b8f67f95781937548a971a268226f9a6, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_SelectedSprite
       value: 
