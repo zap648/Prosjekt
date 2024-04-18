@@ -14,7 +14,10 @@ public class ByUI : MonoBehaviour
 {
     // ref to DayCycle and allowed places and activities
     public DognStateMachine sm;
+    Activities menuActivity;
+
     [SerializeField] public int days = 1;
+    
     public int AllowedPlaces;
     public int AllowedActivities;
 
