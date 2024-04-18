@@ -7934,11 +7934,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: f1b1cc8e965296c4387818e72bcdb6c4, type: 3}
+      objectReference: {fileID: 21300000, guid: 71fb2eb0a82224a46a6892a4a4d0625f, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 65bb8c026bfb3dd41bb494301e2e2d27, type: 3}
+      objectReference: {fileID: 21300000, guid: 345121db98403b744bc691a2761b1593, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
