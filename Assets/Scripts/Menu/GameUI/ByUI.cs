@@ -16,11 +16,10 @@ public class ByUI : MonoBehaviour
     public DognStateMachine sm;
     Activities menuActivity;
 
-    [SerializeField] public int days = 1;
-    
-    public int AllowedPlaces;
-    public int AllowedActivities;
+    public int chanceNr;
 
+    [SerializeField] public int days = 0;
+    
     // timer to make buttons unable to accept clicks
     private float _time = 0.1f;
     bool b_startTimer;
@@ -81,7 +80,6 @@ public class ByUI : MonoBehaviour
 
     // info about amount of activities and if they are accepted or not
     [SerializeField] private int _declineAccept = 0;
-    [SerializeField] private int _activitiesDone = 0;
 
     /*
     - home
@@ -105,6 +103,7 @@ public class ByUI : MonoBehaviour
 
     private void Start()
     {
+        menuActivity = GetComponent<Activities>();
         List_PlacePanels = new List<GameObject>();
         AddPanels();
     }
@@ -341,6 +340,7 @@ public class ByUI : MonoBehaviour
 
 
     }
+  
     // when clicking one of the Activity Buttons, the appropriate activity Meny should be activated
     // de/activate board
     // de/activate check and exit button
@@ -388,16 +388,14 @@ public class ByUI : MonoBehaviour
     }
     private void TestFoo()
     {
-        if (_declineAccept == 1) 
+        if (_declineAccept == 1) // declines activity
         {
             RemoveActivityBoard();
             _declineAccept = 0;
         }
-        else if (_declineAccept == 2)
+        else if (_declineAccept == 2) // accepts activity
         {
             AcceptDeclineActivityPanel.SetActive(false);
-
-            _activitiesDone++;
 
             Debug.Log("Illustration is now playing!");
             InformationPanel.SetActive(false);
@@ -556,28 +554,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null )
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null )
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
         
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -607,28 +605,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -643,6 +641,9 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+        int returnForRoll = menuActivity.RollFor(1);
+
+        Debug.Log("Visisted home and rolled: " + returnForRoll);
     }
     public void Activity_Market_Recruitment() 
     {
@@ -658,28 +659,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -709,28 +710,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -745,6 +746,9 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+
+        int returnForRoll = menuActivity.RollFor(2);
+        Debug.Log("Went to the baker and rolled: " + returnForRoll);
     }
     public void Activity_Market_Park() 
     {
@@ -760,28 +764,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -796,6 +800,8 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+        int returnForRoll = menuActivity.RollFor(4);
+        Debug.Log("Saw people at the park and rolled: " + returnForRoll);
     }
     public void Activity_Market_Pub() 
     {
@@ -811,28 +817,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -847,6 +853,10 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+
+        int returnForRoll = menuActivity.RollFor(4);
+
+        Debug.Log("Drank at the pub and rolled: " + returnForRoll);
     }
     public void Activity_Church_Cemetary() 
     {
@@ -862,28 +872,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -898,6 +908,10 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+
+        int returnForRoll = menuActivity.RollFor(3);
+
+        Debug.Log("Meditated at the cemetery and rolled: " + returnForRoll);
     }
     public void Activity_Church_Confession() 
     {
@@ -913,28 +927,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -949,6 +963,9 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+
+        int returnForRoll = menuActivity.RollFor(2);
+        Debug.Log("Confessed to the preacher and rolled: " + returnForRoll);
     }
     public void Activity_Church_Ceremony() 
     {
@@ -964,28 +981,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -1000,6 +1017,9 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
+
+        int returnForRoll = menuActivity.RollFor(4);
+        Debug.Log("Attended the morning service and rolled: " + returnForRoll);
     }
     public void Activity_Trader_Trade() 
     {
@@ -1015,28 +1035,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -1066,28 +1086,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
@@ -1117,28 +1137,28 @@ public class ByUI : MonoBehaviour
         // InformationPic = InformationPanel.GetComponent<Image>();
         // add correct information meta 
         informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
-        if (informationPictureSprite != null)
-        {
-            Debug.Log("INFORMATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("INFO NOT FOUND");
-        }
-        Debug.Log("Added Information to Board!");
+        //if (informationPictureSprite != null)
+        //{
+        //    Debug.Log("INFORMATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("INFO NOT FOUND");
+        //}
+        //Debug.Log("Added Information to Board!");
 
 
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
-        if (illustrationSprite != null)
-        {
-            Debug.Log("ILLUSTRATION WAS FOUND");
-        }
-        else
-        {
-            Debug.Log("ILLUSTRATION WAS NOT FOUND");
-        }
-        Debug.Log("Illustration is available whenever!!");
+        //if (illustrationSprite != null)
+        //{
+        //    Debug.Log("ILLUSTRATION WAS FOUND");
+        //}
+        //else
+        //{
+        //    Debug.Log("ILLUSTRATION WAS NOT FOUND");
+        //}
+        //Debug.Log("Illustration is available whenever!!");
 
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();

@@ -16,6 +16,10 @@ public class DognMorningState : IDognState
         sm.mineClock = 12;
         // dogncounter
         sm._activityCounter = 0;
+
+        // update day-count and the panel with visible tracking
+        sm.byUI.days++;
+        sm.byUI.UpdateDayCounter();
     }
     public override void Update(DognStateMachine sm)
     {

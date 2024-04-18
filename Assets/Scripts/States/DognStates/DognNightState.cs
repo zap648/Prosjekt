@@ -37,10 +37,6 @@ public class DognNightState : IDognState
         sm.night.SetActive(false);
         // switch states
         
-        // update day-count and the panel with visible tracking
-        sm.byUI.days++;
-        sm.byUI.UpdateDayCounter();
-
         // switch to morning state
         sm.SwitchState(sm.smMorning);
     }
