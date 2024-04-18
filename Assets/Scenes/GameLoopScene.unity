@@ -612,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 23ab5891bed8bcc4c91c0660a5327a0b, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: Recruitment
@@ -620,11 +620,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: f1b1cc8e965296c4387818e72bcdb6c4, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 65bb8c026bfb3dd41bb494301e2e2d27, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7926,7 +7926,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: b6a5b8b130657824888918e8670bcea7, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: Store
@@ -7934,11 +7934,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: f1b1cc8e965296c4387818e72bcdb6c4, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 65bb8c026bfb3dd41bb494301e2e2d27, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8187,7 +8187,7 @@ PrefabInstance:
     - target: {fileID: 3038874830396658204, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: c4dbfb56a9683e44389528df254c9e49, type: 3}
     - target: {fileID: 3615044557090188759, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Name
       value: Pub
@@ -8195,11 +8195,11 @@ PrefabInstance:
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 8832697c2f424f74183c760d6e4c5bd6, type: 3}
     - target: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cb95ff4f6ee84a42802a2d12210d894, type: 3}
+      objectReference: {fileID: 21300000, guid: 3a6c53570b3020c4c8b60f93b18d2c44, type: 3}
     - target: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
