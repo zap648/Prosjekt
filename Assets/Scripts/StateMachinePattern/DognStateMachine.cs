@@ -9,12 +9,14 @@ public class DognStateMachine : MonoBehaviour
     public DognMiddayState smMidday = new DognMiddayState(); 
     public DognEveningState smEvening = new DognEveningState(); 
     public DognNightState smNight = new DognNightState();
-
+    
+    // background images for city menu
     [SerializeField] public GameObject morning;
     [SerializeField] public GameObject midday;
     [SerializeField] public GameObject evening;
     [SerializeField] public GameObject night;
 
+    // ref. to GameObject with ByUI.cs
     [SerializeField] public ByUI byUI;
 
     public int mineClock = 0;
