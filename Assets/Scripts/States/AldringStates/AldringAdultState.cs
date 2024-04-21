@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AldringAdultState : MonoBehaviour
+public class AldringAdultState : IAldringState
 {
-    // Start is called before the first frame update
-    void Start()
+    // has 32 days
+    public int ageCounter;
+    public override void Enter(AldringStateMachine state)
     {
-        
+        ageCounter = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update(AldringStateMachine state)
     {
-        
+        if (ageCounter == 32)
+        {
+            Exit(state);
+        }
+    }
+
+    public override void Exit(AldringStateMachine state)
+    {
+        state.SwitchState(state.smOld);
+
     }
 }

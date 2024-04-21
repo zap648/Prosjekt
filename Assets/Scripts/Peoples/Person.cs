@@ -1,22 +1,23 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public enum GENDER
-{
-    FEMALE,
-    MALE
-};
-public enum AGE_STATE
-{
-    BABY,
-    CHILD,
-    TEEN,
-    YA,
-    ADULT,
-    OLD
-}
+[System.Serializable]
 public struct Person 
 {
+    public enum GENDER
+    {
+        FEMALE,
+        MALE
+    };
+    public enum AGE_STATE
+    {
+        BABY,
+        CHILD,
+        TEEN,
+        YA,
+        ADULT,
+        OLD
+    }
     // oldest possible age
     private int oldestAge;
     private void setOldest()
