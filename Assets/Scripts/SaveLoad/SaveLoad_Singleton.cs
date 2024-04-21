@@ -58,23 +58,25 @@ public class SaveLoad_Singleton : MonoBehaviour
         
         BinaryFormatter binaryConverter = new BinaryFormatter();
 
-        FileStream saveFilePath = File.Create(save_fileName + "/" + filename + ".bin");
+        FileStream saveFilePath = File.Create(save_fileName + "/" + "test4" + ".bin");
 
         binaryConverter.Serialize(saveFilePath, ThisThing);
 
         saveFilePath.Close();
     }
 
-    public void ReadFromFile(string filename)
+    public TestForSaveingStruct ReadFromFile(string filename)
     {
         BinaryFormatter binaryConverter = new BinaryFormatter();
 
-        FileStream saveFile = File.Open(save_fileName + "/" + filename + ".bin", FileMode.Open);
+        FileStream saveFile = File.Open(save_fileName + "/" + "test4" + ".bin", FileMode.Open);
 
         TestForSaveingStruct loadData = (TestForSaveingStruct) binaryConverter.Deserialize(saveFile);
 
         print(loadData.charName);
 
         saveFile.Close();
+
+        return loadData;
     }
 }
