@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoalInfo : MonoBehaviour
 {
     [SerializeField] public bool mined;
+    [SerializeField] public bool isCoal;
     [SerializeField] public int value;
     
     public CoalInfo(CoalInfo copy)
@@ -17,7 +18,14 @@ public class CoalInfo : MonoBehaviour
     void Start()
     {
         mined = false;
-        value = Random.Range(1, 4);
+        if (isCoal)
+        {
+            value = Random.Range(1, 4);
+        }
+        else
+        {
+            value = 0;
+        }
     }
 
     // Update is called once per frame
