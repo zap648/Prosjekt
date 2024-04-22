@@ -14,10 +14,11 @@ public class CoalInfo : MonoBehaviour
         value = copy.value;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called when the script instance is being loaded
+    void Awake()
     {
         mined = false;
+
         if (isCoal)
         {
             value = Random.Range(1, 4);
@@ -26,11 +27,5 @@ public class CoalInfo : MonoBehaviour
         {
             value = 0;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

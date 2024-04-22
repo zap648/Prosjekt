@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public int bank;
     public List<int> coalInventory;
 
     // Start is called before the first frame update
@@ -22,5 +25,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadScene(int sceneId)
+    {
+        SceneManager.LoadScene(sceneId);
+    }
+
+    void FillBank()
+    {
+        for (int i = 0; i < coalInventory.Count; i++)
+        {
+            bank += coalInventory[i];
+        }
+        coalInventory.Clear();
     }
 }

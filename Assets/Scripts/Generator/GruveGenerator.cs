@@ -94,7 +94,11 @@ public class GruveGenerator : MonoBehaviour
                 CoalInfo coalTemp = coalInventory[i].GetComponent<CoalInfo>();
                 gameManager.coalInventory.Add(coalTemp.value);
             }
-            SceneManager.LoadScene(1);
+            for (int i = 0; i < player.GetComponent<Player>().inventory.Count(); i++)
+            {
+
+            }
+            GameObject.Find("GameManager").GetComponent<GameManager>().LoadScene(1);
         }
     }
 

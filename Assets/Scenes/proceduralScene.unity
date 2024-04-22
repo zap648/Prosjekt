@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff01d26d6b1b2643b020f9bb5615d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coalInventory: []
-  caveFund: 0
+  bank: 0
+  coalInventory: 
 --- !u!4 &319433599
 Transform:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   maxRooms: 20
   minRooms: 15
   neighbourChance: 15
-  floors: 60
+  floors: 10
   offset: {x: 20, y: 20, z: 20}
   playerPreFab: {fileID: 8592931449566348907, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
   player: {fileID: 0}
@@ -241,14 +241,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gruveGenerator: {fileID: 1624844599}
-  coalConsentration: 2
+  coalConsentration: 20
   coal: {fileID: 7318734396587686513, guid: aef09c1066268bf43b82422698d7240a, type: 3}
+  rock: {fileID: 1963481344645369307, guid: f86882ba037e86d45964444499372f0e, type: 3}
   coals: []
-  minValue: 0
-  maxValue: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1624844598}
   - {fileID: 319433599}
+  - {fileID: 1624844598}
