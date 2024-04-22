@@ -9,6 +9,7 @@ public class AldringBabyState : IAldringState
     public override void Enter(AldringStateMachine state)
     {
         ageCounter = 0;
+        state.age = 0;
     }
     public override void Update(AldringStateMachine state)
     {

@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class CreatePerson : MonoBehaviour
 {
-    string filename;
     public TestForSaveingStruct testSave;
+    SaveLoad_Singleton saveLoad_Singleton;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        SaveLoad_Singleton saveLoad_Singleton = new SaveLoad_Singleton();
-        
-        if (saveLoad_Singleton == null)
-            filename = saveLoad_Singleton.save_fileName;
-
-        if (filename != null)
-           testSave = saveLoad_Singleton.ReadFromFile("test4");
+        saveLoad_Singleton = SaveLoad_Singleton.Instance;
     }
+
+    public string CreatePersonFOO()
+    {
+        if (saveLoad_Singleton != null)
+        {
+            testSave = saveLoad_Singleton.ReadFromFile("test4");
+            // Debug.Log("testSave is doneish");
+        }
+        else
+        {
+            Debug.Log("saveLoad_Singleton in CreatePerson was null");
+        }
+        string charName = testSave.charName;
+        return charName;
+    }
+
 
 
 }

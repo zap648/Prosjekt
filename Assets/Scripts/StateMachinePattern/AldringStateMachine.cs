@@ -12,8 +12,10 @@ public class AldringStateMachine : MonoBehaviour
     public AldringAdultState smAdult = new AldringAdultState();
     public AldringOldState smOld = new AldringOldState();
     
-    [SerializeField] public Person person;    
-    
+    [SerializeField] public Person person;
+
+    public int age;
+
     private void Start()
     {
         // get state from person struct

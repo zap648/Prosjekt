@@ -10,7 +10,6 @@ public class HomeMenuManager : MonoBehaviour
     [SerializeField] public GameObject SavingsPanel;
     [SerializeField] public GameObject PermitPanel;
 
-    string filename = "Test";
     CreatePerson createperson;
     void Start()
     {
@@ -24,7 +23,8 @@ public class HomeMenuManager : MonoBehaviour
         if (createperson != null)
         {
             // get the saved person list
-            Debug.Log(createperson.testSave.charName);
+            Debug.Log(createperson.CreatePersonFOO());
+            
         }
         else
         {
