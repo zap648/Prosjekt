@@ -1417,6 +1417,7 @@ GameObject:
   - component: {fileID: 1346457038}
   - component: {fileID: 1346457037}
   - component: {fileID: 1346457041}
+  - component: {fileID: 1346457042}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1524,6 +1525,20 @@ MonoBehaviour:
   ExpensePanel: {fileID: 1182744636}
   SavingsPanel: {fileID: 731256990}
   PermitPanel: {fileID: 1102639735}
+--- !u!114 &1346457042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346457036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ed271d2157f8f43b73e4842cdf7de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testSave:
+    charName: 
 --- !u!1 &1468301902
 GameObject:
   m_ObjectHideFlags: 0
