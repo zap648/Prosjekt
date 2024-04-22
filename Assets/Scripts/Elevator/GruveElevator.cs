@@ -9,8 +9,6 @@ public class GruveElevator : Elevator
 
     private void Update()
     {
-        machine.Update();
-
         if (lowering || hoisting)
         {
             gate.SetActive(true);
@@ -18,11 +16,11 @@ public class GruveElevator : Elevator
         else
         {
             gate.SetActive(false);
-            OnBottom();
+            ReachedRoom();
         }
     }
 
-    private void OnBottom()
+    private void ReachedRoom()
     {
         cargo.Clear();
     }

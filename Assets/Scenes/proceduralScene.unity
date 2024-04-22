@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &319433597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 319433599}
+  - component: {fileID: 319433598}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &319433598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319433597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff01d26d6b1b2643b020f9bb5615d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coalInventory: []
+  caveFund: 0
+--- !u!4 &319433599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319433597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624844596
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,16 +214,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca5836eed5744ab137f6d1621fce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPreFab: {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
-  elevRoomPreFab: {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
-  accRoomPreFab: {fileID: 8255810678556904589, guid: 1703a62e10fca8f4192502f8dd5efa7e, type: 3}
-  maxRooms: 10
-  minRooms: 3
+  rooms:
+  - {fileID: 9183864773060489421, guid: 3c010324af22b8e40a4dc4b14e4a9647, type: 3}
+  - {fileID: 2349143223898458738, guid: 5d700248dbdc28f448aef358fc04b4ae, type: 3}
+  - {fileID: 8255810678556904589, guid: 1703a62e10fca8f4192502f8dd5efa7e, type: 3}
+  maxRooms: 20
+  minRooms: 15
   neighbourChance: 15
-  floors: 10
+  floors: 60
   offset: {x: 20, y: 20, z: 20}
-  playerPreFab: {fileID: 2306699269173736842, guid: ad6d04e7bf47d7343a5853c9d8b86802, type: 3}
+  playerPreFab: {fileID: 8592931449566348907, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
   player: {fileID: 0}
+  playerCoordinates: {x: 0, y: 0, z: 0}
+  gameManager: {fileID: 319433598}
+  coalInventory: []
 --- !u!114 &1624844600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,11 +241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gruveGenerator: {fileID: 1624844599}
-  coalConsentration: 0
-  coal: {fileID: 3183904185152741226, guid: f4c07b9af5a635245814f5eb49644220, type: 3}
+  coalConsentration: 2
+  coal: {fileID: 7318734396587686513, guid: aef09c1066268bf43b82422698d7240a, type: 3}
   coals: []
+  minValue: 0
+  maxValue: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1624844598}
+  - {fileID: 319433599}

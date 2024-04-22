@@ -33,7 +33,7 @@ public class Elevator : MonoBehaviour
         machine.Initialize(machine.idleState);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         machine.Update();
     }

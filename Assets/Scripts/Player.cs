@@ -6,13 +6,11 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    // Dette er *ALTFOR* mange variablar. Me *MÅ* fjerne rørsleboolane xD
-    [SerializeField] bool forwards;
-    [SerializeField] bool backwards;
-    [SerializeField] bool leftwards;
-    [SerializeField] bool rightwards;
+    public PlayerMachine machine;
+
+    [SerializeField] bool[] move; // 0 - forwards, 1 - backwards, 2 - right, 3 - left
     [SerializeField] bool mine;
 
     [SerializeField] bool coalMinable;
@@ -25,81 +23,119 @@ public class PlayerMove : MonoBehaviour
     public int[] coordinates;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        move = new bool[4];
         inventory = new List<GameObject>();
+        machine = new PlayerMachine(this);
     }
 
     // Update is called once per frame
     void Update()
     {
         GetInput();
+    }
 
-        if (forwards || backwards || leftwards || rightwards)
-            Move();
-
-        if (mine)
-            Mine();
+    private void FixedUpdate()
+    {
+        machine.Update();
     }
 
     void GetInput()
     {
         // Good lord this input code is awful
-        if (Input.GetKeyDown(KeyCode.W)) { forwards = true; }
-        else if (Input.GetKeyUp(KeyCode.W)) { forwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.S)) { backwards = true; }
-        else if (Input.GetKeyUp(KeyCode.S)) { backwards = false; }
 
-        if (Input.GetKeyDown(KeyCode.D)) { rightwards = true; }
-        else if (Input.GetKeyUp(KeyCode.D)) { rightwards = false; }
+        if (Input.GetKeyDown(KeyCode.W)) { move[0] = true; }
+        else if (Input.GetKeyUp(KeyCode.W)) { move[0] = false; }
 
-        if (Input.GetKeyDown(KeyCode.A)) { leftwards = true; }
-        else if (Input.GetKeyUp(KeyCode.A)) { leftwards = false; }
+        if (Input.GetKeyDown(KeyCode.S)) { move[1] = true; }
+        else if (Input.GetKeyUp(KeyCode.S)) { move[1] = false; }
 
-        if (Input.GetKeyDown(KeyCode.Space)) { mine = true; }
-        else if (Input.GetKeyUp(KeyCode.Space)) { mine = false; }
+        if (Input.GetKeyDown(KeyCode.D)) { move[2] = true; }
+        else if (Input.GetKeyUp(KeyCode.D)) { move[2] = false; }
+
+        if (Input.GetKeyDown(KeyCode.A)) { move[3] = true; }
+        else if (Input.GetKeyUp(KeyCode.A)) { move[3] = false; }
+
+        if (Input.GetKeyDown(KeyCode.Space)) { Use(); }
 
         if (Input.GetKeyDown(KeyCode.E)) { Drop(); }
     }
 
-    void Move()
+    public void Move()
     {
-        float x = transform.position.x;
-        float y = transform.position.z;
-
-        if (forwards)
+        if (move[0] || move[1] || move[2] || move[3])
         {
-            x += speed;
-            y += speed;
+            float x = transform.position.x;
+            float y = transform.position.z;
+
+            if (move[0])
+            {
+                x += speed;
+                y += speed;
+            }
+
+            if (move[1])
+            {
+                x -= speed;
+                y -= speed;
+            }
+
+            if (move[2])
+            {
+                x += speed;
+                y -= speed;
+            }
+
+            if (move[3])
+            {
+                x -= speed;
+                y += speed;
+            }
+
+            Vector3 position = new Vector3(x, transform.position.y, y);
+            GetComponent<Rigidbody>().MovePosition(position);
         }
-
-        if (backwards)
-        {
-            x -= speed;
-            y -= speed;
-        }
-
-        if (rightwards)
-        {
-            x += speed;
-            y -= speed;
-        }
-
-        if (leftwards)
-        {
-            x -= speed;
-            y += speed;
-        }
-
-        Vector3 position = new Vector3(x, transform.position.y, y);
-        Vector3 movement = position - transform.position;
-
-        GetComponent<Rigidbody>().MovePosition(position);
-        mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
     }
 
-    void Mine()
+    public void Turn()
+    {
+        if (move[0] || move[1] || move[2] || move[3])
+        {
+            float x = transform.position.x;
+            float y = transform.position.z;
+
+            if (move[0])
+            {
+                x += speed;
+                y += speed;
+            }
+
+            if (move[1])
+            {
+                x -= speed;
+                y -= speed;
+            }
+
+            if (move[2])
+            {
+                x += speed;
+                y -= speed;
+            }
+
+            if (move[3])
+            {
+                x -= speed;
+                y += speed;
+            }
+
+            Vector3 movement = new Vector3(x, transform.position.y, y) - transform.position;
+            mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
+        }
+    }
+
+    void Use()
     {
         if (coalMinable)
         {
@@ -108,19 +144,18 @@ public class PlayerMove : MonoBehaviour
             mineObject.SetActive(false);
             coalMinable = false;
             mineObject = null;
-            coalMinable = false;
         }
         else if (bearable)
         {
-            if (mineObject.GetComponent<CoalBox>() != null)
+            if (mineObject.GetComponent<CoalElevator>() != null)
             {
-                if (mineObject.GetComponent<CoalBox>().atBottom)
+                if (mineObject.GetComponent<CoalElevator>().atBottom)
                 {
-                    mineObject.GetComponent<CoalBox>().Hoist();
+                    mineObject.GetComponent<CoalElevator>().Hoist();
                 }
-                else if (mineObject.GetComponent<CoalBox>().atTop)
+                else if (mineObject.GetComponent<CoalElevator>().atTop)
                 {
-                    mineObject.GetComponent<CoalBox>().Lower();
+                    mineObject.GetComponent<CoalElevator>().Lower();
                 }
             }
             else if (mineObject.GetComponent<GruveElevator>() != null)
@@ -143,9 +178,9 @@ public class PlayerMove : MonoBehaviour
     {
         if (inventory.Count > 0)
         {
-            if (bearable && mineObject.GetComponent<CoalBox>().cargo.Count < mineObject.GetComponent<CoalBox>().limit)
+            if (bearable && mineObject.GetComponent<CoalElevator>().cargo.Count < mineObject.GetComponent<CoalElevator>().limit)
             {
-                mineObject.GetComponent<CoalBox>().PutCoal(inventory.Last());
+                mineObject.GetComponent<CoalElevator>().PutCoal(inventory.Last());
                 Debug.Log($"Put {mineObject} in coal box");
                 inventory.Remove(inventory.Last());
             }

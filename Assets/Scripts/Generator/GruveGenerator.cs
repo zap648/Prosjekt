@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cell
 {
     public Cell(int xCoordinate, int yCoordinate, int zCoordinate) { coordinates = new int[3] { xCoordinate, yCoordinate, zCoordinate }; }
 
-    public int[] coordinates = new int[3];
+    public int[] coordinates = new int[3]; // 0 - x (c: left/right), 1 - z (c: forward/backward), 2 - y (c: up/down)
     public bool[] neighbour = new bool[4]; // 0 - up, 1 - right, 2 - down, 3 - left
     public int roomType = 0; // 0 - normal, 1 - elevator, 2 - access
     public bool elevator = false;
@@ -18,9 +17,12 @@ public class Cell
 public class GruveGenerator : MonoBehaviour
 {
     [Header("Room Prefabs")]
-    public GameObject roomPreFab;
-    public GameObject elevRoomPreFab;
-    public GameObject accRoomPreFab;
+    public List<GameObject> rooms;
+
+    [Header("Spawn Info")]
+    private RoomBehaviour spawnRoom;
+    private GruveElevator elevator;
+    private CoalElevator coalElevator;
 
     [Header("Room Info")]
     public int maxRooms;
@@ -33,12 +35,19 @@ public class GruveGenerator : MonoBehaviour
     [Header("Player")]
     public GameObject playerPreFab;
     public GameObject player;
+    public Vector3 playerCoordinates;
 
-
-    private RoomBehaviour spawnRoom;
+    [Header("Game")]
+    public GameManager gameManager;
+    public List<GameObject> coalInventory;
 
     void Awake()
     {
+        if (gameManager != null)
+        {
+            DontDestroyOnLoad(gameManager.gameObject);
+        }
+
         queue = new List<Cell>
         {
             new Cell(0, 0, 0)
@@ -48,13 +57,45 @@ public class GruveGenerator : MonoBehaviour
 
         CreateRooms();
 
-        GruveElevator elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
+        elevator = spawnRoom.GetComponentInChildren<GruveElevator>();
+        coalElevator = spawnRoom.GetComponentInChildren<CoalElevator>();
+
         elevator.transform.position = new Vector3(elevator.transform.position.x, elevator.topHeight, elevator.transform.position.z);
 
         player = Instantiate(playerPreFab);
         player.transform.position = elevator.transform.position;
+        player.GetComponent<Player>().machine.Initialize(player.GetComponent<Player>().machine.walkState);
+
         elevator.cargo.Add(player);
         elevator.machine.TransitionTo(elevator.machine.lowerState);
+    }
+
+    private void Update()
+    {
+        GetCoordinates();
+
+        if (coalElevator.atTop)
+        {
+            for (int i = 0; i < coalElevator.cargo.Count(); i++)
+            {
+                coalInventory.Add(coalElevator.cargo[i]);
+                coalElevator.cargo[i].SetActive(false);
+            }
+            Debug.Log($"Coal Inventory now has {coalInventory.Count} {coalInventory.Count()} coal");
+            
+            coalElevator.cargo.Clear();
+            coalElevator.machine.TransitionTo(coalElevator.machine.lowerState);
+        }
+
+        if (elevator.atTop)
+        {
+            for (int i = 0; i < coalInventory.Count(); i++)
+            {
+                CoalInfo coalTemp = coalInventory[i].GetComponent<CoalInfo>();
+                gameManager.coalInventory.Add(coalTemp.value);
+            }
+            SceneManager.LoadScene(1);
+        }
     }
 
     void GenerateDungeon()
@@ -66,22 +107,35 @@ public class GruveGenerator : MonoBehaviour
                 NewFloor(queue.Last(), i);
             }
 
-            int whileCheck = 0;
-            while (queue.Count() - 1 < maxRooms + maxRooms * i)
+            int queuePosition = 0;
+            for (int x = 0; x < queue.Count; x++)
             {
-                SetupNeighbours(queue.Last(), i);
-
-                if (whileCheck > 100)
+                if (queue[x].coordinates[2] == i)
                 {
-                    Debug.Log("Endless loop detected! Breaking loop!");
+                    queuePosition = x;
                     break;
                 }
             }
 
-            if (queue.Count() < minRooms + minRooms * i)
+            while (FloorCount(i) < minRooms)
             {
-                GenerateDungeon();
+                for (int j = queuePosition; j < queue.Count; j++)
+                {
+                    SetupNeighbours(queue[j], i);
+
+                    if (FloorCount(i) >= maxRooms)
+                    {
+                        break;
+                    }
+                }
+
+                if (FloorCount(i) >= maxRooms)
+                {
+                    break;
+                }
             }
+
+            Debug.Log($"There are {FloorCount(i)} rooms in floor {i}, which is more than {minRooms} and less than {maxRooms}");
         }
 
         //MergeCells();
@@ -155,6 +209,20 @@ public class GruveGenerator : MonoBehaviour
         FindRoom(new int[] { queue.Last().coordinates[0], queue.Last().coordinates[1], queue.Last().coordinates[2] - 1 }).roomType = 2;
     }
 
+    int FloorCount(int floor)
+    {
+        int count = 0;
+        for (int i = 0; i < queue.Count(); i++)
+        {
+            if (queue[i].coordinates[2] == floor)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     void MergeCells()
     {
         // This is literal patchwork. It doesn't "merge" the cells, rather, it gives two overlapping cells the same neighbour value
@@ -189,7 +257,7 @@ public class GruveGenerator : MonoBehaviour
 
     void CreateRooms()
     {
-        RoomBehaviour newRoom = Instantiate(elevRoomPreFab, new Vector3(queue[0].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+        RoomBehaviour newRoom = Instantiate(rooms[1], new Vector3(queue[0].coordinates[0] * offset.x, queue[0].coordinates[2] * (offset.z * (-1)), queue[0].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
         newRoom.UpdateRoom(queue[0].neighbour);
 
         newRoom.name = $"Spawn Room";
@@ -199,17 +267,17 @@ public class GruveGenerator : MonoBehaviour
         {
             if (queue[i].roomType == 0)
             {
-                newRoom = Instantiate(roomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[0], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             }
             else if (queue[i].roomType == 1)
             {
-                newRoom = Instantiate(elevRoomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[1], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
                 newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position = new Vector3(newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.x, newRoom.gameObject.GetComponentInChildren<GruveElevator>().topHeight, newRoom.gameObject.GetComponentInChildren<GruveElevator>().transform.position.z);
                 newRoom.gameObject.GetComponentInChildren<GruveElevator>().atTop = true;
             }
             else if (queue[i].roomType == 2)
             {
-                newRoom = Instantiate(accRoomPreFab, new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
+                newRoom = Instantiate(rooms[2], new Vector3(queue[i].coordinates[0] * offset.x, queue[i].coordinates[2] * (offset.z * (-1)), queue[i].coordinates[1] * offset.y), Quaternion.Euler(0.0f, 0.0f, 0.0f), transform).GetComponent<RoomBehaviour>();
             }
             newRoom.UpdateRoom(queue[i].neighbour);
 
@@ -221,7 +289,8 @@ public class GruveGenerator : MonoBehaviour
     {
         if (coordinates.Length != 3)
         {
-            Debug.Log($"Coordinates are only {coordinates.Length} cells large, the function needs 3 cells");
+            Debug.Log($"Coordinates are only {coordinates.Length} cells large, the function requires 3 coordinates");
+            return false;
         }
 
         bool roomExists = false;
@@ -272,5 +341,38 @@ public class GruveGenerator : MonoBehaviour
         }
 
         return room;
+    }
+
+    void GetCoordinates()
+    {
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        bool b_x = false;
+        bool b_y = false;
+        bool b_z = false;
+
+        while (b_x == false || b_y == false || b_z == false)
+        {
+            // if 12 is greater than (20 * 0 + 20 / 2) 10 and not less than (20 * 0 - 20 / 2) -10, x++. 
+            // if 12 is not greater than (20 * 1 + 20 / 2) 30 and not less than (20 * 1 - 20 / 2) 10, b_x = true.
+            // or
+            // if -12 is not greater than (20 * 0 + 20 / 2) 10 and less than (20 * 0 - 20 / 2) -10, x--.
+            // if -12 is not greater than (20 * -1 + 20 / 2) -10 and not less than (20 * -1 - 20 / 2) -30, b-x = true;
+            if (player.transform.position.x > offset.x * x + offset.x / 2) { x++; }
+            else if (player.transform.position.x < offset.x * x - offset.x / 2) { x--; }
+            else { b_x = true; }
+
+            if (player.transform.position.y > offset.y * y + offset.y / 2) { y++; }
+            else if (player.transform.position.y < offset.y * y - offset.y / 2) { y--; }
+            else { b_y = true; }
+
+            if (player.transform.position.z > offset.z * z + offset.z / 2) { z++; }
+            else if (player.transform.position.z < offset.z * z - offset.z / 2) { z--; }
+            else { b_z = true; }
+        }
+
+        playerCoordinates = new Vector3(x, y, z);
     }
 }
