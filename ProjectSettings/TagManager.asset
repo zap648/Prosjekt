@@ -10,6 +10,7 @@ TagManager:
   - charCreate
   - optionsMenu
   - prepMenu
+  - ActivityPanel
   layers:
   - Default
   - TransparentFX

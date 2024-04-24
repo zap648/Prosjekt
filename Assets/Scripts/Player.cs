@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] bool bearable;
     [SerializeField] GameObject mineObject;
     
-    [SerializeField] List<GameObject> inventory;
+    [SerializeField] public List<GameObject> inventory;
     [SerializeField] GameObject mesh;
     public float speed;
     public int[] coordinates;
