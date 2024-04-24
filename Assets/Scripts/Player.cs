@@ -77,38 +77,38 @@ public class Player : MonoBehaviour
 
     public void Turn()
     {
-        if (move[0] || move[1] || move[2] || move[3])
-        {
-            float x = transform.position.x;
-            float y = transform.position.z;
+        //if (move[0] || move[1] || move[2] || move[3])
+        //{
+        //    float x = transform.position.x;
+        //    float y = transform.position.z;
 
-            if (move[0])
-            {
-                x += speed;
-                y += speed;
-            }
+        //    if (move[0])
+        //    {
+        //        x += speed;
+        //        y += speed;
+        //    }
 
-            if (move[1])
-            {
-                x -= speed;
-                y -= speed;
-            }
+        //    if (move[1])
+        //    {
+        //        x -= speed;
+        //        y -= speed;
+        //    }
 
-            if (move[2])
-            {
-                x += speed;
-                y -= speed;
-            }
+        //    if (move[2])
+        //    {
+        //        x += speed;
+        //        y -= speed;
+        //    }
 
-            if (move[3])
-            {
-                x -= speed;
-                y += speed;
-            }
+        //    if (move[3])
+        //    {
+        //        x -= speed;
+        //        y += speed;
+        //    }
 
-            Vector3 movement = new Vector3(x, transform.position.y, y) - transform.position;
-            mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
-        }
+        //    Vector3 movement = new Vector3(x, transform.position.y, y) - transform.position;
+        //    mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
+        //}
     }
 
     void Use()
