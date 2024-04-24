@@ -221,7 +221,11 @@ MonoBehaviour:
   maxRooms: 20
   minRooms: 15
   neighbourChance: 15
+<<<<<<< Updated upstream
   floors: 60
+=======
+  floors: 5
+>>>>>>> Stashed changes
   offset: {x: 20, y: 20, z: 20}
   playerPreFab: {fileID: 8592931449566348907, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
   player: {fileID: 0}

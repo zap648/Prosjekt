@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 {
     public PlayerMachine machine;
 
+    public CharacterController controller;
+
     [SerializeField] bool[] move; // 0 - forwards, 1 - backwards, 2 - right, 3 - left
     [SerializeField] bool mine;
 
@@ -65,38 +67,12 @@ public class Player : MonoBehaviour
 
     public void Move()
     {
-        if (move[0] || move[1] || move[2] || move[3])
-        {
-            float x = transform.position.x;
-            float y = transform.position.z;
+        float xMove = Input.GetAxisRaw("Horizontal");
+        float zMove = Input.GetAxisRaw("Vertical");
 
-            if (move[0])
-            {
-                x += speed;
-                y += speed;
-            }
+        Vector3 move = (transform.right - transform.forward) * xMove + (transform.forward + transform.right) * zMove;
 
-            if (move[1])
-            {
-                x -= speed;
-                y -= speed;
-            }
-
-            if (move[2])
-            {
-                x += speed;
-                y -= speed;
-            }
-
-            if (move[3])
-            {
-                x -= speed;
-                y += speed;
-            }
-
-            Vector3 position = new Vector3(x, transform.position.y, y);
-            GetComponent<Rigidbody>().MovePosition(position);
-        }
+        controller.Move(move * speed * Time.deltaTime);
     }
 
     public void Turn()

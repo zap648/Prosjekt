@@ -23,4 +23,23 @@ public class GameManager : MonoBehaviour
     {
         
     }
+<<<<<<< Updated upstream
+=======
+
+    public void LoadScene(int sceneId)
+    {
+        FillBank();
+
+        SceneManager.LoadScene(sceneId);
+    }
+
+    void FillBank()
+    {
+        for (int i = 0; i < coalInventory.Count; i++)
+        {
+            bank += coalInventory[i];
+        }
+        coalInventory.Clear();
+    }
+>>>>>>> Stashed changes
 }
