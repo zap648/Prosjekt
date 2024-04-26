@@ -45,21 +45,6 @@ public class Player : MonoBehaviour
 
     void GetInput()
     {
-        // Good lord this input code is awful
-
-
-        if (Input.GetKeyDown(KeyCode.W)) { move[0] = true; }
-        else if (Input.GetKeyUp(KeyCode.W)) { move[0] = false; }
-
-        if (Input.GetKeyDown(KeyCode.S)) { move[1] = true; }
-        else if (Input.GetKeyUp(KeyCode.S)) { move[1] = false; }
-
-        if (Input.GetKeyDown(KeyCode.D)) { move[2] = true; }
-        else if (Input.GetKeyUp(KeyCode.D)) { move[2] = false; }
-
-        if (Input.GetKeyDown(KeyCode.A)) { move[3] = true; }
-        else if (Input.GetKeyUp(KeyCode.A)) { move[3] = false; }
-
         if (Input.GetKeyDown(KeyCode.Space)) { Use(); }
 
         if (Input.GetKeyDown(KeyCode.E)) { Drop(); }

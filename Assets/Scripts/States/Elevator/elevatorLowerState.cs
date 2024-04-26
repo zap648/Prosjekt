@@ -27,7 +27,16 @@ public class elevatorLowerState : ElevatorState
 
         elevator.gameObject.transform.position += (Vector3.up * elevator.speed);
         foreach (GameObject cargo in elevator.cargo)
-            cargo.transform.position += (Vector3.up * elevator.speed);
+        {
+            if (cargo.GetComponent<CharacterController>())
+            {
+                cargo.GetComponent<CharacterController>().Move(Vector3.up * elevator.speed);
+            }
+            else
+            {
+                cargo.transform.position += (Vector3.up * elevator.speed);
+            }
+        }
     }
 
     public override void Exit()
