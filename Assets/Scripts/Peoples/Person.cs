@@ -1,88 +1,116 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
-
-[System.Serializable]
-public struct Person 
-{
-    /// <summary>
-    /// enums
-    /// </summary>
-
-    public enum GENDER
+using UnityEngine.Analytics;
+    enum GENDER
     {
-        FEMALE,
-        MALE
+        FEMALE, MALE
+    };
+    enum AGE_STATE
+    {
+        BABY, CHILD, TEEN, Y_ADULT, ADULT, OLD
+    };
+    enum MOOD
+    {
+        ECSTATIC, VERY_HAPPY, HAPPY, FINE, UNHAPPY, VERY_UNHAPPY, MISERABLE
+    };
+    enum RELATIONSHIP_W_PC_IS
+    {
+        SPOUSE, PARENT, INLAW, CHILD, EMPLOYEE, FRIEND
+    };
+    enum HAPPINESS_W_RELATIONSHIP_IS
+    {
+        ECSTATIC, VERY_HAPPY, HAPPY, FINE, UNHAPPY, VERY_UNHAPPY, MISERABLE
+    };
+    enum STATE // only alive state should be listed in in-house family list
+    {
+        ALIVE,      
+        MOVED_OUT,  // if child, "successfully raised" them buff, else ignore 
+        DEAD,       // if any positive relationship, "mourn" them else ignore
+        ESTRANGED   // "sadness" buff
     };
 
-    public enum AGE_STATE
+    public struct debuff
     {
-        BABY,
-        CHILD,
-        TEEN,
-        YA,
-        ADULT,
-        OLD
+
+    }
+    public struct buff
+    {
+
     }
 
-    public AldringStateMachine sm { get; }
+    /*  
+        status
+        // mood (1-5)
+        // physical --> ill/healthy/cold/warm/hungry/fine/fed
+        // complete --> alive/dead/left/moved out
+    */
 
-    /// <summary>
-    /// variables
-    /// </summary>
-    
-    // character portrait
-    string portrait;
-    // gender 0 - f/1 - m
-    public GENDER gender;
-    // age status
-    public AGE_STATE age_state;
-    // oldest possible age
-    public int oldestAge;
-    // current complete age
-    public int age_complete;
-    // current age
-    public int age_current;
-    
-    /// <summary>
-    /// sets and gets
-    /// </summary>
-    
-    // set oldest possible age
-    private void setOldest()
+
+[System.Serializable]
+public class Person : MonoBehaviour
+{
+
+    [SerializeField] public GameObject portrait_prefab;
+    private string portrait;
+
+    [SerializeField] public AldringStateMachine sm;
+    int age;
+    AGE_STATE age_state;
+    int max_age = 54;
+
+    GENDER gender;
+
+    // figure out which buff should be applied
+    private void getBuff()
     {
-        oldestAge = 40;
+
     }
-    // get oldest possible age
-    private int getOldest()
+    // figure out which debuff should be applied
+    private void getDebuff()
     {
-        return oldestAge;
+
+    }
+    // figure out what the person should want
+    private void getWant()
+    {
+
+    }
+    
+    private void Start()
+    {
+        // set relationship with PC (get from load)
     }
 
-    // set gender enum
-    private void setGender()
-    {
-        int i = Random.Range(0, 1);
-        
-        if (i == 0) 
-            { gender = GENDER.FEMALE; }
-        else 
-            { gender = GENDER.MALE; }
-    }
-    // get gender enum
-    private GENDER getGender()
-    {
-        return gender;
-    }
-    
     // set AGE_STATE
     private void setAGESTATE()
     {
-        age_state = (Person.AGE_STATE)sm.age;
+        age_state = (AGE_STATE) sm.age;
+        // age_state = (AGE_STATE)Random.Range(0, 6);
     }
     // get AGE_STATE
+    private AGE_STATE getAGE_STATE()
+    {
+        return age_state;
+    }
 
-    // set portrait
-    private void setPortrait() // set paths!
+    // set GENDER 
+    private void setGENDER()
+    {
+        int i = Random.Range(0, 2);
+
+        if (i == 0)
+        { gender = GENDER.FEMALE; }
+        else
+        { gender = GENDER.MALE; }
+    }
+    // get GENDER 
+    private GENDER getGENDER()
+    {
+        return gender;
+    }
+
+    // set portrait string
+    private void setPortrait() 
     {
         if (gender == GENDER.FEMALE)
         {
@@ -91,15 +119,15 @@ public struct Person
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_f_old_v0";
             }
             else if (age_state == AGE_STATE.ADULT)
-            { 
+            {
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_f_adult_v0";
             }
-            else if (age_state == AGE_STATE.YA) 
-            { 
+            else if (age_state == AGE_STATE.Y_ADULT)
+            {
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_f_y-adult_v0";
             }
-            else if (age_state == AGE_STATE.TEEN) 
-            { 
+            else if (age_state == AGE_STATE.TEEN)
+            {
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_f_teen_v0";
             }
             else if (age_state == AGE_STATE.CHILD)
@@ -121,7 +149,7 @@ public struct Person
             {
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_m_adult_v0";
             }
-            else if (age_state == AGE_STATE.YA)
+            else if (age_state == AGE_STATE.Y_ADULT)
             {
                 portrait = "HomeMenuAssets/Portraits/portrait_familymember_m_y-adult_v0";
             }
@@ -139,37 +167,26 @@ public struct Person
             }
         }
     }
-    private Sprite getPortrait()
+    // get correct portrait from Resource folder
+    public Sprite getPortrait()
     {
         Sprite p = Resources.Load<Sprite>(portrait);
-        
+
         return p;
     }
 
     /////////////////////////////////////////////////////////////////
-    // relation to PC
-    // spouse, in-law, parent, child, employee, extended family
-    private string PC_relation;
-
-    // rep to PC (1-5)
-    private int PC_rep;
-
-    // status
-        // mood (1-5)
-        // physical --> ill/healthy/cold/warm/hungry/
-        // complete --> alive/dead/left/moved out
-
-    public void setAllPersonValues()
+    
+    private void setAllPersonValues()
     {
-        setOldest();
+        setGENDER();
         setAGESTATE();
-        setGender();
         setPortrait();
     }
 
     public Person getAllPersonValues()
     {
+        setAllPersonValues();
         return this;
     }
-
 }
