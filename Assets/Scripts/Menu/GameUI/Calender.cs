@@ -6,55 +6,93 @@ using UnityEngine;
 public class Calender : MonoBehaviour
 {
     [SerializeField] GameObject DayCounterPanel;
-    
     TMP_Text daycounter;
+
+    TestForSaveingStruct testing;
+    SaveLoad_Singleton instance_ask;
     
-    int day_current;
+    // count of calendar
     int day_count;
-    int week_current;
     int week_count;
-    int month_current;
     int month_count;
-    int year_current;
-    int year_count;
+    // total amount of days/weeks/months
+    int day_complete;
+    int week_complete;
+    int month_complete;
 
     private void Start()
     {
-        Debug.Log("Days in Calender :" + day_current);
+        instance_ask = GetComponent<SaveLoad_Singleton>();
 
-        day_current = 5;
+        if (instance_ask != null )
+        {
+            instance_ask = SaveLoad_Singleton.Instance;
+        }
+        
+        day_count = 0;
+        week_count = 0;
+        month_count = 0;
 
-        Debug.Log("Days should be 5, set in Calender :" + day_current);
+        day_complete = 0;
+        week_complete = 0;
+        month_complete = 0;
 
         if (DayCounterPanel != null)
-        {
-            Debug.Log("Finds daycounter panel:" + day_current);
-            
+        {    
             daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
         }
 
         UpdateDayCounter();
     }
 
-    // calculates how many % chance it is of disaster to strike
-    // day 0 - 6%,
-    // 12%, 18%, 24%, 30%, 36%, 42%, day 7 - 48%,
-    // 54%, 60%, 66%, 72%, 78%, 84%, day 14 - 90%
-    // lowest day is 0, highest is 14, 
-    // when reaching highest, counts backwards,
-    // when reaching lowest, counts higher
-    public int ChanceOfDisaster(int d)
-    {
-
-        return 0;
-    }
-
     public void UpdateDayCounter()
     {
+        // first sort out what's the day and so on
+        CalendarUpdate();
+
         if (DayCounterPanel != null)
         {
-            daycounter.SetText(day_current.ToString());
-
+            // current calander day (1-7)
+            daycounter.SetText(day_count.ToString());
         }
+    }
+
+    /// <summary>
+    /// asks singleton for day/week/month- complete
+    /// then counts forward
+    /// returns 
+    /// </summary>
+    private void CalendarUpdate()
+    {
+        int[] calander = new int[3];
+        // ask singleton for an update
+        // testing = instance_ask.ReadFromFile("Day");
+        
+        // singleton has no info- do not add day
+        // if singleton has info, add another day to current and count
+        
+        day_complete++;
+        day_count++;
+
+        if (day_count < 7)
+        {
+            week_complete++;
+            week_count++;
+
+            day_count = 0;
+
+            if(week_count < 7)
+            {
+                month_complete++;
+                month_count++;
+
+                week_count = 0;
+            }
+        }
+
+        calander[0] = day_count;
+        calander[1] = week_count;
+        calander[3] = month_count;
+
     }
 }
