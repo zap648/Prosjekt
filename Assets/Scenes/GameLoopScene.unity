@@ -1482,6 +1482,7 @@ GameObject:
   - component: {fileID: 382994957}
   - component: {fileID: 382994961}
   - component: {fileID: 382994962}
+  - component: {fileID: 382994963}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1620,6 +1621,19 @@ MonoBehaviour:
   byUI: {fileID: 988428418}
   mineClock: 0
   _activityCounter: 0
+--- !u!114 &382994963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382994956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59496e998f858d40bf7e20121c444a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DayCounterPanel: {fileID: 853628681}
 --- !u!224 &412792713 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6001714025233689432, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
@@ -4906,7 +4920,7 @@ MonoBehaviour:
   MarketPanel: {fileID: 163631194}
   ChurchPanel: {fileID: 191045698}
   MinePanel: {fileID: 42739301}
-  DayCounterPanel: {fileID: 853628681}
+  DayCounterPanel: {fileID: 0}
   button_home: {fileID: 1362969480}
   button_market: {fileID: 1135655845}
   button_church: {fileID: 500149989}
@@ -4916,7 +4930,6 @@ MonoBehaviour:
   button_home_concludeDay: {fileID: 1979961502}
   button_market_recruitmentInn: {fileID: 1997435744}
   button_market_pub: {fileID: 1860240564}
-  button_market_park: {fileID: 0}
   button_market_baker: {fileID: 813784721}
   button_church_ceremony: {fileID: 184926613}
   button_church_cemeteray: {fileID: 1567023710}

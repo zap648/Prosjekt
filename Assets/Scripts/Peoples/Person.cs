@@ -5,7 +5,7 @@ using UnityEngine.Analytics;
     {
         FEMALE, MALE
     };
-    enum AGE_STATE
+    public enum AGE_STATE
     {
         BABY, CHILD, TEEN, Y_ADULT, ADULT, OLD
     };
@@ -55,7 +55,7 @@ public class Person : MonoBehaviour
 
     [SerializeField] public AldringStateMachine sm;
     int age;
-    AGE_STATE age_state;
+    public AGE_STATE age_state;
     int max_age = 54;
 
     GENDER gender;
