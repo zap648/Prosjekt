@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
         move = new bool[4];
         inventory = new List<GameObject>();
         machine = new PlayerMachine(this);
+        machine.Initialize(machine.walkState);
     }
 
     // Update is called once per frame

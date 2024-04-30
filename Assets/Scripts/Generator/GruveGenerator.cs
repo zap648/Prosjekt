@@ -63,7 +63,6 @@ public class GruveGenerator : MonoBehaviour
         elevator.transform.position = new Vector3(elevator.transform.position.x, elevator.topHeight, elevator.transform.position.z);
 
         player = Instantiate(playerPreFab, elevator.transform.position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        player.GetComponent<Player>().machine.Initialize(player.GetComponent<Player>().machine.walkState);
 
         elevator.cargo.Add(player);
         elevator.machine.TransitionTo(elevator.machine.lowerState);

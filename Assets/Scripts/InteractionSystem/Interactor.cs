@@ -18,5 +18,21 @@ public class Interactor : MonoBehaviour
             _interactionPointRadius, 
             _colliders, 
             _interactableMask);
+
+        if (_numFound > 0)
+        {
+            var interactable = _colliders[0].GetComponent<IInteractable>();
+
+            if (interactable != null && Input.GetKeyDown(KeyCode.Space)) 
+            {
+                interactable.Interact(this);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
     }
 }

@@ -128,7 +128,8 @@ GameObject:
   - component: {fileID: 1239446774894556447}
   - component: {fileID: 3501690389161471371}
   - component: {fileID: 5593341078945015327}
-  m_Layer: 0
+  - component: {fileID: 6445794020239590470}
+  m_Layer: 6
   m_Name: 2DCoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,8 +186,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.54, z: 1.5}
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6445794020239590470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318734396587686513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7c8fbcdf6ac3842b1f74086e893f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prompt: 
 --- !u!1 &8550344424115895251
 GameObject:
   m_ObjectHideFlags: 0
