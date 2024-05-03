@@ -26,24 +26,42 @@ public class Interactor : MonoBehaviour
 
             if (interactable != null) 
             {
-                //if (interactable.Length > 1)
-                //{
-                //    if (Input.GetKeyDown(KeyCode.Space))
-                //    {
-                //        interactable[0].Interact(this);
-                //    }
-                //    else if (Input.GetKeyDown(KeyCode.E))
-                //    {
-                //        interactable[1].Interact(this);
-                //    }
-                //}
-                //else
-                //{
+                if (interactable.Length > 1)
+                {
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         interactable[0].Interact(this);
                     }
-                //}
+                    else if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactable[1].Interact(this);
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        interactable[0].Interact(this);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.E)) // By default, the player will drop the coal he has in his inventory in front of him
+            {
+                List<GameObject> playerInventory = GetComponent<Player>().inventory;
+                if (playerInventory.Count > 0)
+                {
+                    playerInventory.Last().SetActive(true);
+                    playerInventory.Last().transform.position = transform.position + Vector3.right * 2;
+                    Debug.Log($"Dropped {playerInventory.Last().name}");
+                    playerInventory.Remove(playerInventory.Last());
+                }
+                else
+                {
+                    Debug.Log("You have no coal to drop");
+                }
             }
         }
     }
