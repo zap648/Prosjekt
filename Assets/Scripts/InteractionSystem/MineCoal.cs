@@ -15,6 +15,12 @@ public class MineCoal : MonoBehaviour, IInteractable
             return false;
         }
 
+        if (gameObject.GetComponent<CoalInfo>().mined)
+        {
+            Debug.Log("Coal is not minable");
+            return false;
+        }
+
         interactor.GetComponent<Player>().inventory.Add(gameObject);
         gameObject.SetActive(false);
 

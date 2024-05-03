@@ -54,7 +54,15 @@ public class Interactor : MonoBehaviour
                 if (playerInventory.Count > 0)
                 {
                     playerInventory.Last().SetActive(true);
-                    playerInventory.Last().transform.position = transform.position + Vector3.right * 2;
+
+                    playerInventory.Last().transform.position = 
+                        new Vector3(
+                            transform.position.x, 
+                            GetComponent<Player>().coordinates[1] * 20, 
+                            transform.position.z) 
+                        + Vector3.right * 2;
+
+                    playerInventory.Last().GetComponent<CoalInfo>().mined = false;
                     Debug.Log($"Dropped {playerInventory.Last().name}");
                     playerInventory.Remove(playerInventory.Last());
                 }

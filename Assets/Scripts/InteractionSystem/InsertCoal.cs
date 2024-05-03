@@ -27,6 +27,7 @@ public class InsertCoal : MonoBehaviour, IInteractable
         coalElevator.cargo.Add(interactor.GetComponent<Player>().inventory.Last());
         interactor.GetComponent<Player>().inventory.Last().SetActive(true);
         interactor.GetComponent<Player>().inventory.Last().transform.position = transform.position;
+        interactor.GetComponent<Player>().inventory.Last().GetComponent<CoalInfo>().mined = true;
 
         Debug.Log("Inserted coal!");
         return true;
