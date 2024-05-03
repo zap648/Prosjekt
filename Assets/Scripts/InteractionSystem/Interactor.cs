@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
@@ -21,11 +22,28 @@ public class Interactor : MonoBehaviour
 
         if (_numFound > 0)
         {
-            var interactable = _colliders[0].GetComponent<IInteractable>();
+            IInteractable[] interactable = _colliders[0].GetComponents<IInteractable>();
 
-            if (interactable != null && Input.GetKeyDown(KeyCode.Space)) 
+            if (interactable != null) 
             {
-                interactable.Interact(this);
+                //if (interactable.Length > 1)
+                //{
+                //    if (Input.GetKeyDown(KeyCode.Space))
+                //    {
+                //        interactable[0].Interact(this);
+                //    }
+                //    else if (Input.GetKeyDown(KeyCode.E))
+                //    {
+                //        interactable[1].Interact(this);
+                //    }
+                //}
+                //else
+                //{
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        interactable[0].Interact(this);
+                    }
+                //}
             }
         }
     }

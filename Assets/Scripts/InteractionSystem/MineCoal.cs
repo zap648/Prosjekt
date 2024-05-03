@@ -9,6 +9,15 @@ public class MineCoal : MonoBehaviour, IInteractable
     public string InteractionPrompt => _prompt;
     public bool Interact(Interactor interactor)
     {
+        if (gameObject.GetComponent<CoalInfo>() == null)
+        {
+            Debug.Log("Failed to find coal!");
+            return false;
+        }
+
+        interactor.GetComponent<Player>().inventory.Add(gameObject);
+        gameObject.SetActive(false);
+
         Debug.Log("Mining coal!");
         return true;
     }
