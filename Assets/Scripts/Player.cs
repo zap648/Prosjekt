@@ -43,45 +43,25 @@ public class Player : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal");
         float zMove = Input.GetAxisRaw("Vertical");
 
-        Vector3 move = (transform.right - transform.forward) * xMove + (transform.forward + transform.right) * zMove;
+        Vector3 right = transform.right - transform.forward;
+        Vector3 forward = transform.forward + transform.right;
 
-        controller.Move(move * speed * Time.deltaTime);
+        Vector3 move = right * xMove + forward * zMove;
+
+        controller.Move(move.normalized * speed * Time.deltaTime);
     }
 
     public void Turn()
     {
-        //if (move[0] || move[1] || move[2] || move[3])
-        //{
-        //    float x = transform.position.x;
-        //    float y = transform.position.z;
+        float xMove = Input.GetAxisRaw("Horizontal");
+        float zMove = Input.GetAxisRaw("Vertical");
 
-        //    if (move[0])
-        //    {
-        //        x += speed;
-        //        y += speed;
-        //    }
+        Vector3 right = transform.right - transform.forward;
+        Vector3 forward = transform.forward + transform.right;
 
-        //    if (move[1])
-        //    {
-        //        x -= speed;
-        //        y -= speed;
-        //    }
+        Vector3 move = right * xMove + forward * zMove;
 
-        //    if (move[2])
-        //    {
-        //        x += speed;
-        //        y -= speed;
-        //    }
-
-        //    if (move[3])
-        //    {
-        //        x -= speed;
-        //        y += speed;
-        //    }
-
-        //    Vector3 movement = new Vector3(x, transform.position.y, y) - transform.position;
-        //    mesh.transform.rotation = Quaternion.Slerp(mesh.transform.rotation, Quaternion.LookRotation(movement, transform.up), 0.1f);
-        //}
+        if (move != Vector3.zero) { mesh.transform.rotation = Quaternion.LookRotation(move, Vector3.up); }
     }
 
     void PutInInventory()
