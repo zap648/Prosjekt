@@ -92,7 +92,7 @@ public class Calender : MonoBehaviour
 
         calander[0] = day_count;
         calander[1] = week_count;
-        calander[3] = month_count;
+        calander[2] = month_count;
 
     }
 }
