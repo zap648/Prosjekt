@@ -35,6 +35,7 @@ public class CoalGenerator : MonoBehaviour
             if (currentCell.roomType == 1 ||
                 currentCell.roomType == 2)
             {
+                currentCell.coal = false;
                 continue;
             }
 
@@ -42,6 +43,10 @@ public class CoalGenerator : MonoBehaviour
             if (Random.value <= 0.50f)
             {
                 currentCell.coal = true;
+            }
+            else
+            {
+                currentCell.coal = false;
             }
         }
 
@@ -65,6 +70,7 @@ public class CoalGenerator : MonoBehaviour
                                 Quaternion.Euler(0.0f, 0.0f, 0.0f),
                                 transform);
                             newCoal.GetComponent<CoalInfo>().isCoal = true;
+                            newCoal.GetComponent<CoalInfo>().value = Random.Range(1, 4);
                             coals.Add(newCoal);
                             newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
                         }
