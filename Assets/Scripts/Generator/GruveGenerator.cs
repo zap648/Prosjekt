@@ -43,9 +43,9 @@ public class GruveGenerator : MonoBehaviour
 
     void Awake()
     {
-        if (gameManager != null)
+        if (gameManager == null)
         {
-            DontDestroyOnLoad(gameManager.gameObject);
+            gameManager = FindObjectOfType<GameManager>();
         }
 
         queue = new List<Cell>
@@ -96,7 +96,7 @@ public class GruveGenerator : MonoBehaviour
             {
 
             }
-            GameObject.Find("GameManager").GetComponent<GameManager>().LoadScene(1);
+            GameObject.Find("GameManager").GetComponent<GameManager>().LoadScene(0);
         }
     }
 

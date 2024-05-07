@@ -491,7 +491,7 @@ public class ByUI : MonoBehaviour
             }
 
             MinePanel.SetActive(true);
-            b_startTimer = true;
+            GameObject.Find("GameManager").GetComponent<GameManager>().LoadScene(1);
         }
         else if (MinePanel.activeSelf && !b_startTimer)
         {

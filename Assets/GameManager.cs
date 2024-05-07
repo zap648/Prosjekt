@@ -9,6 +9,29 @@ public class GameManager : MonoBehaviour
 {
     public int bank;
     public List<int> coalInventory;
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.Log("There's no GameManager!");
+                SetUpInstance();
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +48,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private static void SetUpInstance()
+    {
+        _instance = FindObjectOfType<GameManager>();
+
+        if (_instance == null)
+        {
+            GameObject gm = new GameObject();
+            gm.name = "GameManager";
+            _instance = gm.AddComponent<GameManager>();
+            DontDestroyOnLoad(gm);
+            Debug.Log("Game Manager initialized!");
+        }
     }
 
     public void LoadScene(int sceneId)
