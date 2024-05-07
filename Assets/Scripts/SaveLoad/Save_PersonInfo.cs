@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public struct Save_PersonInfo 
+[System.Serializable]
+public struct Save_PersonInfo
 {
-    private int GENDER;
-    private int AGE;
+    [SerializeField] private int sl_GENDER;
+    [SerializeField] private int sl_AGE;
 
     public void setInfo(int g, int a)
-    {  
-        GENDER = g; 
-        AGE = a;
+    {
+        sl_GENDER = g;
+        sl_AGE = a;
     }
-    public int getGender() { return GENDER;}
-    public int getAge() {  return AGE;}
+    
+    public int Gender {  get { return sl_GENDER; } }
+    public int getGender() { return sl_GENDER; }
+    public int getAge() {  return sl_AGE; }
 }

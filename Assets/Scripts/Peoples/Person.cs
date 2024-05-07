@@ -47,7 +47,7 @@ using UnityEngine.Analytics;
 
 
 [System.Serializable]
-public class Person : MonoBehaviour
+public struct Person
 {
 
     [SerializeField] public GameObject portrait_prefab;
@@ -56,7 +56,7 @@ public class Person : MonoBehaviour
     [SerializeField] public AldringStateMachine sm;
     int age;
     public AGE_STATE age_state;
-    int max_age = 54;
+    // int max_age = 54;
 
     GENDER gender;
 
@@ -84,8 +84,8 @@ public class Person : MonoBehaviour
     // set AGE_STATE
     private void setAGESTATE()
     {
-        age_state = (AGE_STATE) sm.age;
-        // age_state = (AGE_STATE)Random.Range(0, 6);
+        //age_state = (AGE_STATE) sm.age;
+        age_state = (AGE_STATE)Random.Range(0, 6);
     }
     // get AGE_STATE
     private AGE_STATE getAGE_STATE()
@@ -93,7 +93,7 @@ public class Person : MonoBehaviour
         return age_state;
     }
 
-    // set GENDER 
+    // set GENDER @TODO add a gender method to accept information to build person
     private void setGENDER()
     {
         int i = Random.Range(0, 2);
