@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public CharacterController controller;
     
     [SerializeField] public List<GameObject> inventory;
-    public bool[] move;
     [SerializeField] GameObject interactor;
     [SerializeField] GameObject sprite;
     public float speed;
@@ -22,7 +21,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        move = new bool[4] { false, false, false, false };
         inventory = new List<GameObject>();
         machine = new PlayerMachine(this);
         machine.Initialize(machine.walkState);
