@@ -13,14 +13,16 @@ public class Player : MonoBehaviour
     public CharacterController controller;
     
     [SerializeField] public List<GameObject> inventory;
+    public bool[] move;
     [SerializeField] GameObject interactor;
-    [SerializeField] GameObject mesh;
+    [SerializeField] GameObject sprite;
     public float speed;
     public int[] coordinates;
 
     // Start is called before the first frame update
     void Awake()
     {
+        move = new bool[4] { false, false, false, false };
         inventory = new List<GameObject>();
         machine = new PlayerMachine(this);
         machine.Initialize(machine.walkState);
@@ -35,6 +37,18 @@ public class Player : MonoBehaviour
     {
         float xMove = Input.GetAxisRaw("Horizontal");
         float zMove = Input.GetAxisRaw("Vertical");
+
+        if (xMove != 0)
+        {
+            if (xMove < 0)
+            {
+                sprite.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                sprite.GetComponent<SpriteRenderer>().flipX = false;
+            }
+        }
 
         Vector3 right = transform.right - transform.forward;
         Vector3 forward = transform.forward + transform.right;

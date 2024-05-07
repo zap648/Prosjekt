@@ -453,8 +453,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6712541133736929054}
   inventory: []
+  move: 
   interactor: {fileID: 8494345580989785607}
-  mesh: {fileID: 7505790573331134945}
+  sprite: {fileID: 7505790573331134945}
   speed: 10
   coordinates: 000000000000000000000000
 --- !u!114 &3554968127264065196
