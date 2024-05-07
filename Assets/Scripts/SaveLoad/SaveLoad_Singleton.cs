@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
-using JetBrains.Annotations;
 using System.IO;
 
 public class SaveLoad_Singleton : MonoBehaviour
 {
     private static SaveLoad_Singleton _instance;
+
+    public string save_fileName = "TestingPathName";
+    [SerializeField] public SO_saveload LikeSub;
+    public TestForSaveingStruct ThisThing;
 
     public static SaveLoad_Singleton Instance
     {
@@ -37,19 +40,16 @@ public class SaveLoad_Singleton : MonoBehaviour
         if (_instance == null)
         {
             GameObject gobj = new GameObject();
-            gobj.name = "SaveLoad Singleton ";
+            gobj.name = "SaveLoad Singleton";
             _instance = gobj.AddComponent<SaveLoad_Singleton>();
             DontDestroyOnLoad(gobj);
         }
     }
 
-    public string save_fileName = "TestingPathName";
-    [SerializeField] public SO_saveload LikeSub;
-    public TestForSaveingStruct ThisThing;
 
     public void WriteToFile(string filename)
     {
-        ThisThing.naming();
+        ThisThing.naming("Darling"); // struct put info in itself, for example use. In this example it is "Darling"
 
         if (!Directory.Exists(save_fileName))
         {
@@ -72,8 +72,6 @@ public class SaveLoad_Singleton : MonoBehaviour
         FileStream saveFile = File.Open(save_fileName + "/" + "test4" + ".bin", FileMode.Open);
 
         TestForSaveingStruct loadData = (TestForSaveingStruct) binaryConverter.Deserialize(saveFile);
-
-        print(loadData.charName);
 
         saveFile.Close();
 

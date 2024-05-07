@@ -80,31 +80,12 @@ public class ByUI : MonoBehaviour
     // info about amount of activities and if they are accepted or not
     [SerializeField] private int _declineAccept = 0;
 
-    /*
-    - home
-        - conclude day (every time of day)****
-        - visit home (eveyr time of day)
-    - town
-        - pub (evening)*
-        - market (morning, day)**
-        - recruitment (morning)*
-        - baker (morning)
-    - church
-        - ceremony (morning)*
-        - confession (morning, day, evening)***
-        - cemetary (every time of day)****
-    - trader
-        - store (morning, day, evening)***
-    - mine 8
-        - work in mine (morning, day, evening)***
-        - manage mining team (morning, day, evening)***
-     */
-
     private void Start()
     {
         menuActivity = GetComponent<Activities>();
         List_PlacePanels = new List<GameObject>();
         AddPanels();
+        Debug.Log("Days in ByUI :" + days);
     }
     private void Update()
     {
@@ -329,10 +310,13 @@ public class ByUI : MonoBehaviour
     }
     public void UpdateDayCounter()
     {
-        TMP_Text daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
+        if (DayCounterPanel != null)
+        {
+            TMP_Text daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
 
-        daycounter.SetText(days.ToString()); // gave nullref
+            daycounter.SetText(days.ToString()); 
 
+        }
 
     }
   
