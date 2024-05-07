@@ -187,14 +187,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8489204367172535751, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-      propertyPath: mesh
-      value: 
-      objectReference: {fileID: 197382584}
-    - target: {fileID: 8489204367172535751, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-      propertyPath: coordinates.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8592931449566348907, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
       propertyPath: m_Name
       value: 2DPlayer
@@ -204,11 +196,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
---- !u!1 &197382584 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8494345580989785607, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-  m_PrefabInstance: {fileID: 197382583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &580787703
 PrefabInstance:
   m_ObjectHideFlags: 0

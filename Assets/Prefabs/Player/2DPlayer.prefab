@@ -458,7 +458,8 @@ MonoBehaviour:
   bearable: 0
   mineObject: {fileID: 0}
   inventory: []
-  mesh: {fileID: 8494345580989785607}
+  interactor: {fileID: 8494345580989785607}
+  mesh: {fileID: 7505790573331134945}
   speed: 10
   coordinates: 000000000000000000000000
 --- !u!114 &3554968127264065196

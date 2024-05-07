@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7c8fbcdf6ac3842b1f74086e893f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: 
+  _prompt: Mine Coal
 --- !u!1 &8550344424115895251
 GameObject:
   m_ObjectHideFlags: 0

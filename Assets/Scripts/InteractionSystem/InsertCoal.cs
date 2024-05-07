@@ -11,6 +11,7 @@ public class InsertCoal : MonoBehaviour, IInteractable
     public bool Interact(Interactor interactor)
     {
         CoalElevator coalElevator = GetComponent<CoalElevator>();
+        List<GameObject> playerInventory = interactor.GetComponent<Player>().inventory;
 
         if (coalElevator == null)
         {
@@ -24,10 +25,17 @@ public class InsertCoal : MonoBehaviour, IInteractable
             return false;
         }
 
-        coalElevator.cargo.Add(interactor.GetComponent<Player>().inventory.Last());
-        interactor.GetComponent<Player>().inventory.Last().SetActive(true);
-        interactor.GetComponent<Player>().inventory.Last().transform.position = transform.position;
-        interactor.GetComponent<Player>().inventory.Last().GetComponent<CoalInfo>().mined = true;
+        if (playerInventory.Count <= 0)
+        {
+            Debug.Log("Has no coal to insert");
+            return false;
+        }
+
+        coalElevator.cargo.Add(playerInventory.First());
+        playerInventory.First().SetActive(true);
+        playerInventory.First().transform.position = transform.position;
+        playerInventory.First().GetComponent<CoalInfo>().mined = true;
+        playerInventory.Remove(playerInventory.First());
 
         Debug.Log("Inserted coal!");
         return true;
