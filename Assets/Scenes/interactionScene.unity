@@ -132,18 +132,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1083161301439028425, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 1083161301439028425, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 1083161301439028425, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1083161301439028425, guid: d0b2576e9c3a96645852aa5550e18194, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 135
       objectReference: {fileID: 0}
@@ -208,10 +196,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoalBox
       objectReference: {fileID: 0}
-    - target: {fileID: 1505666474805289000, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
-      propertyPath: _prompt
-      value: Use Elevator
-      objectReference: {fileID: 0}
     - target: {fileID: 2535952384850492405, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
       propertyPath: atBottom
       value: 1
@@ -263,10 +247,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 615151907709027828, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1843117933}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
 --- !u!1001 &1414298622
 PrefabInstance:
@@ -329,24 +310,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef09c1066268bf43b82422698d7240a, type: 3}
---- !u!1 &1843117928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 615151907709027828, guid: 816d8e03f8b94c245bac325084e014d8, type: 3}
-  m_PrefabInstance: {fileID: 580787703}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1843117933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843117928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ff4df9dbbcfb34691545efe221d0ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prompt: Insert Coal
 --- !u!1001 &1874117891
 PrefabInstance:
   m_ObjectHideFlags: 0
