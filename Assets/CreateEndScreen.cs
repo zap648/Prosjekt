@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CreateEndScreen : MonoBehaviour
 {
-    [SerializeField] public GameObject FamilyPanel;
+    [SerializeField] public GameObject ENDFamilyPanel;
+    [SerializeField] public GameObject STARTFamilyPanel;
     [SerializeField] public GameObject PlayerCharacter;
+
+    [SerializeField] public GameObject Portrait_prefab;
+
     [SerializeField] List<Save_PersonInfo> returnedPeople;
+
+    Person person;
 
     // when conclude day-button is clicked, this one is called
     public void OpenEndScreen()
@@ -30,6 +36,27 @@ public class CreateEndScreen : MonoBehaviour
     public void OpenCreateScreen()
     {
         Debug.Log("The next day screen is opened!");
+
+        //// instantiating portrait as child of parent
+
+        List<GameObject> temp_list = new List<GameObject>();
+
+        GameObject thing;
+        //GameObject thing = Instantiate(Portrait_prefab);
+
+        for (int i = 0; i < 8; i++)
+        {
+            temp_list.Add(thing = Instantiate(Portrait_prefab));
+        }
+
+        foreach (GameObject item in temp_list)
+        {
+            item.transform.SetParent(STARTFamilyPanel.transform);
+
+            item.transform.position = STARTFamilyPanel.transform.position;
+            
+        }
+        
 
         // remove the family
         // ask family panel to remove family

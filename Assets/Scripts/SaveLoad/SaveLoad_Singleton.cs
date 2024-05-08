@@ -163,8 +163,6 @@ public class SaveLoad_Singleton : MonoBehaviour
                     sw.Write(content);
                 }
             }
-        
-            Debug.Log("success??");
         }
         else
         {
@@ -175,8 +173,6 @@ public class SaveLoad_Singleton : MonoBehaviour
                     sw.Write(content);
                 }
             }
-
-            Debug.Log("no success????");
         }        
     }
 
@@ -206,15 +202,8 @@ public class SaveLoad_Singleton : MonoBehaviour
 
                     persons.Add(person);
                 }
-
-                //string allText = sr.ReadToEnd();
-                //persons.AddRange(sr.ReadToEnd().Split(new char[] { '\n' }));
-            
             }
         }
-
-        Debug.Log("Caution");
-
         return persons;
     }
 
