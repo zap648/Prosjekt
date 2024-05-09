@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreateEndScreen : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CreateEndScreen : MonoBehaviour
     [SerializeField] public GameObject Portrait_prefab;
 
     [SerializeField] List<Save_PersonInfo> returnedPeople;
+
+    [SerializeField] List<Person> fam;
 
     Person person;
 
@@ -29,6 +32,17 @@ public class CreateEndScreen : MonoBehaviour
         saveLoad.BinaryReader_SavePerson(personInfos, true);
 
         returnedPeople = saveLoad.BinaryReader_LoadPerson();
+        Person temp = new Person();
+        fam = new List<Person>();
+        
+        foreach (Save_PersonInfo person in returnedPeople)
+        {
+            temp.setAllPersonValues(person.getAge(), person.getGender());
+            fam.Add(temp);
+        }
+
+
+        addFamilyPortraitsToScene(false);
 
     }
 
@@ -37,29 +51,54 @@ public class CreateEndScreen : MonoBehaviour
     {
         Debug.Log("The next day screen is opened!");
 
-        //// instantiating portrait as child of parent
-
-        List<GameObject> temp_list = new List<GameObject>();
-
-        GameObject thing;
-        //GameObject thing = Instantiate(Portrait_prefab);
-
-        for (int i = 0; i < 8; i++)
-        {
-            temp_list.Add(thing = Instantiate(Portrait_prefab));
-        }
-
-        foreach (GameObject item in temp_list)
-        {
-            item.transform.SetParent(STARTFamilyPanel.transform);
-
-            item.transform.position = STARTFamilyPanel.transform.position;
-            
-        }
+        // instantiating portrait as child of parent
+        addFamilyPortraitsToScene(true);
         
 
         // remove the family
         // ask family panel to remove family
         PlayerCharacter.GetComponent<Family>();
+    }
+
+
+    /// <summary>
+    /// adds portrait_prefabs to Family panel in Canvas
+    /// </summary>
+    /// <param name="b_startScreen">control to make sure target panel is chosen correctly</param>
+    private void addFamilyPortraitsToScene(bool b_startScreen)
+    {
+
+        List<GameObject> temp_list = new List<GameObject>();
+
+        GameObject temp_portrait_gameObj;
+
+        for (int i = 0; i < 8; i++)
+        {
+            temp_list.Add(temp_portrait_gameObj = Instantiate(Portrait_prefab));
+        }
+
+        if (b_startScreen)
+        {
+            foreach (GameObject item in temp_list)
+            {
+                item.transform.SetParent(STARTFamilyPanel.transform);
+
+                item.transform.position = STARTFamilyPanel.transform.position;
+            }
+        }
+        else
+        {
+            foreach (GameObject item in temp_list)
+            {
+                item.transform.SetParent(ENDFamilyPanel.transform);
+
+                item.transform.position = ENDFamilyPanel.transform.position;
+            }
+        }
+
+        Sprite im = temp_list[0].GetComponentInChildren<Image>().sprite;
+
+        im = fam[0].FindPortrait();
+ 
     }
 }

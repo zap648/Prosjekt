@@ -228,14 +228,18 @@ public struct Person
         return p;
     }
 
-    private void applyPortrait()
+    private Sprite applyPortrait()
     {
-        if (portrait_prefab != null)
-        {
-            Sprite image = portrait_prefab.GetComponentInChildren<Image>().sprite;
+        Sprite ima;
 
-            image = getPortrait();
-        }
+        //if (portrait_prefab != null)
+        //{
+        //    ima = portrait_prefab.GetComponentInChildren<Image>().sprite;
+
+            ima = getPortrait();
+       // }
+
+        return ima;
     }
 
     /////////////////////////////////////////////////////////////////
@@ -252,9 +256,16 @@ public struct Person
         setGENDER(g);
         setPortrait();
         getPortrait();
-        applyPortrait();
 
         return this;
+    }
+
+    public Sprite FindPortrait()
+    {
+        setAge(age);
+        setGENDER((int)gender);
+        setPortrait();
+        return applyPortrait();
     }
 
     private void RollAllPersonValues()
