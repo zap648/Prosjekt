@@ -8,7 +8,7 @@ public enum HOUSE_TYPE
 
 public struct house
 {
-    public HOUSE_TYPE TYPE;
+    private HOUSE_TYPE TYPE;
 
     int rent;
     int warming;
@@ -60,6 +60,10 @@ public struct house
         }
     }
 
+    public void setTYPE(HOUSE_TYPE t)
+    {
+        TYPE = t;
+    }
     public HOUSE_TYPE getTYPE() { return TYPE; }
 }
 
@@ -190,7 +194,7 @@ public class House : MonoBehaviour
 
     SaveLoad_Singleton _askInstance;
     HOUSE_TYPE _type;
-    house house;
+    [SerializeField] public house house;
 
     private void Start()
     {
@@ -257,6 +261,6 @@ public class House : MonoBehaviour
 
     private void insertLInfo(saveload_house loadedHouse)
     {
-        house.TYPE = (HOUSE_TYPE)loadedHouse.getHouseType();
+        house.setTYPE((HOUSE_TYPE)loadedHouse.getHouseType());
     }
 }
