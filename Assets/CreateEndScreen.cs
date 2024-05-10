@@ -29,9 +29,9 @@ public class CreateEndScreen : MonoBehaviour
 
         personInfos = PlayerCharacter.GetComponent<Family>().persons;
 
-        saveLoad.BinaryReader_SavePerson(personInfos, true);
+        saveLoad.Stream_SavePerson(personInfos, true);
 
-        returnedPeople = saveLoad.BinaryReader_LoadPerson();
+        returnedPeople = saveLoad.Stream_LoadPerson();
         Person temp = new Person();
         fam = new List<Person>();
         
