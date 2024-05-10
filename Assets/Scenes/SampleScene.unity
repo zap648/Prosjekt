@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &188421817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &763888609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1165,7 @@ MonoBehaviour:
   PlayerCharacter: {fileID: 2130250408}
   Portrait_prefab: {fileID: 5537091696904598260, guid: 11c5a7458f5072d4db0bb3700a496aad, type: 3}
   returnedPeople: []
+  fam: []
 --- !u!1 &1454657397
 GameObject:
   m_ObjectHideFlags: 0
