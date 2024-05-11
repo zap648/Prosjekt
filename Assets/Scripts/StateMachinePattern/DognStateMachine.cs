@@ -18,6 +18,7 @@ public class DognStateMachine : MonoBehaviour
 
     // ref. to GameObject with ByUI.cs
     [SerializeField] public ByUI byUI;
+    [SerializeField] public Calender compCalender;
 
     public int mineClock = 0;
     public int _activityCounter;

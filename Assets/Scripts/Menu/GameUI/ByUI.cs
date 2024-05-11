@@ -93,7 +93,7 @@ public class ByUI : MonoBehaviour
         {
             _time += 0.1f;
 
-            if(_time >= 0.5f)
+            if(_time >= 0.3f)
             {
                 b_startTimer = false;
                 _time = 0.1f;
@@ -371,7 +371,7 @@ public class ByUI : MonoBehaviour
             ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
             ActivityIllustrationPanel.SetActive(true);
 
-            _time = -100f;
+            _time = -30f;
             b_startTimer = true;
         }
     }

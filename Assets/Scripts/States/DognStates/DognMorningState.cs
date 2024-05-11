@@ -34,6 +34,8 @@ public class DognMorningState : IDognState
     {
         // set timer to 9hrs
         sm.mineClock = 8;
+        sm.compCalender.updateCounter();
+
         // disable morning activities/places
         sm.byUI.DeactivateCorrectActivities(sm.currentState);
 

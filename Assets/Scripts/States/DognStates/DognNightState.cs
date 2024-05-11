@@ -28,14 +28,15 @@ public class DognNightState : IDognState
     public override void Exit(DognStateMachine sm)
     {
         // set timer to 0hrs
-        // disable night activities
         sm.mineClock = 0;
+        
+
+        // disable night activities
         // disable morning activities/places
         sm.byUI.DeactivateCorrectActivities(sm.currentState);
 
         // close down morning menu
         sm.night.SetActive(false);
-        // switch states
         
         // switch to morning state
         sm.SwitchState(sm.smMorning);

@@ -18,9 +18,11 @@ public class SaveLoad_Singleton : MonoBehaviour
 
     public Save_PersonInfo PersonInfo;
     public saveload_house HouseInfo;
+    public saveload_calender CalenderInfo;
 
     string path = "TestingPathName/personFile.bin";
     string housepath = "TestingPathName/houseFile.bin";
+    string calenderpath = "TestingPathName/calenderFile.bin";
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -185,6 +187,58 @@ public class SaveLoad_Singleton : MonoBehaviour
             }
         }
         return house;
+    }
+
+    // calender
+    public void Stream_SaveCalender(saveload_calender c)
+    {
+        if (!Directory.Exists(save_fileName))
+        {
+            Directory.CreateDirectory(save_fileName);
+        }
+
+        string content = "";
+
+        content = c.getDayNR().ToString() + " " + c.getMonthNR().ToString() + " " + c.getYearNR().ToString();
+
+
+        using (FileStream stream = new FileStream(housepath, FileMode.Truncate))
+        {
+            using (StreamWriter sw = new StreamWriter(stream))
+            {
+                sw.Write(content);
+            }
+        }
+    }
+
+    public saveload_calender Stream_LoadCalender()
+    {
+        saveload_calender calendersender = new saveload_calender();
+
+        List<string> temp = new List<string>();
+
+        using (FileStream stream = new FileStream(housepath, FileMode.Open))
+        {
+            using (StreamReader sr = new StreamReader(stream))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+
+                    string[] temp_line = line.Split(' ');
+
+                    int[] temp_info = new int[2];
+
+                    temp_info[0] = int.Parse(temp_line[0]);
+                    temp_info[1] = int.Parse(temp_line[1]);
+                    temp_info[2] = int.Parse(temp_line[2]);
+
+
+                    calendersender.setCalenderDetails(temp_info);
+                }
+            }
+        }
+        return calendersender;
     }
 
 }
