@@ -378,6 +378,9 @@ public class ByUI : MonoBehaviour
 
             _time = -30f;
             b_startTimer = true;
+
+            // remember to set mACTIVITY back to NONE when done with it!
+            mACTIVITY = ACTIVITY.NONE;
         }
     }
     private void RemoveActivityBoard()
