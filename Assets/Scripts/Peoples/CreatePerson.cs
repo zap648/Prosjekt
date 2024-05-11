@@ -24,7 +24,7 @@ public class CreatePerson : MonoBehaviour
     {
         if (saveLoad_Singleton != null)
         {
-            testSave = saveLoad_Singleton.ReadFromFile("test4");
+            //@NOTE THIS METHOD IS DELETED, USE STREAM READ/WRITE INSTEAD testSave = saveLoad_Singleton.ReadFromFile("test4");
             // Debug.Log("testSave is doneish");
         }
         else

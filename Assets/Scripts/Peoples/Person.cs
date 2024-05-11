@@ -1,7 +1,8 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Analytics;
-    enum GENDER
+using UnityEngine.UI;
+enum GENDER
     {
         FEMALE, MALE
     };
@@ -47,17 +48,18 @@ using UnityEngine.Analytics;
 
 
 [System.Serializable]
-public class Person : MonoBehaviour
+public struct Person
 {
 
     [SerializeField] public GameObject portrait_prefab;
     private string portrait;
 
     [SerializeField] public AldringStateMachine sm;
+    
     int age;
+    
     public AGE_STATE age_state;
-    int max_age = 54;
-
+    
     GENDER gender;
 
     // figure out which buff should be applied
@@ -81,11 +83,57 @@ public class Person : MonoBehaviour
         // set relationship with PC (get from load)
     }
 
-    // set AGE_STATE
-    private void setAGESTATE()
+    // roll for age
+    private void RollAge()
     {
-        age_state = (AGE_STATE) sm.age;
-        // age_state = (AGE_STATE)Random.Range(0, 6);
+        this.age = Random.Range(0, 71);
+    }
+    // set age
+    private void setAge(int a)
+    {
+        this.age = a;
+    }
+    // get age
+    private int getAge()
+    {
+        return age;
+    }
+
+    // roll for AGE_STATE
+    private void RollAGE_STATE()
+    {
+        //age_state = (AGE_STATE) sm.age;
+        age_state = (AGE_STATE)Random.Range(0, 6);
+    }
+    // set AGE_STATE
+    private void setAGE_STATE(int a)
+    {
+        this.age = a;
+
+        if (age < 3)
+        {
+            this.age_state = AGE_STATE.BABY;
+        }
+        else if (age < 9 && age > 2)
+        {
+            this.age_state = AGE_STATE.CHILD;
+        }
+        else if (age < 15 && age > 8)
+        {
+            this.age_state = AGE_STATE.TEEN;
+        }
+        else if (age < 17 && age > 14)
+        {
+            this.age_state = AGE_STATE.Y_ADULT;
+        }
+        else if (age < 65 && age > 16)
+        {
+            this.age_state = AGE_STATE.ADULT;
+        }
+        else
+        {
+            this.age_state = AGE_STATE.OLD;
+        }
     }
     // get AGE_STATE
     private AGE_STATE getAGE_STATE()
@@ -93,8 +141,8 @@ public class Person : MonoBehaviour
         return age_state;
     }
 
-    // set GENDER 
-    private void setGENDER()
+    // roll for GENDER
+    private void RollGENDER()
     {
         int i = Random.Range(0, 2);
 
@@ -102,6 +150,11 @@ public class Person : MonoBehaviour
         { gender = GENDER.FEMALE; }
         else
         { gender = GENDER.MALE; }
+    }
+    // set GENDER
+    private void setGENDER(int g)
+    {
+        gender = (GENDER)g;
     }
     // get GENDER 
     private GENDER getGENDER()
@@ -175,18 +228,57 @@ public class Person : MonoBehaviour
         return p;
     }
 
-    /////////////////////////////////////////////////////////////////
-    
-    private void setAllPersonValues()
+    private Sprite applyPortrait()
     {
-        setGENDER();
-        setAGESTATE();
+        Sprite ima;
+
+        //if (portrait_prefab != null)
+        //{
+        //    ima = portrait_prefab.GetComponentInChildren<Image>().sprite;
+
+            ima = getPortrait();
+       // }
+
+        return ima;
+    }
+
+    /////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// sets all Person values to build a Family member (portrait)
+    /// </summary>
+    /// <param name="a">Person's age. 0-70</param> 
+    /// <param name="g">Person's gender. 0 - female, 1 - male, turned to enum</param> 
+    /// <returns>fully built person</returns>
+    public Person setAllPersonValues(int a, int g)
+    {
+        setAge(a);
+        setGENDER(g);
+        setPortrait();
+        getPortrait();
+
+        return this;
+    }
+
+    public Sprite FindPortrait()
+    {
+        setAge(age);
+        setGENDER((int)gender);
+        setPortrait();
+        return applyPortrait();
+    }
+
+    private void RollAllPersonValues()
+    {
+        RollAge();
+        setAGE_STATE(age);
+        RollGENDER();
         setPortrait();
     }
 
     public Person getAllPersonValues()
     {
-        setAllPersonValues();
+        RollAllPersonValues();
         return this;
     }
 }

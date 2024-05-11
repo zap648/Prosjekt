@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Unity.VisualScripting;
 
 public class SaveLoad_Singleton : MonoBehaviour
-{
+{   
+    // singleton _instance
     private static SaveLoad_Singleton _instance;
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public string save_fileName = "TestingPathName";
     [SerializeField] public SO_saveload LikeSub;
     public TestForSaveingStruct ThisThing;
+
+    public Save_PersonInfo PersonInfo;
+    public saveload_house HouseInfo;
+
+    string path = "TestingPathName/personFile.bin";
+    string housepath = "TestingPathName/houseFile.bin";
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // singleton methods
 
     public static SaveLoad_Singleton Instance
     {
@@ -46,35 +60,131 @@ public class SaveLoad_Singleton : MonoBehaviour
         }
     }
 
-
-    public void WriteToFile(string filename)
+    public bool AskForDirectory(string paths)
     {
-        ThisThing.naming("Darling"); // struct put info in itself, for example use. In this example it is "Darling"
+        if (!Directory.Exists(paths)) { return false; }
+        else { return true; }
+    }
 
+    // using BinaryReader
+
+    // person
+    public void Stream_SavePerson(List<Save_PersonInfo> p, bool b_OW)
+    {
         if (!Directory.Exists(save_fileName))
         {
             Directory.CreateDirectory(save_fileName);
         }
         
-        BinaryFormatter binaryConverter = new BinaryFormatter();
+        string content = "";
 
-        FileStream saveFilePath = File.Create(save_fileName + "/" + "test4" + ".bin");
+        foreach (Save_PersonInfo item in p)
+        {
+            content += (item.getGender().ToString() + " " + item.getAge().ToString()) + '\n';
+        }
 
-        binaryConverter.Serialize(saveFilePath, ThisThing);
-
-        saveFilePath.Close();
+        if (b_OW)
+        {
+            using (FileStream stream = new FileStream(path, FileMode.Truncate))
+            {
+                using (StreamWriter sw = new StreamWriter(stream))
+                {
+                    sw.Write(content);
+                }
+            }
+        }
+        else
+        {
+            using (FileStream stream = new FileStream(path, FileMode.Append))
+            {
+                using (StreamWriter sw = new StreamWriter(stream))
+                {
+                    sw.Write(content);
+                }
+            }
+        }        
     }
 
-    public TestForSaveingStruct ReadFromFile(string filename)
+    public List<Save_PersonInfo> Stream_LoadPerson()
     {
-        BinaryFormatter binaryConverter = new BinaryFormatter();
+        List<Save_PersonInfo> persons = new List<Save_PersonInfo>();
+        Save_PersonInfo person = new Save_PersonInfo();
 
-        FileStream saveFile = File.Open(save_fileName + "/" + "test4" + ".bin", FileMode.Open);
+        List<string> temp = new List<string>();
 
-        TestForSaveingStruct loadData = (TestForSaveingStruct) binaryConverter.Deserialize(saveFile);
+        using (FileStream stream = new FileStream(path, FileMode.Open))
+        {
+            using (StreamReader sr = new StreamReader(stream))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
 
-        saveFile.Close();
+                    string[] temp_line = line.Split(' ');
 
-        return loadData;
+                    int[] temp_info = new int[2];
+
+                    temp_info[0] = int.Parse(temp_line[0]);
+                    temp_info[1] = int.Parse(temp_line[1]);
+
+                    person.setInfo(temp_info[0], temp_info[1]);
+
+                    persons.Add(person);
+                }
+            }
+        }
+        return persons;
     }
+
+    // house
+    public void Stream_SaveHouse(saveload_house h)
+    {
+        if (!Directory.Exists(save_fileName))
+        {
+            Directory.CreateDirectory(save_fileName);
+        }
+
+        string content = "";
+
+        content = h.getHouseType().ToString() + " ";
+        
+
+        using (FileStream stream = new FileStream(housepath, FileMode.Truncate))
+        {
+            using (StreamWriter sw = new StreamWriter(stream))
+            {
+                sw.Write(content);
+            }
+        }
+    }
+
+    public saveload_house Stream_LoadHouse()
+    {
+        saveload_house house = new saveload_house();
+
+        List<string> temp = new List<string>();
+
+        using (FileStream stream = new FileStream(housepath, FileMode.Open))
+        {
+            using (StreamReader sr = new StreamReader(stream))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+
+                    string[] temp_line = line.Split(' ');
+
+                    int[] temp_info = new int[2];
+
+                    temp_info[0] = int.Parse(temp_line[0]);
+                    temp_info[1] = int.Parse(temp_line[1]);
+
+                    house.setHouse((HOUSE_TYPE)temp_info[0]);
+
+                }
+            }
+        }
+        return house;
+    }
+
 }
