@@ -22,7 +22,7 @@ public class SaveLoad_Singleton : MonoBehaviour
 
     string path = "TestingPathName/personFile.bin";
     string housepath = "TestingPathName/houseFile.bin";
-    string calenderpath = "TestingPathName/calenderFile.bin";
+    string calenderpath = "TestingPathName/calenderFile.txt";
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,23 +192,49 @@ public class SaveLoad_Singleton : MonoBehaviour
     // calender
     public void Stream_SaveCalender(saveload_calender c)
     {
-        if (!Directory.Exists(save_fileName))
-        {
-            Directory.CreateDirectory(save_fileName);
-        }
+        string filename = "TestingPathName/calenderFile.txt";
 
         string content = "";
 
         content = c.getDayNR().ToString() + " " + c.getMonthNR().ToString() + " " + c.getYearNR().ToString();
 
+        Debug.Log("Content in save file should be: " + content);
 
-        using (FileStream stream = new FileStream(housepath, FileMode.Truncate))
+        FileStream fs = null;
+
+        try
+        {
+            fs = new FileStream(filename, FileMode.Create);
+            using (StreamWriter writer = new StreamWriter(fs))
+            {
+                writer.Write(content);
+            }
+        }
+        finally
+        {
+            if (fs != null) fs.Dispose();
+        }
+        /*
+        string calName = "calenderFile.txt";
+        if (!Directory.Exists(save_fileName))
+        {
+            Directory.CreateDirectory(save_fileName);
+        }
+
+
+        using (FileStream stream = new FileStream(calName, FileMode.Truncate))
         {
             using (StreamWriter sw = new StreamWriter(stream))
             {
                 sw.Write(content);
             }
         }
+
+        if (!File.Exists(calenderpath))
+        {
+            File.Create(calenderpath);
+        }
+        */
     }
 
     public saveload_calender Stream_LoadCalender()
@@ -217,7 +243,7 @@ public class SaveLoad_Singleton : MonoBehaviour
 
         List<string> temp = new List<string>();
 
-        using (FileStream stream = new FileStream(housepath, FileMode.Open))
+        using (FileStream stream = new FileStream(calenderpath, FileMode.Open))
         {
             using (StreamReader sr = new StreamReader(stream))
             {
@@ -227,12 +253,13 @@ public class SaveLoad_Singleton : MonoBehaviour
 
                     string[] temp_line = line.Split(' ');
 
-                    int[] temp_info = new int[2];
+                    int[] temp_info = new int[3];
 
                     temp_info[0] = int.Parse(temp_line[0]);
                     temp_info[1] = int.Parse(temp_line[1]);
                     temp_info[2] = int.Parse(temp_line[2]);
 
+                    Debug.Log("Content in LOAD file should be: " + temp_info[0] + " | " + temp_info[1] + " | " + temp_info[2]);
 
                     calendersender.setCalenderDetails(temp_info);
                 }

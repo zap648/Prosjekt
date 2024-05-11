@@ -42,7 +42,7 @@ public class Calender : MonoBehaviour
     SaveLoad_Singleton instance_ask;
     
     // count of calendar
-    int day_nr;
+    int m_day_nr;
 
     // temp
     int weekday;
@@ -51,14 +51,18 @@ public class Calender : MonoBehaviour
 
     private void Start()
     {
-        instance_ask = GetComponent<SaveLoad_Singleton>();
+        bool b_find = FindObjectOfType<GameObject>().gameObject.Equals(name == "SaveLoadSingleton");
+
+        instance_ask = GameObject.Find("SaveLoadSingleton").GetComponent<SaveLoad_Singleton>();
 
         if (instance_ask != null )
         {
             instance_ask = SaveLoad_Singleton.Instance;
         }
 
-        day_nr = 1;
+        Debug.Log("start method in calender.cs");
+
+        m_day_nr = 1;
         weekday = 1;
         month = 1;
         year = 1;
@@ -91,9 +95,9 @@ public class Calender : MonoBehaviour
         int[] details = new int[3];
         
         // find year
-        if (day_nr > 28)
+        if (m_day_nr > 28)  
         {
-            year = day_nr % 28;
+            year = m_day_nr % 28;
         }
         else
         {
@@ -102,24 +106,24 @@ public class Calender : MonoBehaviour
         details[2] = year;
         
         // find month
-        if (day_nr < 8)
+        if (m_day_nr < 8)
         {
             month = 1;
         }
         else
         {
-            month = support(1, day_nr, true);
+            month = support(1, m_day_nr, true);
         }
         details[1] = month;
 
         // find day
-        if (day_nr < 8)
+        if (m_day_nr < 8)
         {
-            weekday = day_nr;
+            weekday = m_day_nr;
         }
         else
         {
-            weekday = support(1, day_nr, false);
+            weekday = support(1, m_day_nr, false);
         }
         details[0] = weekday;
 
@@ -168,10 +172,24 @@ public class Calender : MonoBehaviour
     /// </summary>
     public void setCounter()
     {
+        instance_ask = GameObject.Find("SaveLoadSingleton").GetComponent<SaveLoad_Singleton>();
+
+        if (instance_ask != null)
+        {
+            instance_ask = SaveLoad_Singleton.Instance;
+        }
+
+        updateCounter();
+
+        daycounter = DayCounterPanel.GetComponent<TMP_Text>();
+
         // sets visibile counter
         saveload_calender c = new saveload_calender();
 
         c = LoadDay();
+        Debug.Log("It is day nr: " + c.day_nr);
+
+        Debug.Log("day: " + c.getDayNR() + " | month: " + c.getMonthNR() + " | year: " + c.getYearNR());
 
         daycounter.SetText(c.getDayNR().ToString());
     }
@@ -181,11 +199,18 @@ public class Calender : MonoBehaviour
     /// </summary>
     public void updateCounter()
     {
-        day_nr++;
+        if(m_day_nr < 1)
+        {
+            m_day_nr = 1;
+        }
+        else
+        {
+            m_day_nr++;
+        }
 
         SaveDayNr();
 
-        setCounter();
+        //setCounter();
     }
 
     /// <summary>
@@ -194,7 +219,15 @@ public class Calender : MonoBehaviour
     private void SaveDayNr()
     {
         saveload_calender c = new saveload_calender();
-        c.setDayNR( day_nr );
+        int[] cal = new int[3];
+
+        cal[0] = m_day_nr;
+        cal[1] = month;
+        cal[2] = year;
+
+        Debug.Log("day: " + cal[0] + " | month: " + cal[1] + " | year: " + cal[2]);
+        
+        c.setCalenderDetails(cal);
 
         if (instance_ask != null)
         {
