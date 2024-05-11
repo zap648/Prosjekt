@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // class to allow invoking of button prompts
+enum ACTIVITY
+{
+    NONE, END_DAY, VISIT_HOME, PUB, HIRE, MARKET, TRADE, CEMETARY, CEREMONY, CONFESSION, WORK, MANAGE
+};
 
 public class ByUI : MonoBehaviour
 {
@@ -74,6 +78,7 @@ public class ByUI : MonoBehaviour
 
     // info about amount of activities and if they are accepted or not
     [SerializeField] private int _declineAccept = 0;
+    private ACTIVITY mACTIVITY = ACTIVITY.NONE;
 
     private void Start()
     {
@@ -354,11 +359,17 @@ public class ByUI : MonoBehaviour
         if (_declineAccept == 1) // declines activity
         {
             RemoveActivityBoard();
+            mACTIVITY = ACTIVITY.NONE;
             _declineAccept = 0;
         }
         else if (_declineAccept == 2) // accepts activity
         {
             AcceptDeclineActivityPanel.SetActive(false);
+
+            if (mACTIVITY == ACTIVITY.END_DAY)
+            {
+                sm.SwitchState(sm.smMorning);
+            }
 
             Debug.Log("Illustration is now playing!");
             InformationPanel.SetActive(false);
@@ -518,7 +529,10 @@ public class ByUI : MonoBehaviour
         // setting information to panel
         InformationPic = InformationPanel.GetComponent<Image>();
         InformationPic.sprite = informationPictureSprite;
-        
+
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.END_DAY;
+
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
         {
