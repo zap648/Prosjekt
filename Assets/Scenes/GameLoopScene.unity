@@ -1131,6 +1131,7 @@ GameObject:
   - component: {fileID: 382994961}
   - component: {fileID: 382994962}
   - component: {fileID: 382994963}
+  - component: {fileID: 382994964}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1279,6 +1280,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DayCounterPanel: {fileID: 662364428}
+--- !u!114 &382994964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382994956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4ea613d23e671408447049594851cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402203034
 GameObject:
   m_ObjectHideFlags: 0

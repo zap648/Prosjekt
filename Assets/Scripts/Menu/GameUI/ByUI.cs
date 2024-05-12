@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // class to allow invoking of button prompts
-enum ACTIVITY
+public enum ACTIVITY
 {
     NONE, END_DAY, VISIT_HOME, PUB, HIRE, MARKET, TRADE, CEMETARY, CEREMONY, CONFESSION, WORK, MANAGE
 };
@@ -78,7 +78,8 @@ public class ByUI : MonoBehaviour
 
     // info about amount of activities and if they are accepted or not
     [SerializeField] private int _declineAccept = 0;
-    private ACTIVITY mACTIVITY = ACTIVITY.NONE;
+    public ACTIVITY mACTIVITY = ACTIVITY.NONE;
+    [SerializeField] private InformationActivities aInfoActivities;
 
     private void Start()
     {
@@ -359,7 +360,7 @@ public class ByUI : MonoBehaviour
         if (_declineAccept == 1) // declines activity
         {
             RemoveActivityBoard();
-            mACTIVITY = ACTIVITY.NONE;
+            RemoveActivityMarker();
             _declineAccept = 0;
         }
         else if (_declineAccept == 2) // accepts activity
@@ -380,9 +381,15 @@ public class ByUI : MonoBehaviour
             b_startTimer = true;
 
             // remember to set mACTIVITY back to NONE when done with it!
-            mACTIVITY = ACTIVITY.NONE;
+            RemoveActivityMarker();
         }
     }
+
+    private void RemoveActivityMarker()
+    {
+        mACTIVITY = ACTIVITY.NONE;
+    }
+
     private void RemoveActivityBoard()
     {
         if (ActivityBoardPanel.activeSelf)
@@ -506,11 +513,19 @@ public class ByUI : MonoBehaviour
         }
     }
 
+    private void getAppropriateInformationText()
+    {
+        // get the information panel
+        TMP_Text infoTxt = InformationPanel.GetComponentInChildren<TMP_Text>();
+        // get the appropriate information
+        string Txt = aInfoActivities.ParseActivityType(mACTIVITY);
+        // apply information to information panel
+        infoTxt.text = Txt;
+    }
 
     /// <summary>
     /// ACTIVITIES
     /// </summary>
-
 
     public void Activity_Home_ConcludeDay() 
     {
@@ -529,13 +544,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
         
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
-
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.END_DAY;
 
+        getAppropriateInformationText();
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
         {
@@ -545,7 +557,7 @@ public class ByUI : MonoBehaviour
         {
             Debug.Log("Decline/accept panel was already on");
         }
-    }    
+    }
     public void Activity_Home_VisitHome() 
     {
         if (!ActivityBoardPanel.activeSelf)
@@ -563,9 +575,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.VISIT_HOME;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -597,9 +610,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.HIRE;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -628,9 +642,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.MARKET;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -662,9 +677,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
         
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.PUB;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -697,9 +713,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.CEMETARY;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -732,9 +749,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.CONFESSION;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -766,9 +784,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.CEREMONY;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -800,9 +819,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
 
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.TRADE;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -831,9 +851,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
       
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.WORK;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
@@ -862,9 +883,10 @@ public class ByUI : MonoBehaviour
         // add correct illustration image
         illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
         
-        // setting information to panel
-        InformationPic = InformationPanel.GetComponent<Image>();
-        InformationPic.sprite = informationPictureSprite;
+        // mark type of activity with enum
+        mACTIVITY = ACTIVITY.MANAGE;
+
+        getAppropriateInformationText();
 
         // make sure the yes/no panel is present!
         if (!AcceptDeclineActivityPanel.activeSelf)
