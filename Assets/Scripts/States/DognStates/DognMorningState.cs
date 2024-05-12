@@ -10,6 +10,12 @@ public class DognMorningState : IDognState
         // home menu should be a start-up menu showing todays starting point
         // get morning menu 
         sm.morning.SetActive(true);
+
+        //// >:(
+        //sm.midday.SetActive(false);
+        //sm.evening.SetActive(false);
+        //sm.night.SetActive(false);
+
         // enable morning activities/places (in ByUI)
         sm.byUI.ActivateCorrectActivities(sm.currentState);
         // set timer for mine to 15hrs
@@ -21,6 +27,8 @@ public class DognMorningState : IDognState
         // update day-count and the panel with visible tracking
         sm.byUI.days++;
         sm.byUI.UpdateDayCounter();
+
+        Debug.Log("Good morning nerds!");
     }
     public override void Update(DognStateMachine sm)
     {

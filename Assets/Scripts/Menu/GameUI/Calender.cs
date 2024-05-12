@@ -40,7 +40,7 @@ public class Calender : MonoBehaviour
     TMP_Text daycounter;
 
     SaveLoad_Singleton instance_ask;
-    
+
     // count of calendar
     int m_day_nr;
 
@@ -61,28 +61,16 @@ public class Calender : MonoBehaviour
         }
 
         Debug.Log("start method in calender.cs");
+    }
 
+    public void setDefaultCalender()
+    {
         m_day_nr = 1;
         weekday = 1;
         month = 1;
         year = 1;
 
         SaveDayNr();
-
-        /*day_count = 0;
-        week_count = 0;
-        month_count = 0;
-
-        day_complete = 0;
-        week_complete = 0;
-        month_complete = 0;
-
-        if (DayCounterPanel != null)
-        {    
-            daycounter = DayCounterPanel.GetComponentInChildren<TMP_Text>();
-        }
-
-        UpdateDayCounter();*/
     }
 
     /// <summary>
@@ -179,14 +167,15 @@ public class Calender : MonoBehaviour
             instance_ask = SaveLoad_Singleton.Instance;
         }
 
+        // sets visibile counter
+        saveload_calender c = new saveload_calender();
+        
         updateCounter();
 
         daycounter = DayCounterPanel.GetComponent<TMP_Text>();
 
-        // sets visibile counter
-        saveload_calender c = new saveload_calender();
-
         c = LoadDay();
+
         Debug.Log("It is day nr: " + c.day_nr);
 
         Debug.Log("day: " + c.getDayNR() + " | month: " + c.getMonthNR() + " | year: " + c.getYearNR());
@@ -202,15 +191,16 @@ public class Calender : MonoBehaviour
         if(m_day_nr < 1)
         {
             m_day_nr = 1;
+            weekday = 1;
+            month = 1;
+            year = 1;
         }
         else
         {
             m_day_nr++;
+            whichDayWeekMonth();
         }
-
         SaveDayNr();
-
-        //setCounter();
     }
 
     /// <summary>
@@ -226,7 +216,7 @@ public class Calender : MonoBehaviour
         cal[2] = year;
 
         Debug.Log("day: " + cal[0] + " | month: " + cal[1] + " | year: " + cal[2]);
-        
+
         c.setCalenderDetails(cal);
 
         if (instance_ask != null)
@@ -234,6 +224,7 @@ public class Calender : MonoBehaviour
             instance_ask.Stream_SaveCalender(c);
         }
     }
+
     /// <summary>
     /// used by component to load day information
     /// </summary>
@@ -250,57 +241,4 @@ public class Calender : MonoBehaviour
         return c;
     }
 
-
-    /*
-    public void UpdateDayCounter()
-    {
-        // first sort out what's the day and so on
-        CalendarUpdate();
-
-        if (DayCounterPanel != null)
-        {
-            // current calander day (1-7)
-            daycounter.SetText(day_count.ToString());
-        }
-    }
-
-    /// <summary>
-    /// asks singleton for day/week/month- complete
-    /// then counts forward
-    /// returns 
-    /// </summary>
-    private void CalendarUpdate()
-    {
-        int[] calander = new int[3];
-        // ask singleton for an update
-        // testing = instance_ask.ReadFromFile("Day");
-        
-        // singleton has no info- do not add day
-        // if singleton has info, add another day to current and count
-        
-        day_complete++;
-        day_count++;
-
-        if (day_count < 7)
-        {
-            week_complete++;
-            week_count++;
-
-            day_count = 0;
-
-            if(week_count < 7)
-            {
-                month_complete++;
-                month_count++;
-
-                week_count = 0;
-            }
-        }
-
-        calander[0] = day_count;
-        calander[1] = week_count;
-        calander[2] = month_count;
-
-    }
-    */
 }

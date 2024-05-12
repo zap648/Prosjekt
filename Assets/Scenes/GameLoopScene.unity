@@ -4782,6 +4782,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bank: 0
   coalInventory: 
+  save: {fileID: 903523765}
+  iBy: 1
+  iGruve: 0
+  day: 1
 --- !u!114 &1362969480 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5097461817465037478, guid: 3ff20e3bf68683b41b3172074ff0b7a2, type: 3}
@@ -5056,7 +5060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.065002, y: 141.55998}
+  m_AnchoredPosition: {x: -12.064941, y: 141.56}
   m_SizeDelta: {x: -597.13, y: -577.7201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492427237
@@ -7101,7 +7105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.065002, y: 141.56}
+  m_AnchoredPosition: {x: -12.064941, y: 141.56}
   m_SizeDelta: {x: -597.13, y: -577.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109662724

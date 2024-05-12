@@ -15,6 +15,7 @@ public class SaveLoad_Singleton : MonoBehaviour
     public string save_fileName = "TestingPathName";
     [SerializeField] public SO_saveload LikeSub;
     public TestForSaveingStruct ThisThing;
+    [SerializeField] static Calender calenderDefault;
 
     public Save_PersonInfo PersonInfo;
     public saveload_house HouseInfo;
@@ -59,6 +60,11 @@ public class SaveLoad_Singleton : MonoBehaviour
             gobj.name = "SaveLoad Singleton";
             _instance = gobj.AddComponent<SaveLoad_Singleton>();
             DontDestroyOnLoad(gobj);
+
+            //Debug.Log("Only one save at a time");
+            //Calender cal = calenderDefault.GetComponent<Calender>();
+            //cal.setDefaultCalender();
+            
         }
     }
 

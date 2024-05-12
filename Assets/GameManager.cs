@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
 {
     public int bank;
     public List<int> coalInventory;
+    [SerializeField] SaveLoad_Singleton save;
+    public bool iBy;
+    public bool iGruve;
+    public int day;
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -30,18 +34,31 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (FindObjectOfType<ByUI>() && iGruve)
+        {
+            Debug.Log("Fann ByUI! >:D");
+            iGruve = false; iBy = true;
+            FindObjectOfType<ByUI>().sm.SwitchState(FindObjectOfType<ByUI>().sm.smNight);
+            // FindObjectOfType<SaveLoad_Singleton>().Stream_LoadCalender();
+        }
+
+        if (FindObjectOfType<GruveGenerator>() && iBy)
+        {
+            Debug.Log("Fann GruveGenerator! D:>");
+            iGruve = true; iBy = false;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // When the scene loads, calculate the value of the gained coal
-        //for (int i = 0; i < coalInventory.Count; i++)
-        //{
-        //    caveFund += coalInventory[i].GetComponent<CoalInfo>().value;
-        //}
-        //coalInventory.Clear();
+        
     }
 
     // Update is called once per frame

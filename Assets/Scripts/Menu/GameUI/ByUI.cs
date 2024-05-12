@@ -367,8 +367,11 @@ public class ByUI : MonoBehaviour
         {
             AcceptDeclineActivityPanel.SetActive(false);
 
+            Debug.Log($"Doing activity nr. {mACTIVITY}");
+
             if (mACTIVITY == ACTIVITY.END_DAY)
             {
+                Debug.Log($"Ending day... with activity {mACTIVITY}");
                 sm.SwitchState(sm.smMorning);
             }
 
