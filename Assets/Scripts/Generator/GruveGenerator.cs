@@ -307,15 +307,6 @@ public class GruveGenerator : MonoBehaviour
             }
         }
 
-        if (roomExists)
-        {
-            Debug.Log($"The room exists");
-        }
-        else
-        {
-            Debug.Log($"The room doesn't exist");
-        }
-
         return roomExists;
     }
 

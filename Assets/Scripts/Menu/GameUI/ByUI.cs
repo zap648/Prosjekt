@@ -372,6 +372,12 @@ public class ByUI : MonoBehaviour
                 sm.SwitchState(sm.smMorning);
             }
 
+            if (mACTIVITY == ACTIVITY.WORK)
+            {
+                Debug.Log("Going to work...");
+                FindObjectOfType<GameManager>().LoadScene(1);
+            }
+
             Debug.Log("Illustration is now playing!");
             InformationPanel.SetActive(false);
             ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
@@ -502,7 +508,7 @@ public class ByUI : MonoBehaviour
             }
 
             MinePanel.SetActive(true);
-            GameObject.Find("GameManager").GetComponent<GameManager>().LoadScene(1);
+            b_startTimer = true;
         }
         else if (MinePanel.activeSelf && !b_startTimer)
         {

@@ -4060,6 +4060,8 @@ MonoBehaviour:
   accept_button: {fileID: 443506499}
   decline_button: {fileID: 804344782}
   _declineAccept: 0
+  mACTIVITY: 0
+  aInfoActivities: {fileID: 0}
 --- !u!4 &988428419
 Transform:
   m_ObjectHideFlags: 0
