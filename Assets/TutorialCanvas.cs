@@ -8,21 +8,22 @@ public class TutorialCanvas : MonoBehaviour
     {
         if (FindObjectOfType<ByUI>())
         {
-            Debug.Log("ByUI was fucking found!");
-            if (FindObjectOfType<ByUI>().days == 0)
+            Debug.Log("ByUI was found!");
+            Debug.Log($"It is day {FindObjectOfType<ByUI>().days}!");
+            if (FindObjectOfType<ByUI>().days == 1)
             {
-                Debug.Log("Tutorial canvas is fucking true!");
+                Debug.Log($"Tutorial canvas is true!");
                 gameObject.SetActive(true);
             }
             else
             {
-                Debug.Log("Tutorial canvas is fucking false!");
+                Debug.Log($"Tutorial canvas is false!");
                 gameObject.SetActive(false);
             }
         }
         else
         {
-            Debug.Log("Cannot fucking find ByUI!");
+            Debug.Log("Can not find ByUI!");
         }
     }
 }

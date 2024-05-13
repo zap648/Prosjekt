@@ -372,6 +372,8 @@ public class ByUI : MonoBehaviour
             if (mACTIVITY == ACTIVITY.END_DAY)
             {
                 Debug.Log($"Ending day... with activity {mACTIVITY}");
+                _time = -30f;
+                b_startTimer = true;
                 sm.SwitchState(sm.smMorning);
             }
 
