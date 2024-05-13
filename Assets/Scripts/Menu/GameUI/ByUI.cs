@@ -379,7 +379,6 @@ public class ByUI : MonoBehaviour
 
             if (mACTIVITY == ACTIVITY.END_DAY)
             {
-                Debug.Log($"Ending day... with activity {mACTIVITY}");
                 sm.SwitchState(sm.smMorning);
             }
 
@@ -548,10 +547,10 @@ public class ByUI : MonoBehaviour
         }     
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.END_DAY;
@@ -579,10 +578,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.VISIT_HOME;
@@ -614,10 +613,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.HIRE;
@@ -646,10 +645,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.MARKET;
@@ -681,10 +680,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
        
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.PUB;
@@ -717,10 +716,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.CEMETARY;
@@ -753,10 +752,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.CONFESSION;
@@ -788,10 +787,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.CEREMONY;
@@ -823,10 +822,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
       
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
 
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.TRADE;
@@ -855,10 +854,10 @@ public class ByUI : MonoBehaviour
         }
 
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
       
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.WORK;
@@ -887,10 +886,10 @@ public class ByUI : MonoBehaviour
         }
         
         // add correct information meta 
-        informationPictureSprite = Resources.Load<Sprite>("TestAssetsFolder/pngtree-important-notice-megaphone-sticker-sign-png-image_6480153");
+        informationPictureSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // add correct illustration image
-        illustrationSprite = Resources.Load<Sprite>("TestAssetsFolder/having-fun");
+        illustrationSprite = Resources.Load<Sprite>("UI/InventaryItems/Default_ItemImage_32");
         
         // mark type of activity with enum
         mACTIVITY = ACTIVITY.MANAGE;
