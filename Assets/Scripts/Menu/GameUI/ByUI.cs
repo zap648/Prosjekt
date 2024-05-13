@@ -17,7 +17,7 @@ public class ByUI : MonoBehaviour
 
     public int chanceNr;
 
-    [SerializeField] public int days = 0;
+    [SerializeField] public int days;
     
     // timer to make buttons unable to accept clicks
     private float _time = 0.1f;

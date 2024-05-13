@@ -453,7 +453,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6712541133736929054}
   inventory: []
-  move: 
   interactor: {fileID: 8494345580989785607}
   sprite: {fileID: 7505790573331134945}
   speed: 10
@@ -504,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 8697885501876587038}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: -5, y: 8.5, z: -5}
+  m_LocalPosition: {x: -2, y: 4, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,7 +541,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 20
+  far clip plane: 25
   field of view: 60
   orthographic: 1
   orthographic size: 5

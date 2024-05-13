@@ -28,7 +28,7 @@ public class CoalGenerator : MonoBehaviour
     void GenerateCoal()
     {
         // Marks which rooms should have coal
-        for (int i = 0; i < gruveGenerator.queue.Count; i++)
+        for (int i = 0; i < gruveGenerator.queue.Count(); i++)
         {
             Cell currentCell = gruveGenerator.queue[i];
             // If the current cell is either an elevator or entrance room, don't spawn coal in it
@@ -36,6 +36,7 @@ public class CoalGenerator : MonoBehaviour
                 currentCell.roomType == 2)
             {
                 currentCell.coal = false;
+                Debug.Log($"Coal in room {gruveGenerator.queue[i].coordinates[0]} - {gruveGenerator.queue[i].coordinates[1]} - {gruveGenerator.queue[i].coordinates[2]}, has been blocked due to being part of an elevator structure.");
                 continue;
             }
 
@@ -56,36 +57,33 @@ public class CoalGenerator : MonoBehaviour
             Cell currentCell = gruveGenerator.queue[i];
             if (currentCell.coal == true)
             {
-                if (currentCell.roomType == 0)
+                for (int j = 0; j < coalConsentration; j++)
                 {
-                    for (int j = 0; j < coalConsentration; j++)
+                    if (Random.Range(0, 4) == 0)
                     {
-                        if (Random.Range(0, 4) == 0)
-                        {
-                            GameObject newCoal = Instantiate(coal,
-                                new Vector3(
-                                    currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2 + 2, gruveGenerator.offset.x / 2 - 2),
-                                    currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
-                                    currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2 + 2, gruveGenerator.offset.y / 2 - 2)),
-                                Quaternion.Euler(0.0f, 0.0f, 0.0f),
-                                transform);
-                            newCoal.GetComponent<CoalInfo>().isCoal = true;
-                            newCoal.GetComponent<CoalInfo>().value = Random.Range(1, 4);
-                            coals.Add(newCoal);
-                            newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
-                        }
-                        else
-                        {
-                            GameObject newCoal = Instantiate(rock,
-                                new Vector3(
-                                    currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2 + 2, gruveGenerator.offset.x / 2 - 2),
-                                    currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
-                                    currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2 + 2, gruveGenerator.offset.y / 2 - 2)),
-                                Quaternion.Euler(0.0f, 0.0f, 0.0f),
-                                transform);
-                            newCoal.GetComponent<CoalInfo>().isCoal = false;
-                            newCoal.name = $"Rock nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
-                        }
+                        GameObject newCoal = Instantiate(coal,
+                            new Vector3(
+                                currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2 + 2, gruveGenerator.offset.x / 2 - 2),
+                                currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
+                                currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2 + 2, gruveGenerator.offset.y / 2 - 2)),
+                            Quaternion.Euler(0.0f, 0.0f, 0.0f),
+                            transform);
+                        newCoal.GetComponent<CoalInfo>().isCoal = true;
+                        newCoal.GetComponent<CoalInfo>().value = Random.Range(1, 4);
+                        coals.Add(newCoal);
+                        newCoal.name = $"Coal nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
+                    }
+                    else
+                    {
+                        GameObject newCoal = Instantiate(rock,
+                            new Vector3(
+                                currentCell.coordinates[0] * gruveGenerator.offset.x + Random.Range(-gruveGenerator.offset.x / 2 + 2, gruveGenerator.offset.x / 2 - 2),
+                                currentCell.coordinates[2] * (gruveGenerator.offset.z * (-1)),
+                                currentCell.coordinates[1] * gruveGenerator.offset.y + Random.Range(-gruveGenerator.offset.y / 2 + 2, gruveGenerator.offset.y / 2 - 2)),
+                            Quaternion.Euler(0.0f, 0.0f, 0.0f),
+                            transform);
+                        newCoal.GetComponent<CoalInfo>().isCoal = false;
+                        newCoal.name = $"Rock nr.{j} in ({currentCell.coordinates[0]}, {currentCell.coordinates[1]}, {currentCell.coordinates[2]})";
                     }
                 }
             }

@@ -11,10 +11,10 @@ public class DognMorningState : IDognState
         // get morning menu 
         sm.morning.SetActive(true);
 
-        //// >:(
-        //sm.midday.SetActive(false);
-        //sm.evening.SetActive(false);
-        //sm.night.SetActive(false);
+        // turns off all of the other times of day
+        sm.midday.SetActive(false);
+        sm.evening.SetActive(false);
+        sm.night.SetActive(false);
 
         // enable morning activities/places (in ByUI)
         sm.byUI.ActivateCorrectActivities(sm.currentState);

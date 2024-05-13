@@ -52,6 +52,7 @@ public class GruveGenerator : MonoBehaviour
         {
             new Cell(0, 0, 0)
         };
+        queue.First().roomType = 1;
 
         GenerateDungeon();
 
