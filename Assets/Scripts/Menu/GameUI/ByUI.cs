@@ -369,11 +369,17 @@ public class ByUI : MonoBehaviour
 
             Debug.Log($"Doing activity nr. {mACTIVITY}");
 
+            Debug.Log("Illustration is now playing!");
+            InformationPanel.SetActive(false);
+            ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
+            ActivityIllustrationPanel.SetActive(true);
+
+            _time = -30f;
+            b_startTimer = true;
+
             if (mACTIVITY == ACTIVITY.END_DAY)
             {
                 Debug.Log($"Ending day... with activity {mACTIVITY}");
-                _time = -30f;
-                b_startTimer = true;
                 sm.SwitchState(sm.smMorning);
             }
 
@@ -382,14 +388,6 @@ public class ByUI : MonoBehaviour
                 Debug.Log("Going to work...");
                 FindObjectOfType<GameManager>().LoadScene(1);
             }
-
-            Debug.Log("Illustration is now playing!");
-            InformationPanel.SetActive(false);
-            ActivityIllustrationPanel.GetComponent<Image>().sprite = illustrationSprite;
-            ActivityIllustrationPanel.SetActive(true);
-
-            _time = -30f;
-            b_startTimer = true;
 
             // remember to set mACTIVITY back to NONE when done with it!
             RemoveActivityMarker();

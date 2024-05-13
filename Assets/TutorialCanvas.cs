@@ -10,7 +10,7 @@ public class TutorialCanvas : MonoBehaviour
         {
             Debug.Log("ByUI was found!");
             Debug.Log($"It is day {FindObjectOfType<ByUI>().days}!");
-            if (FindObjectOfType<ByUI>().days == 1)
+            if (FindObjectOfType<ByUI>().days == 0)
             {
                 Debug.Log($"Tutorial canvas is true!");
                 gameObject.SetActive(true);
